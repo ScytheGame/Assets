@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: f6830bec90f469e45947a153a51aa976
+timeCreated: 1501624101
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 97048
+  packageName: Simple Kepler Orbits
+  packageVersion: 1.0.7
+  assetPath: Assets/SimpleKeplerOrbits/Scripts/Components/KeplerOrbitLineDisplay.cs
+  uploadId: 479060

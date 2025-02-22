@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 587021a2e71417b4aabb5bef8fc0445a
+timeCreated: 1501709132
+licenseType: Store
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 97048
+  packageName: Simple Kepler Orbits
+  packageVersion: 1.0.7
+  assetPath: Assets/SimpleKeplerOrbits/Readme.md
+  uploadId: 479060

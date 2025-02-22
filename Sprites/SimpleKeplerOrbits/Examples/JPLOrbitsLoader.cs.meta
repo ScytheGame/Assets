@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: a3cd8e705f774994b9a2c12dc87424aa
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 97048
+  packageName: Simple Kepler Orbits
+  packageVersion: 1.0.7
+  assetPath: Assets/SimpleKeplerOrbits/Examples/JPLOrbitsLoader.cs
+  uploadId: 479060

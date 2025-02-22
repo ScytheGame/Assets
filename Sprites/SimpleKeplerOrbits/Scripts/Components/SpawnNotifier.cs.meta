@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 5b6bb8a87d1861946a3e3a7e77046a3a
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 97048
+  packageName: Simple Kepler Orbits
+  packageVersion: 1.0.7
+  assetPath: Assets/SimpleKeplerOrbits/Scripts/Components/SpawnNotifier.cs
+  uploadId: 479060

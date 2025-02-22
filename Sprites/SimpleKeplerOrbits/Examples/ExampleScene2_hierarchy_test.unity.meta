@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 894178323faa49645b3dd60fb69f479f
+timeCreated: 1502823777
+licenseType: Store
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 97048
+  packageName: Simple Kepler Orbits
+  packageVersion: 1.0.7
+  assetPath: Assets/SimpleKeplerOrbits/Examples/ExampleScene2_hierarchy_test.unity
+  uploadId: 479060

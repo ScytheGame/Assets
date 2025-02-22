@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: ccb07bf196cceb048a9f4a9468c5a910
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 97048
+  packageName: Simple Kepler Orbits
+  packageVersion: 1.0.7
+  assetPath: Assets/SimpleKeplerOrbits/Examples/JsonTable.txt
+  uploadId: 479060

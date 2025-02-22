@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 997ea9ce13b124f4f94cf3a04094664b
+timeCreated: 1501709132
+licenseType: Store
+TextScriptImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 97048
+  packageName: Simple Kepler Orbits
+  packageVersion: 1.0.7
+  assetPath: Assets/SimpleKeplerOrbits/changelog.txt
+  uploadId: 479060

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 87fa2632687f288439698fc24df81f4b
+timeCreated: 1501628084
+licenseType: Store
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 97048
+  packageName: Simple Kepler Orbits
+  packageVersion: 1.0.7
+  assetPath: Assets/SimpleKeplerOrbits/Examples/ExampleScene1.unity
+  uploadId: 479060

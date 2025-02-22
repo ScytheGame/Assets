@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 136aaa5a0162f0445a0a7d1acedc85c8
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 97048
+  packageName: Simple Kepler Orbits
+  packageVersion: 1.0.7
+  assetPath: Assets/SimpleKeplerOrbits/Examples/ScreenSpaceOrbitsDisplay.cs
+  uploadId: 479060

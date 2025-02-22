@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: f0302d601eebfc944bf854a77aa3d0c9
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 97048
+  packageName: Simple Kepler Orbits
+  packageVersion: 1.0.7
+  assetPath: Assets/SimpleKeplerOrbits/Scripts/Data/TransitionOrbitData.cs
+  uploadId: 479060

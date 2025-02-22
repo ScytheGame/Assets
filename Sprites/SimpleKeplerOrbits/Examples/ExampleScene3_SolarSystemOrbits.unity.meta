@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d25a99101828d1743a5810db608fb9ce
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 97048
+  packageName: Simple Kepler Orbits
+  packageVersion: 1.0.7
+  assetPath: Assets/SimpleKeplerOrbits/Examples/ExampleScene3_SolarSystemOrbits.unity
+  uploadId: 479060

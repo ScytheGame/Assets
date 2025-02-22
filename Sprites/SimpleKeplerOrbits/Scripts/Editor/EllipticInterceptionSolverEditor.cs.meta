@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 5ad1305e763c2c24db631da9206473bf
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 97048
+  packageName: Simple Kepler Orbits
+  packageVersion: 1.0.7
+  assetPath: Assets/SimpleKeplerOrbits/Scripts/Editor/EllipticInterceptionSolverEditor.cs
+  uploadId: 479060
