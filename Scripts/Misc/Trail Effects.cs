@@ -17,6 +17,14 @@ public class TrailEffects : MonoBehaviour
         IsTrail = (PlayerPrefs.GetInt("IsTrail") != 0);
         IsParticles = (PlayerPrefs.GetInt("IsParticles") != 0);
 
+        if (!IsTrail && !IsParticles)
+        {
+            IsParticles = true;
+
+            PlayerPrefs.SetInt("IsTrail", (IsTrail ? 1 : 0));
+            PlayerPrefs.SetInt("IsParticles", (IsParticles ? 1 : 0));
+        }
+
     }
 
     // Update is called once per frame

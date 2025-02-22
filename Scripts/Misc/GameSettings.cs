@@ -20,7 +20,9 @@ public class GameSettings : MonoBehaviour
     [TabGroup("Input field")]
     [SerializeField] TMP_InputField EnemyAttackChance;
     [TabGroup("Input field")]
-    [SerializeField] TMP_InputField EnemyAttackRateMultiplyer;
+    [SerializeField] TMP_InputField EnemyAttackRateMultiplier;
+    [TabGroup("Input field")]
+    [SerializeField] TMP_InputField EnemyProjectileSpeedMultiplier;
     [TabGroup("Input field")]
     [SerializeField] TMP_InputField PlayerStartingHealth;
     [TabGroup("Input field")]
@@ -48,7 +50,9 @@ public class GameSettings : MonoBehaviour
     [TabGroup("Text Field")]
     [SerializeField] TextMeshProUGUI EnemyAttackChance1;
     [TabGroup("Text Field")]
-    [SerializeField] TextMeshProUGUI EnemyAttackRateMultiplyer1;
+    [SerializeField] TextMeshProUGUI EnemyAttackRateMultiplier1;
+    [TabGroup("Text Field")]
+    [SerializeField] TextMeshProUGUI EnemyProjectileSpeedMultiplier1;
     [TabGroup("Text Field")]
     [SerializeField] TextMeshProUGUI PlayerStartingHealth1;
     [TabGroup("Text Field")]
@@ -61,15 +65,18 @@ public class GameSettings : MonoBehaviour
     [SerializeField] TextMeshProUGUI PlayerXPIncreaseCost1;
     [TabGroup("Text Field")]
     [SerializeField] TextMeshProUGUI PlayerXPTimeCost1;
+    [TabGroup("Text Field")]
+    [SerializeField] bool MainMenu;
 
     // enemy stats
     [SerializeField] public float EnemyHealthFloat = 800;
     [SerializeField] public float EnemyDamageFloat = 1;
     [SerializeField] public float EnemySpawnRateFloat = 6;
     [SerializeField] public float EnemySpawnCountFloat = 25;
-    [SerializeField] public float EnemySpeedFloat = 10;
-    [SerializeField] public float EnemyAttackChanceFloat = 40;
-    [SerializeField] public float EnemyAttackRateMultiplyerFloat = 1;
+    [SerializeField] public float EnemySpeedFloat = 15;
+    [SerializeField] public float EnemyAttackChanceFloat = 100;
+    [SerializeField] public float EnemyAttackRateMultiplierFloat = 1;
+    [SerializeField] public float EnemyProjectileSpeedMultiplierFloat = 1;
 
 
     // player stats
@@ -79,6 +86,7 @@ public class GameSettings : MonoBehaviour
     [SerializeField] public float PlayerXPGainFloat = 20;
     [SerializeField] public float PlayerXPIncreaseCostFloat = 15;
     [SerializeField] public float PlayerXPTimeCostFloat = 1;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -88,8 +96,10 @@ public class GameSettings : MonoBehaviour
         EnemyDamageFloat = PlayerPrefs.GetFloat("EnemyDamage", 1);
         EnemySpawnRateFloat = PlayerPrefs.GetFloat("EnemySpawnRate", 6);
         EnemySpawnCountFloat = PlayerPrefs.GetFloat("EnemySpawnCount", 25);
-        EnemySpeedFloat = PlayerPrefs.GetFloat("EnemySpeed", 10);
-        EnemyAttackChanceFloat = PlayerPrefs.GetFloat("EnemyAttackChance", 40);
+        EnemySpeedFloat = PlayerPrefs.GetFloat("EnemySpeed", 15);
+        EnemyAttackChanceFloat = PlayerPrefs.GetFloat("EnemyAttackChance", 100);
+        EnemyAttackRateMultiplierFloat = PlayerPrefs.GetFloat("EnemyAttackRateMultiplier", 1);
+        EnemyProjectileSpeedMultiplierFloat = PlayerPrefs.GetFloat("EnemyProjectileSpeedMultiplier", 1);
 
         // player stats
         PlayerStartingHealthFloat = PlayerPrefs.GetFloat("PlayerHealth", 2500);
@@ -101,23 +111,27 @@ public class GameSettings : MonoBehaviour
     }
     private void Update()
     {
-        // Enemy
+        if (MainMenu)
+        {
+            // Enemy
 
-        EnemyHealth1.text = ("Enemy Starting Health (Currently " + EnemyHealthFloat + ")");
-        EnemyDamage1.text = ("Enemy Damage Bonus (Currently " + EnemyDamageFloat + ")");
-        EnemySpawnRate1.text = ("Enemy Spawn Delay (Currently " + EnemySpawnRateFloat + ")");
-        EnemySpawnCount1.text = ("Max Base Enemy Spawn Count  (Currently " + EnemySpawnCountFloat + ")");
-        EnemySpeed1.text = ("Enemy Speed (Currently " + EnemySpeedFloat + ")");
-        EnemyAttackChance1.text = ("Enemy Attack Chance (Currently " + EnemyAttackChanceFloat + ")");
+            EnemyHealth1.text = ("Enemy Starting Health \n (Currently " + EnemyHealthFloat + ")");
+            EnemyDamage1.text = ("Enemy Damage Bonus \n (Currently " + EnemyDamageFloat + ")");
+            EnemySpawnRate1.text = ("Enemy Spawn Delay \n (Currently " + EnemySpawnRateFloat + ")");
+            EnemySpawnCount1.text = ("Max Base Enemy Spawn Count  \n (Currently " + EnemySpawnCountFloat + ")");
+            EnemySpeed1.text = ("Enemy Speed \n (Currently " + EnemySpeedFloat + ")");
+            EnemyAttackChance1.text = ("Enemy Attack Chance \n (Currently " + EnemyAttackChanceFloat + ")");
+            EnemyAttackRateMultiplier1.text = ("Enemy Attack Rate Multiplier \n (Currently " + EnemyAttackRateMultiplierFloat + ")");
+            EnemyProjectileSpeedMultiplier1.text = ("Enemy Projectile Speed Multiplier \n (Currently " + EnemyProjectileSpeedMultiplierFloat + ")");
 
-        // Player
+            // Player
 
-        PlayerStartingHealth1.text = ("Player Starting Health (Currently " + PlayerStartingHealthFloat + ")");
-        PlayerStartingAmmo1.text = ("Player Starting Ammo (Currently " + PlayerStartingAmmoFloat + ")");
-        PlayerDamageBonus1.text = ("Player Damage Bonus (Currently " + PlayerDamageBonusFloat + ")");
-        PlayerXPGain1.text = ("Player XP Gain (Currently " + PlayerXPGainFloat + ")");
-        PlayerXPIncreaseCost1.text = ("Player XP Increase Cost  (Currently " + PlayerXPIncreaseCostFloat + ")");
-
+            PlayerStartingHealth1.text = ("Player Starting Health \n (Currently " + PlayerStartingHealthFloat + ")");
+            PlayerStartingAmmo1.text = ("Player Starting Ammo \n (Currently " + PlayerStartingAmmoFloat + ")");
+            PlayerDamageBonus1.text = ("Player Damage Bonus \n (Currently " + PlayerDamageBonusFloat + ")");
+            PlayerXPGain1.text = ("Player XP Gain \n (Currently " + PlayerXPGainFloat + ")");
+            PlayerXPIncreaseCost1.text = ("Player XP Increase Cost  \n (Currently " + PlayerXPIncreaseCostFloat + ")");
+        }
 
     }
     public void ResetStats()
@@ -129,6 +143,7 @@ public class GameSettings : MonoBehaviour
         PlayerPrefs.DeleteKey("EnemySpeed");
         PlayerPrefs.DeleteKey("EnemyAttackChance");
         PlayerPrefs.DeleteKey("EnemyAttackRate");
+        PlayerPrefs.DeleteKey("EnemyProjectileSpeedMultiplier");
         PlayerPrefs.DeleteKey("PlayerHealth");
         PlayerPrefs.DeleteKey("PlayerAmmo");
         PlayerPrefs.DeleteKey("PlayerDamageBonus");
@@ -220,12 +235,12 @@ public class GameSettings : MonoBehaviour
             }
             else
             {
-                EnemySpeedFloat = 10;
+                EnemySpeedFloat = 15;
             }
         }
         else
         {
-            EnemySpeedFloat = 10;
+            EnemySpeedFloat = 15;
         }
     }
     public void UpdateEnemyAttackChance()
@@ -238,30 +253,48 @@ public class GameSettings : MonoBehaviour
             }
             else
             {
-                EnemyAttackChanceFloat = 40;
+                EnemyAttackChanceFloat = 100;
             }
         }
         else
         {
-            EnemyAttackChanceFloat = 40;
+            EnemyAttackChanceFloat = 100;
         }
     }
     public void UpdateEnemyAttackRate()
     {
-        if (EnemyAttackRateMultiplyer.text != null)
+        if (EnemyAttackRateMultiplier.text != null)
         {
-            if (float.TryParse(EnemyAttackRateMultiplyer.text, out EnemyAttackRateMultiplyerFloat))
+            if (float.TryParse(EnemyAttackRateMultiplier.text, out EnemyAttackRateMultiplierFloat))
             {
                 Save();
             }
             else
             {
-                EnemyAttackRateMultiplyerFloat = 1;
+                EnemyAttackRateMultiplierFloat = 1;
             }
         }
         else
         {
-            EnemyAttackRateMultiplyerFloat = 1;
+            EnemyAttackRateMultiplierFloat = 1;
+        }
+    }
+    public void UpdateEnemyProjectileSpeed()
+    {
+        if (EnemyProjectileSpeedMultiplier.text != null)
+        {
+            if (float.TryParse(EnemyProjectileSpeedMultiplier.text, out EnemyProjectileSpeedMultiplierFloat))
+            {
+                Save();
+            }
+            else
+            {
+                EnemyProjectileSpeedMultiplierFloat = 1;
+            }
+        }
+        else
+        {
+            EnemyProjectileSpeedMultiplierFloat = 1;
         }
     }
 
@@ -386,7 +419,8 @@ public class GameSettings : MonoBehaviour
         PlayerPrefs.SetFloat("EnemySpawnCount", EnemySpawnCountFloat);
         PlayerPrefs.SetFloat("EnemySpeed", EnemySpeedFloat);
         PlayerPrefs.SetFloat("EnemyAttackChance", EnemyAttackChanceFloat);
-        PlayerPrefs.SetFloat("EnemyAttackRateMultiplyer", EnemyAttackRateMultiplyerFloat);
+        PlayerPrefs.SetFloat("EnemyAttackRateMultiplier", EnemyAttackRateMultiplierFloat);
+        PlayerPrefs.SetFloat("EnemyProjectileSpeedMultiplier", EnemyProjectileSpeedMultiplierFloat);
 
         // player stats
         PlayerPrefs.SetFloat("PlayerHealth", PlayerStartingHealthFloat);

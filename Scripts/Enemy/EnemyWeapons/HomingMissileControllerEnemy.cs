@@ -12,6 +12,7 @@ public class HomingMissleControllerEnemy : MonoBehaviour
     [SerializeField] private float StaminaPerShot = 15f;
     [SerializeField] float Damage;
     [SerializeField] float AttackRateMultiplyer;
+    [SerializeField] float ProjectileSpeedMultiplier;
 
     [SerializeField] public EnemyController PlayerController;
     [SerializeField] public EnemyController EnemyController;
@@ -36,8 +37,10 @@ public class HomingMissleControllerEnemy : MonoBehaviour
         if (!Loaded)
         {
             Damage = EnemyController.HomingMissileDamage;
-            AttackRateMultiplyer = EnemyController.EnemyAttackRateMultiplyer;
+            AttackRateMultiplyer = EnemyController.EnemyAttackRateMultiplier;
+            ProjectileSpeedMultiplier = EnemyController.EnemyProjectileSpeedMultiplier;
             fireDelay /= AttackRateMultiplyer;
+            missileSpeed *= ProjectileSpeedMultiplier;
             Loaded = true;
         }
         if (canFire == true)

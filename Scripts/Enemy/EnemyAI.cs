@@ -6,6 +6,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] float Speed;
     [SerializeField] GameObject Player;
     [SerializeField] float Distance;
+    [SerializeField] float MinDistance;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] EnemyController EnemyController;
     [SerializeField] NavMeshAgent Agent;
@@ -20,20 +21,30 @@ public class EnemyAI : MonoBehaviour
         {
             Debug.Log("Couldn't find Player");
         }
-        Speed = PlayerPrefs.GetFloat("EnemySpeed", 10);
+        Speed = PlayerPrefs.GetFloat("EnemySpeed", 15);
     }
 
     void FixedUpdate()
     {
         Agent.speed = Speed;
         Distance = Vector3.Distance(transform.position, Player.transform.position);
-        FollowPlayer();
+        if (Distance >= MinDistance)
+            FollowPlayer();
+        else
+            Sit();
+
+
 
     }
 
     void FollowPlayer()
     {
         Position = Player.transform.position;
+        Agent.SetDestination(Position);
+    }
+    void Sit()
+    {
+        Position = transform.position;
         Agent.SetDestination(Position);
     }
 }

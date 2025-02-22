@@ -43,8 +43,9 @@ public class EnemyController : MonoBehaviour
     public float HealthReturn;
     public float buffAmount = 0;
     public float ShotDelay = 0;
-    public float AttackChance = 40;
-    public float EnemyAttackRateMultiplyer = 1;
+    public float AttackChance = 100;
+    public float EnemyAttackRateMultiplier = 1;
+    public float EnemyProjectileSpeedMultiplier = 1;
     public bool IsBossEnemy = false;
     float expTimeBuff = 0;
     float poisondamagelength = 1f;
@@ -54,8 +55,9 @@ public class EnemyController : MonoBehaviour
 
     void Start()
     {
-        AttackChance = PlayerPrefs.GetFloat("EnemyAttackChance", 40);
-        EnemyAttackRateMultiplyer = PlayerPrefs.GetFloat("EnemyAttackRateMultiplyer", 1);
+        AttackChance = PlayerPrefs.GetFloat("EnemyAttackChance", 100);
+        EnemyAttackRateMultiplier = PlayerPrefs.GetFloat("EnemyAttackRateMultiplier", 1);
+        EnemyProjectileSpeedMultiplier = PlayerPrefs.GetFloat("EnemyProjectileSpeedMultiplier", 1);
 
         GameObject player = GameObject.FindWithTag("Player");
         GameObject level = GameObject.FindWithTag("ui");
@@ -144,7 +146,7 @@ public class EnemyController : MonoBehaviour
         {
             for (int i = 0; i > Level; i--)
             {
-                int random = Random.Range(1, 3);
+                int random = Random.Range(1, 4);
 
                 if (random == 0)
                 {
@@ -168,7 +170,11 @@ public class EnemyController : MonoBehaviour
                 }
                 if (random == 3)
                 {
-                    EnemyAttackRateMultiplyer += 0.1f;
+                    EnemyAttackRateMultiplier += 0.1f;
+                }
+                if (random == 4)
+                {
+                    EnemyProjectileSpeedMultiplier += 0.1f;
                 }
             }
         }

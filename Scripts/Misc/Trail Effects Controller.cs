@@ -10,7 +10,13 @@ public class TrailEffectsController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        IsTrail = (PlayerPrefs.GetInt("IsTrail") != 0);
+        IsParticles = (PlayerPrefs.GetInt("IsParticles") != 0);
 
+        if (!IsTrail && !IsParticles)
+        {
+            IsParticles = true;
+        }
     }
 
     // Update is called once per frame

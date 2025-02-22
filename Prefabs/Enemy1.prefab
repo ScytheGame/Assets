@@ -548,8 +548,11 @@ MonoBehaviour:
   Speed: 0
   Player: {fileID: 0}
   Distance: 0
+  MinDistance: 1
   rb: {fileID: 0}
   EnemyController: {fileID: 6133515741674267296}
+  Agent: {fileID: 0}
+  Position: {x: 0, y: 0, z: 0}
 --- !u!114 &7444508470485342711
 MonoBehaviour:
   m_ObjectHideFlags: 0

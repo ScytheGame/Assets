@@ -13,6 +13,7 @@ public class NukeControllerEnemy : MonoBehaviour
     [SerializeField] private float StaminaPerShot = 50f;
     [SerializeField] float Damage;
     [SerializeField] float AttackRateMultiplyer;
+    [SerializeField] float ProjectileSpeedMultiplier;
 
 
 
@@ -35,8 +36,10 @@ public class NukeControllerEnemy : MonoBehaviour
         if (!Loaded)
         {
             Damage = EnemyController.NukeDamage;
-            AttackRateMultiplyer = EnemyController.EnemyAttackRateMultiplyer;
+            AttackRateMultiplyer = EnemyController.EnemyAttackRateMultiplier;
+            ProjectileSpeedMultiplier = EnemyController.EnemyProjectileSpeedMultiplier;
             fireDelay /= AttackRateMultiplyer;
+            NukeSpeed *= ProjectileSpeedMultiplier;
             Loaded = true;
         }
         if (canFire == true)

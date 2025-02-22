@@ -246,6 +246,7 @@ MonoBehaviour:
   Speed: 0
   Player: {fileID: 0}
   Distance: 0
+  MinDistance: 1
   rb: {fileID: 1305911283716712247}
   EnemyController: {fileID: 6133515741674267296}
   Agent: {fileID: -4876502494699972695}

@@ -14,6 +14,7 @@ public class FlakControllerEnemy : MonoBehaviour
     [SerializeField] private float Spread = 25f;
     [SerializeField] float Damage;
     [SerializeField] float AttackRateMultiplyer;
+    [SerializeField] float ProjectileSpeedMultiplier;
 
     public EnemyController playerController;
     public EnemyController EnemyController;
@@ -38,8 +39,10 @@ public class FlakControllerEnemy : MonoBehaviour
         if (!Loaded)
         {
             Damage = EnemyController.FlakDamage;
-            AttackRateMultiplyer = EnemyController.EnemyAttackRateMultiplyer;
+            AttackRateMultiplyer = EnemyController.EnemyAttackRateMultiplier;
+            ProjectileSpeedMultiplier = EnemyController.EnemyProjectileSpeedMultiplier;
             fireDelay /= AttackRateMultiplyer;
+            FlakSpeed *= ProjectileSpeedMultiplier;
             Loaded = true;
         }
         if (canFire == true)

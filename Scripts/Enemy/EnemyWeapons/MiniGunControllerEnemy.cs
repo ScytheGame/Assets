@@ -17,6 +17,7 @@ public class MiniGunControllerEnemy : MonoBehaviour
     [SerializeField] private float StaminaPerShot = 5f;
     [SerializeField] float Damage;
     [SerializeField] float AttackRateMultiplyer;
+    [SerializeField] float ProjectileSpeedMultiplier;
 
     public EnemyController playerController;
 
@@ -54,8 +55,10 @@ public class MiniGunControllerEnemy : MonoBehaviour
         if (!Loaded)
         {
             Damage = EnemyController.MinigunDamage;
-            AttackRateMultiplyer = EnemyController.EnemyAttackRateMultiplyer;
+            AttackRateMultiplyer = EnemyController.EnemyAttackRateMultiplier;
+            ProjectileSpeedMultiplier = EnemyController.EnemyProjectileSpeedMultiplier;
             fireDelay /= AttackRateMultiplyer;
+            BulletSpeed *= ProjectileSpeedMultiplier;
             Loaded = true;
         }
         if (burst >= 20)

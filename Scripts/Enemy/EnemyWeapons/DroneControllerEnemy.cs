@@ -13,7 +13,8 @@ public class DroneControllerEnemy : MonoBehaviour
     [SerializeField] private float StaminaPerShot = 1.5f;
     [SerializeField] private float spread = 20f;
     [SerializeField] float Damage;
-    [SerializeField] float AttackRateMultiplyer;
+    [SerializeField] float AttackRateMultiplier;
+    [SerializeField] float ProjectileSpeedMultiplier;
 
     public EnemyController EnemyController;
 
@@ -37,8 +38,10 @@ public class DroneControllerEnemy : MonoBehaviour
         if (!Loaded)
         {
             Damage = EnemyController.DroneDamage;
-            AttackRateMultiplyer = EnemyController.EnemyAttackRateMultiplyer;
-            fireDelay /= AttackRateMultiplyer;
+            AttackRateMultiplier = EnemyController.EnemyAttackRateMultiplier;
+            ProjectileSpeedMultiplier = EnemyController.EnemyProjectileSpeedMultiplier;
+            fireDelay /= AttackRateMultiplier;
+            DroneSpeed *= ProjectileSpeedMultiplier;
             Loaded = true;
         }
         if (canFire == true)

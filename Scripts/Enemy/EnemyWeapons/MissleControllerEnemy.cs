@@ -15,7 +15,8 @@ public class MissileControllerEnemy : MonoBehaviour
     [SerializeField] private float fireDelay = 0.5f;
     [SerializeField] private float StaminaPerShot = 5f;
     [SerializeField] float Damage;
-    [SerializeField] float AttackRateMultiplyer;
+    [SerializeField] float AttackRateMultiplier;
+    [SerializeField] float ProjectileSpeedMultiplier;
 
     private bool firedFirstMissile = false;
     public float delayTimer = 0f;
@@ -48,8 +49,10 @@ public class MissileControllerEnemy : MonoBehaviour
         if (!Loaded)
         {
             Damage = EnemyController.MissileDamage;
-            AttackRateMultiplyer = EnemyController.EnemyAttackRateMultiplyer;
-            fireDelay /= AttackRateMultiplyer;
+            AttackRateMultiplier = EnemyController.EnemyAttackRateMultiplier;
+            ProjectileSpeedMultiplier = EnemyController.EnemyProjectileSpeedMultiplier;
+            fireDelay /= AttackRateMultiplier;
+            missileSpeed *= ProjectileSpeedMultiplier;
             Loaded = true;
         }
         if (canFire == true)
