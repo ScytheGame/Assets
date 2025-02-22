@@ -5,6 +5,7 @@ using UnityEngine;
 public class GraphicsSettings : MonoBehaviour
 {
     Resolution[] resolutions;
+    List<Resolution> AcceptableResolutions = new List<Resolution>();
     [SerializeField] TMP_Dropdown ResolutionDropdown;
     List<string> Options = new List<string>();
     int currentResolutionIndex;
@@ -27,6 +28,8 @@ public class GraphicsSettings : MonoBehaviour
             {
                 string option = resolutions[i].width + " x " + resolutions[i].height;
                 Options.Add(option);
+                AcceptableResolutions.Add(resolutions[i]);
+
                 if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
                 {
                     currentResolutionIndex = i;
@@ -51,10 +54,10 @@ public class GraphicsSettings : MonoBehaviour
     {
         Screen.fullScreen = isFullscreen;
     }
-
     public void SetResolution(int index)
     {
-        Resolution resolution = resolutions[index];
+        Resolution resolution = AcceptableResolutions[index];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
+
 }
