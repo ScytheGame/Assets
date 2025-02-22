@@ -134,25 +134,13 @@ public class PlayerController : MonoBehaviour
     {
 
 
-        inputHorizontal = Input.GetAxisRaw("Horizontal");
-        inputVertical = Input.GetAxisRaw("Vertical");
+        inputHorizontal = Input.GetAxis("Horizontal");
+        inputVertical = Input.GetAxis("Vertical");
 
         if (inputHorizontal != 0 || inputVertical != 0)
         {
             rb.AddForce(new Vector2(inputHorizontal * moveSpeed, inputVertical * moveSpeed));
         }
-    }
-
-     void UpdateStatsSliders()
-    {
-        healthSlider.maxValue = maxHealth;
-        healthSlider.value = playerHealth;
-
-        StaminaSlider.maxValue = maxStamina;
-        StaminaSlider.value = playerStamina;
-
-        StaminaSlider2.maxValue = maxStamina;
-        StaminaSlider2.value = playerStamina;
     }
     public void SkillsAfterLevelUp()
     {

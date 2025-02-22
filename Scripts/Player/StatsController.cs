@@ -34,7 +34,7 @@ public class StatsController : MonoBehaviour
     [TabGroup("Weapon Damage")]
     public float FlakDamage = 350;
     [TabGroup("Weapon Damage")]
-    public float DroneDamage = 180;
+    public float DroneDamage = 280;
     [TabGroup("Weapon Damage")]
     public float LaserDamage = 150;
     [TabGroup("Weapon Damage")]

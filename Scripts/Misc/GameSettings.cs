@@ -75,7 +75,7 @@ public class GameSettings : MonoBehaviour
     [SerializeField] public float EnemySpawnCountFloat = 25;
     [SerializeField] public float EnemySpeedFloat = 15;
     [SerializeField] public float EnemyAttackChanceFloat = 100;
-    [SerializeField] public float EnemyAttackRateMultiplierFloat = 1;
+    [SerializeField] public float EnemyAttackRateMultiplierFloat = 0.6f;
     [SerializeField] public float EnemyProjectileSpeedMultiplierFloat = 1;
 
 
@@ -98,7 +98,7 @@ public class GameSettings : MonoBehaviour
         EnemySpawnCountFloat = PlayerPrefs.GetFloat("EnemySpawnCount", 25);
         EnemySpeedFloat = PlayerPrefs.GetFloat("EnemySpeed", 15);
         EnemyAttackChanceFloat = PlayerPrefs.GetFloat("EnemyAttackChance", 100);
-        EnemyAttackRateMultiplierFloat = PlayerPrefs.GetFloat("EnemyAttackRateMultiplier", 1);
+        EnemyAttackRateMultiplierFloat = PlayerPrefs.GetFloat("EnemyAttackRateMultiplier", 0.6f);
         EnemyProjectileSpeedMultiplierFloat = PlayerPrefs.GetFloat("EnemyProjectileSpeedMultiplier", 1);
 
         // player stats
@@ -271,12 +271,12 @@ public class GameSettings : MonoBehaviour
             }
             else
             {
-                EnemyAttackRateMultiplierFloat = 1;
+                EnemyAttackRateMultiplierFloat = 0.6f;
             }
         }
         else
         {
-            EnemyAttackRateMultiplierFloat = 1;
+            EnemyAttackRateMultiplierFloat = 0.6f;
         }
     }
     public void UpdateEnemyProjectileSpeed()

@@ -1740,6 +1740,7 @@ MonoBehaviour:
   FlakDamage: 20
   DroneDamage: 12
   LaserDamage: 10
+  MineDamage: 350
   DamageBonus: 1
   MissileSpeed: 20
   MissileFireDelay: 0.7
@@ -1756,6 +1757,8 @@ MonoBehaviour:
   LaserSpeed: 50
   LaserFireDelay: 0.14
   ArrayShotSpeed: 30
+  MineSpeed: 5
+  MineFireDelay: 2
   poisonShootMissile: 0
   poisonShootNuke: 0
   poisonShootMiniGun: 0
@@ -1786,6 +1789,7 @@ MonoBehaviour:
   HomingMissile: 0
   RapidFire: 0
   ArrayShot: 0
+  Mine: 0
 --- !u!114 &1746492451593326209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2006,7 +2010,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7492164066741199285}
   - component: {fileID: 5333034217767496789}
-  - component: {fileID: 2794109467781838117}
   m_Layer: 0
   m_Name: EnemyGenerator
   m_TagString: EnemySpawn
@@ -2057,23 +2060,6 @@ MonoBehaviour:
   spawnDelay: 15
   gameTime: 0
   minutes: 0
---- !u!114 &2794109467781838117
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5792741919930938958}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c046c629425e07c43b92297f3964531b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  directionPreferences:
-  - 0
-  - 0
-  - 0
-  - 0
 --- !u!1 &7014819131697058696
 GameObject:
   m_ObjectHideFlags: 0

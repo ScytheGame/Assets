@@ -44,7 +44,7 @@ public class EnemyController : MonoBehaviour
     public float buffAmount = 0;
     public float ShotDelay = 0;
     public float AttackChance = 100;
-    public float EnemyAttackRateMultiplier = 1;
+    public float EnemyAttackRateMultiplier = 0.6f;
     public float EnemyProjectileSpeedMultiplier = 1;
     public bool IsBossEnemy = false;
     float expTimeBuff = 0;
@@ -56,7 +56,7 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         AttackChance = PlayerPrefs.GetFloat("EnemyAttackChance", 100);
-        EnemyAttackRateMultiplier = PlayerPrefs.GetFloat("EnemyAttackRateMultiplier", 1);
+        EnemyAttackRateMultiplier = PlayerPrefs.GetFloat("EnemyAttackRateMultiplier", 0.6f);
         EnemyProjectileSpeedMultiplier = PlayerPrefs.GetFloat("EnemyProjectileSpeedMultiplier", 1);
 
         GameObject player = GameObject.FindWithTag("Player");
@@ -241,9 +241,7 @@ public class EnemyController : MonoBehaviour
             }
             else
             {
-                ShotDelay = 1;
                 isAttacking = false;
-                Debug.Log("Shot Delay active");
             }
         }
         else

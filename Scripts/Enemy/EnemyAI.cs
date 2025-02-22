@@ -11,7 +11,8 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] EnemyController EnemyController;
     [SerializeField] NavMeshAgent Agent;
     [SerializeField] Vector3 Position;
- 
+    [SerializeField] Vector3 offset;
+
     private void Start()
     {
         Agent = GetComponent<NavMeshAgent>();
@@ -39,12 +40,19 @@ public class EnemyAI : MonoBehaviour
 
     void FollowPlayer()
     {
-        Position = Player.transform.position;
+        offset = new Vector3(RandomValue(), RandomValue(), RandomValue());
+        Position = Player.transform.position + offset;
         Agent.SetDestination(Position);
     }
     void Sit()
     {
         Position = transform.position;
         Agent.SetDestination(Position);
+    }
+
+    float RandomValue()
+    {
+        float RandomValue = Random.Range(-10, 10);
+        return RandomValue;
     }
 }
