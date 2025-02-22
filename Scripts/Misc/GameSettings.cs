@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
@@ -6,19 +7,60 @@ using UnityEngine.UI;
 
 public class GameSettings : MonoBehaviour
 {
+    [TabGroup("Input field")]
     [SerializeField] TMP_InputField EnemyHealth;
+    [TabGroup("Input field")]
     [SerializeField] TMP_InputField EnemyDamage;
+    [TabGroup("Input field")]
     [SerializeField] TMP_InputField EnemySpawnRate;
+    [TabGroup("Input field")]
     [SerializeField] TMP_InputField EnemySpawnCount;
+    [TabGroup("Input field")]
     [SerializeField] TMP_InputField EnemySpeed;
+    [TabGroup("Input field")]
     [SerializeField] TMP_InputField EnemyAttackChance;
+    [TabGroup("Input field")]
     [SerializeField] TMP_InputField EnemyAttackRateMultiplyer;
+    [TabGroup("Input field")]
     [SerializeField] TMP_InputField PlayerStartingHealth;
+    [TabGroup("Input field")]
     [SerializeField] TMP_InputField PlayerStartingAmmo;
+    [TabGroup("Input field")]
     [SerializeField] TMP_InputField PlayerDamageBonus;
+    [TabGroup("Input field")]
     [SerializeField] TMP_InputField PlayerXPGain;
+    [TabGroup("Input field")]
     [SerializeField] TMP_InputField PlayerXPIncreaseCost;
+    [TabGroup("Input field")]
     [SerializeField] TMP_InputField PlayerXPTimeCost;
+
+    // text field
+    [TabGroup("Text Field")]
+    [SerializeField] TextMeshProUGUI EnemyHealth1;
+    [TabGroup("Text Field")]
+    [SerializeField] TextMeshProUGUI EnemyDamage1;
+    [TabGroup("Text Field")]
+    [SerializeField] TextMeshProUGUI EnemySpawnRate1;
+    [TabGroup("Text Field")]
+    [SerializeField] TextMeshProUGUI EnemySpawnCount1;
+    [TabGroup("Text Field")]
+    [SerializeField] TextMeshProUGUI EnemySpeed1;
+    [TabGroup("Text Field")]
+    [SerializeField] TextMeshProUGUI EnemyAttackChance1;
+    [TabGroup("Text Field")]
+    [SerializeField] TextMeshProUGUI EnemyAttackRateMultiplyer1;
+    [TabGroup("Text Field")]
+    [SerializeField] TextMeshProUGUI PlayerStartingHealth1;
+    [TabGroup("Text Field")]
+    [SerializeField] TextMeshProUGUI PlayerStartingAmmo1;
+    [TabGroup("Text Field")]
+    [SerializeField] TextMeshProUGUI PlayerDamageBonus1;
+    [TabGroup("Text Field")]
+    [SerializeField] TextMeshProUGUI PlayerXPGain1;
+    [TabGroup("Text Field")]
+    [SerializeField] TextMeshProUGUI PlayerXPIncreaseCost1;
+    [TabGroup("Text Field")]
+    [SerializeField] TextMeshProUGUI PlayerXPTimeCost1;
 
     // enemy stats
     [SerializeField] public float EnemyHealthFloat = 800;
@@ -56,6 +98,27 @@ public class GameSettings : MonoBehaviour
         PlayerXPGainFloat = PlayerPrefs.GetFloat("PlayerXPGain", 20);
         PlayerXPIncreaseCostFloat = PlayerPrefs.GetFloat("PlayerXPIncreaseCost", 15);
         PlayerXPTimeCostFloat = PlayerPrefs.GetFloat("PlayerXPTimeCost", 1);
+    }
+    private void Update()
+    {
+        // Enemy
+
+        EnemyHealth1.text = ("Enemy Starting Health (Currently " + EnemyHealthFloat + ")");
+        EnemyDamage1.text = ("Enemy Damage Bonus (Currently " + EnemyDamageFloat + ")");
+        EnemySpawnRate1.text = ("Enemy Spawn Delay (Currently " + EnemySpawnRateFloat + ")");
+        EnemySpawnCount1.text = ("Max Base Enemy Spawn Count  (Currently " + EnemySpawnCountFloat + ")");
+        EnemySpeed1.text = ("Enemy Speed (Currently " + EnemySpeedFloat + ")");
+        EnemyAttackChance1.text = ("Enemy Attack Chance (Currently " + EnemyAttackChanceFloat + ")");
+
+        // Player
+
+        PlayerStartingHealth1.text = ("Player Starting Health (Currently " + PlayerStartingHealthFloat + ")");
+        PlayerStartingAmmo1.text = ("Player Starting Ammo (Currently " + PlayerStartingAmmoFloat + ")");
+        PlayerDamageBonus1.text = ("Player Damage Bonus (Currently " + PlayerDamageBonusFloat + ")");
+        PlayerXPGain1.text = ("Player XP Gain (Currently " + PlayerXPGainFloat + ")");
+        PlayerXPIncreaseCost1.text = ("Player XP Increase Cost  (Currently " + PlayerXPIncreaseCostFloat + ")");
+
+
     }
     public void ResetStats()
     {
