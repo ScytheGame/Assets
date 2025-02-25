@@ -334,7 +334,8 @@ MonoBehaviour:
   buffAmount: 0
   ShotDelay: 0
   AttackChance: 40
-  EnemyAttackRateMultiplyer: 1
+  EnemyAttackRateMultiplier: 0.6
+  EnemyProjectileSpeedMultiplier: 1
   IsBossEnemy: 1
   MissileDamage: 240
   NukeDamage: 720
@@ -379,7 +380,8 @@ MonoBehaviour:
   fireDelay: 0.4
   StaminaPerShot: 5
   Damage: 0
-  AttackRateMultiplyer: 0
+  AttackRateMultiplier: 0
+  ProjectileSpeedMultiplier: 0
   delayTimer: 0
   canFire: 1
 --- !u!114 &3388973406586525990
@@ -404,6 +406,7 @@ MonoBehaviour:
   StaminaPerShot: 50
   Damage: 0
   AttackRateMultiplyer: 0
+  ProjectileSpeedMultiplier: 0
   playerController: {fileID: 6133515741674267296}
   delayTimer: 0
   canFire: 1
@@ -432,6 +435,7 @@ MonoBehaviour:
   StaminaPerShot: 5
   Damage: 0
   AttackRateMultiplyer: 0
+  ProjectileSpeedMultiplier: 0
   playerController: {fileID: 6133515741674267296}
   delayTimer: 0
   canFire: 1
@@ -456,6 +460,7 @@ MonoBehaviour:
   StaminaPerShot: 15
   Damage: 0
   AttackRateMultiplyer: 0
+  ProjectileSpeedMultiplier: 0
   PlayerController: {fileID: 6133515741674267296}
   EnemyController: {fileID: 6133515741674267296}
   delayTimer: 0
@@ -482,6 +487,7 @@ MonoBehaviour:
   Spread: 25
   Damage: 0
   AttackRateMultiplyer: 0
+  ProjectileSpeedMultiplier: 0
   playerController: {fileID: 6133515741674267296}
   EnemyController: {fileID: 6133515741674267296}
   delayTimer: 0
@@ -509,7 +515,8 @@ MonoBehaviour:
   StaminaPerShot: 1.5
   spread: 20
   Damage: 0
-  AttackRateMultiplyer: 0
+  AttackRateMultiplier: 0
+  ProjectileSpeedMultiplier: 0
   EnemyController: {fileID: 6133515741674267296}
   delayTimer: 0
   canFire: 1
@@ -553,6 +560,7 @@ MonoBehaviour:
   EnemyController: {fileID: 6133515741674267296}
   Agent: {fileID: 0}
   Position: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 0, z: 0}
 --- !u!114 &7444508470485342711
 MonoBehaviour:
   m_ObjectHideFlags: 0

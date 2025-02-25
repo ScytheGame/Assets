@@ -6,7 +6,6 @@ public class Upgrade : MonoBehaviour
     public string ID;
     public float Value;
     public float cost;
-    public bool OneTime;
 
     [SerializeField] TextMeshProUGUI UpgradeNameText;
     [SerializeField] TextMeshProUGUI UpgradeDescriptionText;
@@ -40,7 +39,7 @@ public class Upgrade : MonoBehaviour
 
             if (CanUnlock)
             {
-                UpgradeTree.Unlock(ID, Value, OneTime);
+                UpgradeTree.Unlock(ID, Value);
             }
         }
     }
