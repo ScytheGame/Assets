@@ -6,7 +6,8 @@ public class Upgradepoints : MonoBehaviour
     int KillCount;
     int TimePlayed;
 
-    public float SkillPoints;
+    public float SolarPoints;
+    public float CelestialPoints;
 
     void Start()
     {
@@ -14,13 +15,20 @@ public class Upgradepoints : MonoBehaviour
         KillCount = PlayerPrefs.GetInt("KillCount", 0);
         TimePlayed = PlayerPrefs.GetInt("TimePlayed", 0);
 
-        SkillPoints = PlayerPrefs.GetFloat("SkillPoints", 0);
+        SolarPoints = PlayerPrefs.GetFloat("SolarPoints", 0);
+        CelestialPoints = PlayerPrefs.GetFloat("CelestialPoints", 0);
 
-        SkillPoints += Mathf.Round(Level / 10);
-        SkillPoints += Mathf.Round(KillCount / 20);
-        SkillPoints += Mathf.Round(TimePlayed / 10);
+        SolarPoints += Mathf.Round(Level / 10);
+        SolarPoints += Mathf.Round(KillCount / 20);
+        SolarPoints += Mathf.Round(TimePlayed / 10);
 
-        PlayerPrefs.SetFloat("SkillPoints", SkillPoints);
+        PlayerPrefs.SetFloat("SolarPoints", SolarPoints);
+        PlayerPrefs.SetFloat("CelestialPoints", CelestialPoints);
 
+    }
+    public void Save()
+    {
+        PlayerPrefs.SetFloat("SolarPoints", SolarPoints);
+        PlayerPrefs.SetFloat("CelestialPoints", CelestialPoints);
     }
 }

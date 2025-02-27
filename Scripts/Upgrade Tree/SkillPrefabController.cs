@@ -18,7 +18,7 @@ public class SkillPrefabController : MonoBehaviour
     [SerializeField] GameObject UnlockButtonGameObject;
     [SerializeField] Button UnlockButton;
     [SerializeField] TextMeshProUGUI UnlockButtonText;
-    [SerializeField] StatsController Stats;
+    [SerializeField] Upgradepoints Stats;
     [SerializeField] SkillTreeController Skill;
     [SerializeField] List<SkillPrefabController> PreviousSkills;
     [SerializeField] List<SkillPrefabController> OtherSkillTypes;
@@ -132,11 +132,6 @@ public class SkillPrefabController : MonoBehaviour
             if (SkillID.Equals("HC"))
                 SkillNameText.text = ("Homing");
 
-            if (SkillID.Equals("PS"))
-                SkillNameText.text = ("Poison Bullets");
-
-            if (SkillID.Equals("DP"))
-                SkillNameText.text = ("Double Points");
         }
     }
     void SkillDescription()
@@ -173,12 +168,6 @@ public class SkillPrefabController : MonoBehaviour
 
             if (SkillID.Equals("HC"))
                 skillDescriptionText.text = ("Unlocks Homing");
-
-            if (SkillID.Equals("PS"))
-                skillDescriptionText.text = ("Poison Bullets");
-
-            if (SkillID.Equals("DP"))
-                skillDescriptionText.text = ("Gain 2 points per level");
 
     }
 
@@ -228,6 +217,7 @@ public class SkillPrefabController : MonoBehaviour
     {
         if (Stats.CelestialPoints >= CelestialCost && Stats.SolarPoints >= SolarCost)
         {
+            Stats.Save();
             if (DisableCards != null)
             {
                 foreach (SkillPrefabController Card in DisableCards)
