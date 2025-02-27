@@ -42,8 +42,7 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 13
-  m_BakeOnSceneLoad: 0
+  serializedVersion: 12
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -2328,6 +2327,168 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 124334678}
   m_CullTransparentMesh: 1
+--- !u!1001 &129491353
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1323920666}
+    m_Modifications:
+    - target: {fileID: 315617550905746634, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 315617550905746634, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 315617550905746634, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 315617550905746634, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 315617550905746634, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 315617550905746634, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 315617550905746634, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 315617550905746634, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 315617550905746634, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 315617550905746634, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 315617550905746634, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 315617550905746634, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 315617550905746634, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 315617550905746634, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 315617550905746634, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 315617550905746634, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 74
+      objectReference: {fileID: 0}
+    - target: {fileID: 315617550905746634, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 86
+      objectReference: {fileID: 0}
+    - target: {fileID: 315617550905746634, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 315617550905746634, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 315617550905746634, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1663547144021561662, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: m_Name
+      value: Skill (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654738703112347786, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: points.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654738703112347786, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: points.Array.data[0].x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654738703112347786, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: points.Array.data[0].y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654738703112347786, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: points.Array.data[1].x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654738703112347786, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: points.Array.data[1].y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5698993727029555781, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: Skill
+      value: 
+      objectReference: {fileID: 2107935631}
+    - target: {fileID: 5698993727029555781, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: Stats
+      value: 
+      objectReference: {fileID: 748956587}
+    - target: {fileID: 5698993727029555781, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: SkillID
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5698993727029555781, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: skillID
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 5698993727029555781, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: SolarCost
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5698993727029555781, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: SkillWeapon
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5698993727029555781, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: MaxUpgradeLevel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5698993727029555781, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: DisableCards.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5698993727029555781, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: PreviousSkills.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5698993727029555781, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: OtherSkillTypes.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+--- !u!224 &129491354 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 315617550905746634, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+  m_PrefabInstance: {fileID: 129491353}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &130338223
 GameObject:
   m_ObjectHideFlags: 0
@@ -16434,6 +16595,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 988781960223928548}
+  - {fileID: 129491354}
   m_Father: {fileID: 1006892980}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -25856,15 +26018,23 @@ PrefabInstance:
       objectReference: {fileID: 748956587}
     - target: {fileID: 5698993727029555781, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
       propertyPath: SkillID
-      value: Rapid
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5698993727029555781, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: skillID
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 5698993727029555781, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
       propertyPath: SolarCost
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5698993727029555781, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
       propertyPath: SkillWeapon
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5698993727029555781, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: MaxUpgradeLevel
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5698993727029555781, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
       propertyPath: DisableCards.Array.size

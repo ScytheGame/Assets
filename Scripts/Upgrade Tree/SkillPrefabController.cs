@@ -26,13 +26,15 @@ public class SkillPrefabController : MonoBehaviour
     [SerializeField] enum Weapon { None = 0, Missile = 1, Nuke = 2, Minigun = 3, HomingMissile = 4, Flak = 5, Drone = 6, Laser = 7, Heavy = 8, Rapid = 9, Homing = 10 };
     [SerializeField] Weapon SkillWeapon;
     [SerializeField] float SkillWeaponFloat;
+    [SerializeField] enum ID { None = 0, DB = 1, SB = 2, AS = 3, PS = 4, HB = 5, EB = 6, MS = 7, DS = 8, BF = 9, ArrS = 10, ArrSB = 11, RF = 12, Rapid = 13, Homing = 14, Nuke = 15, FLak = 16, Laser = 17, HomingMissile = 18};
+    [SerializeField] ID skillID;
+    [SerializeField] string SkillID;
 
 
     [Space(10)]
     [Header("Skill Requirments")]
     [SerializeField] float CelestialCost;
     [SerializeField] float SolarCost;
-    [SerializeField] public string SkillID;
     [SerializeField] float SkillValue;
     [SerializeField] public bool IsOwned;
     [SerializeField] bool IsLocked;
@@ -44,6 +46,9 @@ public class SkillPrefabController : MonoBehaviour
     [SerializeField] float RandomValue;
     private void Start()
     {
+
+        SkillID = skillID.ToString();
+
         if (SkillWeapon == Weapon.None)
             SkillWeaponFloat = 0;
         if (SkillWeapon == Weapon.Missile)
@@ -98,6 +103,12 @@ public class SkillPrefabController : MonoBehaviour
         }
         SkillName();
         SkillDescription();
+
+        IsOwned = (PlayerPrefs.GetInt("IsOwnedST") != 0);
+        UpgradeLevel = PlayerPrefs.GetFloat("UpgradeLevelST", 0);
+
+        Debug.Log(IsOwned);
+        Debug.Log(UpgradeLevel);
     }
     void SkillName()
     {
@@ -261,7 +272,6 @@ public class SkillPrefabController : MonoBehaviour
     {
         if (Stats.CelestialPoints >= CelestialCost && Stats.SolarPoints >= SolarCost)
         {
-            Stats.Save();
             if (DisableCards != null)
             {
                 foreach (SkillPrefabController Card in DisableCards)
@@ -310,6 +320,8 @@ public class SkillPrefabController : MonoBehaviour
                 }
                 UnlockButtonText.text = ("Upgrade");
             }
+            Stats.Save();
+            Save();
         }
         else
         {
@@ -326,5 +338,15 @@ public class SkillPrefabController : MonoBehaviour
     void DisableCard(SkillPrefabController Card)
     {
         Card.Disable();
+    }
+
+    void Save()
+    {
+        Debug.Log(IsOwned);
+        Debug.Log(UpgradeLevel);
+        PlayerPrefs.SetFloat("UpgradeLevelST", UpgradeLevel);
+        PlayerPrefs.SetInt("IsOwnedST", (IsOwned ? 1 : 0));
+        Debug.Log("Saved Skill Tree");
+
     }
 }
