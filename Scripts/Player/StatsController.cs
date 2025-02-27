@@ -77,6 +77,7 @@ public class StatsController : MonoBehaviour
     [TabGroup("Weapon Stats")]
     public float MineFireDelay = 2f;
 
+
     [Space(10)]
     [TabGroup("Weapon Poison Damage")]
     public float poisonShootMissile;
@@ -165,7 +166,67 @@ public class StatsController : MonoBehaviour
     {
         MaxHealth = PlayerPrefs.GetFloat("PlayerHealth", 2500);
         MaxStamina = PlayerPrefs.GetFloat("PlayerAmmo", 100);
-        DamageBonus = PlayerPrefs.GetFloat("PlayerDamageBonus", 1);
+
+        // Skill tree upgrades
+
+        MoveSpeed *= PlayerPrefs.GetFloat("SpeedBoostST");
+
+        MaxHealth += PlayerPrefs.GetFloat("HealthBoostST");
+
+        MaxStamina += PlayerPrefs.GetFloat("AmmoBoostST");
+
+        expGain += PlayerPrefs.GetFloat("ExperienceBoostST");
+
+        // Damage 
+
+        MissileDamage *= PlayerPrefs.GetFloat("DamageBoostMissileST");
+
+        NukeDamage *= PlayerPrefs.GetFloat("DamageBoostNukeST");
+
+        MinigunDamage *= PlayerPrefs.GetFloat("DamageBoostMinigunST");
+
+        HomingMissileDamage *= PlayerPrefs.GetFloat("DamageBoostHomingMissileST");
+
+        FlakDamage *= PlayerPrefs.GetFloat("DamageBoostFlakST");
+
+        DroneDamage *= PlayerPrefs.GetFloat("DamageBoostDroneST");
+
+        LaserDamage *= PlayerPrefs.GetFloat("DamageBoostLaserST");
+
+        // Attack Speed
+
+        MissileFireDelay /= PlayerPrefs.GetFloat("AttackSpeedMissileST");
+
+        NukeFireDelay /= PlayerPrefs.GetFloat("AttackSpeedNukeST");
+
+        MinigunFireDelay /= PlayerPrefs.GetFloat("AttackSpeedMinigunST");
+
+        HomingMissileFireDelay /= PlayerPrefs.GetFloat("AttackSpeedHomingMissileST");
+
+        FlakFireDelay /= PlayerPrefs.GetFloat("AttackSpeedFlakST");
+
+        DroneFireDelay /= PlayerPrefs.GetFloat("AttackSpeedDroneST");
+
+        LaserFireDelay /= PlayerPrefs.GetFloat("AttackSpeedLaserST");
+
+        // Projectile Speed
+
+        MissileSpeed *= PlayerPrefs.GetFloat("ProjectileSpeedMissileST");
+
+        NukeSpeed *= PlayerPrefs.GetFloat("ProjectileSpeedNukeST");
+
+        MinigunSpeed *= PlayerPrefs.GetFloat("ProjectileSpeedMinigunST");
+
+        HomingMissileSpeed *= PlayerPrefs.GetFloat("ProjectileSpeedHomingMissileST");
+
+        FlakSpeed *= PlayerPrefs.GetFloat("ProjectileSpeedFlakST");
+
+        DroneSpeed *= PlayerPrefs.GetFloat("ProjectileSpeedDroneST");
+
+        LaserSpeed *= PlayerPrefs.GetFloat("ProjectileSpeedLaserST");
+
+        // other
+        DamageBonus += PlayerPrefs.GetFloat("PlayerDamageBonus", 1);
         MissileDamage *= DamageBonus;
         NukeDamage *= DamageBonus;
         MinigunDamage *= DamageBonus;

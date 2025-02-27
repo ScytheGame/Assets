@@ -23,6 +23,9 @@ public class SkillPrefabController : MonoBehaviour
     [SerializeField] List<SkillPrefabController> PreviousSkills;
     [SerializeField] List<SkillPrefabController> OtherSkillTypes;
     [SerializeField] List<SkillPrefabController> DisableCards;
+    [SerializeField] enum Weapon { None = 0, Missile = 1, Nuke = 2, Minigun = 3, HomingMissile = 4, Flak = 5, Drone = 6, Laser = 7, Heavy = 8, Rapid = 9, Homing = 10 };
+    [SerializeField] Weapon SkillWeapon;
+    [SerializeField] float SkillWeaponFloat;
 
 
     [Space(10)]
@@ -38,10 +41,32 @@ public class SkillPrefabController : MonoBehaviour
     [SerializeField] float MaxUpgradeLevel;
     [SerializeField] bool CanAfford;
     [SerializeField] bool NonEnding;
-    [SerializeField] bool IsRandomSkill;
     [SerializeField] float RandomValue;
     private void Start()
     {
+        if (SkillWeapon == Weapon.None)
+            SkillWeaponFloat = 0;
+        if (SkillWeapon == Weapon.Missile)
+            SkillWeaponFloat = 1;
+        if (SkillWeapon == Weapon.Nuke)
+            SkillWeaponFloat = 2;
+        if (SkillWeapon == Weapon.Minigun)
+            SkillWeaponFloat = 3;
+        if (SkillWeapon == Weapon.HomingMissile)
+            SkillWeaponFloat = 4;
+        if (SkillWeapon == Weapon.Flak)
+            SkillWeaponFloat = 5;
+        if (SkillWeapon == Weapon.Drone)
+            SkillWeaponFloat = 6;
+        if (SkillWeapon == Weapon.Laser)
+            SkillWeaponFloat = 7;
+        if (SkillWeapon == Weapon.Heavy)
+            SkillWeaponFloat = 8;
+        if (SkillWeapon == Weapon.Rapid)
+            SkillWeaponFloat = 9;
+        if (SkillWeapon == Weapon.Homing)
+            SkillWeaponFloat = 10;
+
         if (CelestialCost == 0)
         {
             CelestialCostGameObject.SetActive(false);
@@ -76,98 +101,117 @@ public class SkillPrefabController : MonoBehaviour
     }
     void SkillName()
     {
-        if (!SkillID.Equals("MS") || !SkillID.Equals("DS") || !SkillID.Equals("AA") || !SkillID.Equals("HC") || !SkillID.Equals("PS"))
+        if (!SkillID.Equals("MS") || !SkillID.Equals("DS") || !SkillID.Equals("BF") || !SkillID.Equals("ArrS") || !SkillID.Equals("ArrSD") || !SkillID.Equals("Rapid") || !SkillID.Equals("Homing") || !SkillID.Equals("Nuke") || !SkillID.Equals("Flak") || !SkillID.Equals("Laser") || !SkillID.Equals("HomingMissile"))
         {
-            if (SkillValue == 0);
-
-            else if (SkillValue <= 0.15)
-            {
-                SkillNameText.text = ("Weak ");
-            }
-            else if (SkillValue <= 0.3)
-            {
-                SkillNameText.text = ("Moderate ");
-            }
-            else if (SkillValue <= 0.5)
-            {
-                SkillNameText.text = ("Strong ");
-            }
-            else if (SkillValue > 0.5)
-            {
-                SkillNameText.text = ("Greatest ");
-            }
 
             if (SkillID.Equals("DB"))
-                SkillNameText.text += ("Damage Boost");
+                SkillNameText.text = ("Damage Boost");
 
             if (SkillID.Equals("SB"))
-                SkillNameText.text += ("Speed Boost");
+                SkillNameText.text = ("Speed Boost");
 
             if (SkillID.Equals("AS"))
-                SkillNameText.text += ("Attack Speed Boost");
+                SkillNameText.text = ("Attack Speed Boost");
 
             if (SkillID.Equals("PS"))
-                SkillNameText.text += ("Projectile Speed Boost");
+                SkillNameText.text = ("Projectile Speed Boost");
 
             if (SkillID.Equals("HB"))
-                SkillNameText.text += ("Health Boost");
-
-            if (SkillID.Equals("ER"))
-                SkillNameText.text += ("Explosion Radius Boost");
+                SkillNameText.text = ("Health Boost");
 
             if (SkillID.Equals("EB"))
-                SkillNameText.text += ("Experience Boost");
+                SkillNameText.text = ("Experience Boost");
         }
         else
         {
             if (SkillID.Equals("MS"))
-                SkillNameText.text = ("Multishot");
+                SkillNameText.text = ("Multi shot");
 
             if (SkillID.Equals("DS"))
-                SkillNameText.text = ("Doubleshot");
+                SkillNameText.text = ("Double shot");
 
-            if (SkillID.Equals("AA"))
-                SkillNameText.text = ("Aim Assist");
+            if (SkillID.Equals("BF"))
+                SkillNameText.text = ("Backwards Fire");
 
-            if (SkillID.Equals("HC"))
-                SkillNameText.text = ("Homing");
+            if (SkillID.Equals("ArrS"))
+                SkillNameText.text = ("Array Shot");
 
+            if (SkillID.Equals("ArrSD"))
+                SkillNameText.text = ("Array Shot Double Shot");
+
+            if (SkillID.Equals("RF"))
+                SkillNameText.text = ("Rapid Fire");
+
+
+            if (SkillID.Equals("Rapid"))
+                SkillNameText.text = ("Rapid Class");
+
+            if (SkillID.Equals("Homing"))
+                SkillNameText.text = ("Homing Class");
+
+
+            if (SkillID.Equals("Nuke"))
+                SkillNameText.text = ("Nuke Weapon");
+
+            if (SkillID.Equals("Flak"))
+                SkillNameText.text = ("Flak Weapon");
+
+            if (SkillID.Equals("Laser"))
+                SkillNameText.text = ("Laser Weapon");
+
+            if (SkillID.Equals("HomingMissile"))
+                SkillNameText.text = ("Homing Missile Weapon");
         }
     }
     void SkillDescription()
     {
         if (SkillID.Equals("DB"))
-                skillDescriptionText.text = ("Boosts Damage By " + SkillValue * 100 + "%");
+            skillDescriptionText.text = ("Boosts " + SkillWeapon + " Damage By " + SkillValue * 100 + "%");
 
-            if (SkillID.Equals("SB"))
-                skillDescriptionText.text = ("Boosts Speed By " + SkillValue * 100 + "%");
+        if (SkillID.Equals("SB"))
+            skillDescriptionText.text = ("Boosts Speed By " + SkillValue * 100 + "%");
 
-            if (SkillID.Equals("AS"))
-                skillDescriptionText.text = ("Boosts Attack Speed By " + SkillValue * 100 + "%");
+        if (SkillID.Equals("AS"))
+            skillDescriptionText.text = ("Boosts " + SkillWeapon + " Attack Speed By " + SkillValue * 100 + "%");
 
-            if (SkillID.Equals("PS"))
-                skillDescriptionText.text = ("Boosts Projectile Speed By " + SkillValue * 100 + "%");
+        if (SkillID.Equals("PS"))
+            skillDescriptionText.text = ("Boosts " + SkillWeapon + " Projectile Speed By " + SkillValue * 100 + "%");
 
-            if (SkillID.Equals("HB"))
-                skillDescriptionText.text = ("Boosts Health By " + SkillValue * 100 + "%");
+        if (SkillID.Equals("HB"))
+            skillDescriptionText.text = ("Boosts Health By " + SkillValue);
 
-            if (SkillID.Equals("ER"))
-                skillDescriptionText.text = ("Boosts Explosion Radius By " + SkillValue * 100 + "%");
+        if (SkillID.Equals("EB"))
+            skillDescriptionText.text = ("Boosts Experience Gain By " + SkillValue);
 
-            if (SkillID.Equals("EB"))
-                skillDescriptionText.text = ("Boosts Experience Gain By " + SkillValue * 100 + "%");
+        if (SkillID.Equals("MS"))
+            skillDescriptionText.text = ("Unlocks Multishot");
 
-            if (SkillID.Equals("MS"))
-                skillDescriptionText.text = ("Unlocks Multishot");
+        if (SkillID.Equals("DS"))
+            skillDescriptionText.text = ("Unlocks Doubleshot");
 
-            if (SkillID.Equals("DS"))
-                skillDescriptionText.text = ("Unlocks Doubleshot");
+        if (SkillID.Equals("BF"))
+            skillDescriptionText.text = ("Unlocks Backwards Fire");
 
-            if (SkillID.Equals("AA"))
-                skillDescriptionText.text = ("Unlocks Aim Assist");
+        if (SkillID.Equals("RF"))
+            skillDescriptionText.text = ("Unlocks Rapid Fire");
 
-            if (SkillID.Equals("HC"))
-                skillDescriptionText.text = ("Unlocks Homing");
+        if (SkillID.Equals("Rapid"))
+            skillDescriptionText.text = ("Unlocks The Rapid Class");
+
+        if (SkillID.Equals("Homing"))
+            skillDescriptionText.text = ("Unlocks the homing Class");
+
+        if (SkillID.Equals("Nuke"))
+            skillDescriptionText.text = ("Unlocks The Nuke Weapon");
+
+        if (SkillID.Equals("Flak"))
+            skillDescriptionText.text = ("Unlocks The Flak Weapon");
+
+        if (SkillID.Equals("Laser"))
+            skillDescriptionText.text = ("Unlocks The Laser Weapon");
+
+        if (SkillID.Equals("HomingMissile"))
+            skillDescriptionText.text = ("Unlocks The Homing Missile Weapon");
 
     }
 
@@ -228,13 +272,7 @@ public class SkillPrefabController : MonoBehaviour
             Stats.CelestialPoints -= CelestialCost;
             Stats.SolarPoints -= SolarCost;
 
-            if (IsRandomSkill)
-            {
-                RandomValue = Random.Range(0, 11);
-                SkillValue = Random.Range(0f, 0.6f);
-                RandomBoost();
-            }
-                Skill.Upgrade(SkillID, SkillValue);
+            Skill.Upgrade(SkillID, SkillWeaponFloat, SkillValue);
             if (NonEnding)
             {
 
@@ -284,37 +322,6 @@ public class SkillPrefabController : MonoBehaviour
     {
         UnlockButton.interactable = false;
         UnlockButtonText.text = ("Cannot Unlock");
-    }
-    void RandomBoost()
-    {
-
-        RandomValue = Mathf.Floor(RandomValue);
-        if (RandomValue == 0 || RandomValue == 6)
-        {
-            SkillID = ("DB");
-        }
-        if (RandomValue == 1 || RandomValue == 7)
-        {
-            SkillID = ("SB");
-        }
-        if (RandomValue == 2 || RandomValue == 8)
-        {
-            SkillID = ("AS");
-        }
-        if (RandomValue == 3 || RandomValue == 9)
-        {
-            SkillID = ("PS");
-        }
-        if (RandomValue == 4 || RandomValue == 10)
-        {
-            SkillID = ("HB");
-        }
-        if (RandomValue == 5 || RandomValue == 11)
-        {
-            SkillID = ("EB");
-        }
-        SkillName();
-        SkillDescription();
     }
     void DisableCard(SkillPrefabController Card)
     {

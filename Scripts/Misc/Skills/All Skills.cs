@@ -103,15 +103,10 @@ public class AllSkills : MonoBehaviour
         allSkills.Add(ProjectileSpeed);
         // allSkills.Add(Spread);
 
-        // One Time Skills
-        allSkills.Add(DoubleShot);
-        allSkills.Add(BackwardsFire);
-        allSkills.Add(MultiShot);
 
-        // Idle Skills
-        allSkills.Add(ArrayShot);
-        allSkills.Add(ArrayDelay);
-        allSkills.Add(ArrayDoubleShot);
+
+
+
 
         Debug.Log("Number of skills: " + allSkills.Count);
         foreach (SkillData skillData in allSkills)
@@ -130,6 +125,29 @@ public class AllSkills : MonoBehaviour
 
             allSkills.Add(Nuke);
             allSkills.Add(Flak);
+
+
+            // One Time Skills
+            if ((PlayerPrefs.GetInt("DoubleShotH") != 0))
+                allSkills.Add(DoubleShot);
+
+            if ((PlayerPrefs.GetInt("BackwardsFireH") != 0))
+                allSkills.Add(BackwardsFire);
+            
+            if ((PlayerPrefs.GetInt("MultiShotH") != 0))
+                allSkills.Add(MultiShot);
+
+            // Idle Skills
+            if ((PlayerPrefs.GetInt("ArrayShotH") != 0))
+                allSkills.Add(ArrayShot);
+            
+            if ((PlayerPrefs.GetInt("ArrayShotH") != 0))
+                allSkills.Add(ArrayDelay);
+            
+            if ((PlayerPrefs.GetInt("ArrayShotDoubleShotH") != 0))
+                allSkills.Add(ArrayDoubleShot);
+
+
         }
         if (Weapon == 1)
         {
@@ -139,7 +157,30 @@ public class AllSkills : MonoBehaviour
             allSkills.Add(LaserGun);
             allSkills.Add(BurstDelay);
             allSkills.Add(BurstAmount);
-            allSkills.Add(RapidFire);
+            if ((PlayerPrefs.GetInt("RapidFireR") != 0))
+                allSkills.Add(RapidFire);
+
+
+            // One Time Skills
+            if ((PlayerPrefs.GetInt("DoubleShotR") != 0))
+                allSkills.Add(DoubleShot);
+
+            if ((PlayerPrefs.GetInt("BackwardsFireR") != 0))
+                allSkills.Add(BackwardsFire);
+
+            if ((PlayerPrefs.GetInt("MultiShotR") != 0))
+                allSkills.Add(MultiShot);
+
+            // Idle Skills
+            if ((PlayerPrefs.GetInt("ArrayShotR") != 0))
+                allSkills.Add(ArrayShot);
+
+            if ((PlayerPrefs.GetInt("ArrayShotR") != 0))
+                allSkills.Add(ArrayDelay);
+
+            if ((PlayerPrefs.GetInt("ArrayShotDoubleShot") != 0))
+                allSkills.Add(ArrayDoubleShot);
+
         }
         if (Weapon == 2)
         {
@@ -147,6 +188,26 @@ public class AllSkills : MonoBehaviour
             Skill.mainWeapon = Skill.WeaponCode.Drone;
 
             allSkills.Add(HomingMissile);
+
+
+            if ((PlayerPrefs.GetInt("DoubleShotHO") != 0))
+                allSkills.Add(DoubleShot);
+
+            if ((PlayerPrefs.GetInt("BackwardsFireHO") != 0))
+                allSkills.Add(BackwardsFire);
+
+            if ((PlayerPrefs.GetInt("MultiShotHO") != 0))
+                allSkills.Add(MultiShot);
+
+            // Idle Skills
+            if ((PlayerPrefs.GetInt("ArrayShotHO") != 0))
+                allSkills.Add(ArrayShot);
+
+            if ((PlayerPrefs.GetInt("ArrayShotHO") != 0))
+                allSkills.Add(ArrayDelay);
+
+            if ((PlayerPrefs.GetInt("ArrayShotDoubleShotHO") != 0))
+                allSkills.Add(ArrayDoubleShot);
         }
     }
 
