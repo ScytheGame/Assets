@@ -6,6 +6,7 @@ public class DevLogSettings : MonoBehaviour
     [SerializeField] GameObject DevLogButton;
     [SerializeField] GameObject OpenDevLog;
     [SerializeField] GameObject OpenLeaderBoard;
+    [SerializeField] GameObject OpenSkillTree;
     [SerializeField] int DevLogSave;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -17,6 +18,7 @@ public class DevLogSettings : MonoBehaviour
             DevLogButton.SetActive(false);
             OpenDevLog.SetActive(true);
             OpenLeaderBoard.SetActive(true);
+            OpenSkillTree.SetActive(true);
         }
         else
         {
@@ -24,6 +26,7 @@ public class DevLogSettings : MonoBehaviour
             DevLogButton.SetActive(true);
             OpenDevLog.SetActive(false);
             OpenLeaderBoard.SetActive(false);
+            OpenSkillTree.SetActive(false);
         }
     }
     public void Close ()
@@ -32,6 +35,7 @@ public class DevLogSettings : MonoBehaviour
         DevLogButton.SetActive(false);
         OpenDevLog.SetActive(true);
         OpenLeaderBoard.SetActive(true);
+        OpenSkillTree.SetActive(true);
         DevLogSave = 2;
         Save();
     }
@@ -41,6 +45,7 @@ public class DevLogSettings : MonoBehaviour
         DevLogButton.SetActive(true);
         OpenDevLog.SetActive(false);
         OpenLeaderBoard.SetActive(false);
+        OpenSkillTree.SetActive(true);
         DevLogSave = 0;
         Save();
     }
