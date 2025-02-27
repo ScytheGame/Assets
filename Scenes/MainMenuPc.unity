@@ -17634,6 +17634,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 1382944646}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1382944649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24659,6 +24671,7 @@ GameObject:
   - component: {fileID: 2107935627}
   - component: {fileID: 2107935629}
   - component: {fileID: 2107935630}
+  - component: {fileID: 2107935631}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -24925,6 +24938,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ResolutionDropdown: {fileID: 1444130381}
+--- !u!114 &2107935631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107935618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90145b8f8e6553e4a9ae7521d490d094, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2116281471
 GameObject:
   m_ObjectHideFlags: 0
@@ -25822,11 +25847,35 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5698993727029555781, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: Skill
+      value: 
+      objectReference: {fileID: 2107935631}
+    - target: {fileID: 5698993727029555781, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
       propertyPath: Stats
       value: 
       objectReference: {fileID: 748956587}
     - target: {fileID: 5698993727029555781, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: SkillID
+      value: Rapid
+      objectReference: {fileID: 0}
+    - target: {fileID: 5698993727029555781, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: SolarCost
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5698993727029555781, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: SkillWeapon
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5698993727029555781, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
       propertyPath: DisableCards.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5698993727029555781, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: PreviousSkills.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5698993727029555781, guid: 42d85c8045f832a41b7e61ba36a81ee0, type: 3}
+      propertyPath: OtherSkillTypes.Array.size
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

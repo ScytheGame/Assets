@@ -232,7 +232,7 @@ public class EnemyController : MonoBehaviour
 
         Enemy.rotation = Quaternion.Slerp(Enemy.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
-        if (Mathf.Abs(angleDifference) <= attackThreshold && DistanceToPlayer <= 250 && ShotDelay <= 0)
+        if (Mathf.Abs(angleDifference) <= attackThreshold && DistanceToPlayer <= 90 && ShotDelay <= 0)
         {
             float Chance = Random.Range(1, 100);
             if (Chance <= AttackChance)

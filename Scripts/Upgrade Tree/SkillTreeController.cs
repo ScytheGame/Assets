@@ -168,6 +168,16 @@ public class SkillTreeController : MonoBehaviour
 
         if (ID.Equals("DB")) // DB = Damage Boost
         {
+            if (Weapon == 0)
+            {
+                DamageBoostMissile += Value;
+                DamageBoostNuke += Value;
+                DamageBoostMinigun += Value;
+                DamageBoostHomingMissile += Value;
+                DamageBoostFlak += Value;
+                DamageBoostDrone += Value;
+                DamageBoostLaser += Value;
+            }
             if (Weapon == 1)
             {
                 DamageBoostMissile += Value;
@@ -205,6 +215,16 @@ public class SkillTreeController : MonoBehaviour
 
         if (ID.Equals("AS")) // AS = Attack Speed
         {
+            if (Weapon == 0)
+            {
+                AttackSpeedMissile += Value;
+                AttackSpeedNuke += Value;
+                AttackSpeedMinigun += Value;
+                AttackSpeedHomingMissile += Value;
+                AttackSpeedFlak += Value;
+                AttackSpeedDrone += Value;
+                AttackSpeedLaser += Value;
+            }
             if (Weapon == 1)
             {
                 AttackSpeedMissile += Value;
@@ -237,6 +257,16 @@ public class SkillTreeController : MonoBehaviour
 
         if (ID.Equals("PS")) // Projectile Speed
         {
+            if (Weapon == 0)
+            {
+                ProjectileSpeedMissile += Value;
+                ProjectileSpeedNuke += Value;
+                ProjectileSpeedMinigun += Value;
+                ProjectileSpeedHomingMissile += Value;
+                ProjectileSpeedFlak += Value;
+                ProjectileSpeedDrone += Value;
+                ProjectileSpeedLaser += Value;
+            }
             if (Weapon == 1)
             {
                 ProjectileSpeedMissile += Value;
@@ -359,7 +389,7 @@ public class SkillTreeController : MonoBehaviour
             }
         }
 
-        if (ID.Equals("RapidFire"))
+        if (ID.Equals("RF"))
         {
             if (Weapon == 9)
             {
@@ -619,7 +649,5 @@ public class SkillTreeController : MonoBehaviour
         PlayerPrefs.SetFloat("ProjectileSpeedDroneST", ProjectileSpeedDrone);
 
         PlayerPrefs.SetFloat("ProjectileSpeedLaserST", ProjectileSpeedLaser);
-
-
     }
 }

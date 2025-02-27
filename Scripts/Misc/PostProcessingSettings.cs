@@ -57,8 +57,8 @@ public class PostProcessingSettings : MonoBehaviour
 
     public void Load()
     {
-        ChromaticAberrationToggle.isOn = PlayerPrefs.GetInt("ChromaticAberation", 1) == 0;
-        VignetteToggle.isOn = PlayerPrefs.GetInt("Vignette", 1) == 0;
+        ChromaticAberrationToggle.isOn = PlayerPrefs.GetInt("ChromaticAberation", 1) != 0;
+        VignetteToggle.isOn = PlayerPrefs.GetInt("Vignette", 1) != 0;
 
         ChromaticAberrationSlider.value = PlayerPrefs.GetFloat("ChromaticAberationSlider", 0.1f);
         VignetteSlider.value = PlayerPrefs.GetFloat("VignetteSlider", 0.1f);

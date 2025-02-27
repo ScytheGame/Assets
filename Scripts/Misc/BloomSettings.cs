@@ -69,9 +69,9 @@ public class BloomSettings : MonoBehaviour
 
     public void Load()
     {
-        BloomThreshold.isOn = PlayerPrefs.GetInt("BloomThresholdKey", 1) == 0;
-        BloomIntensity.isOn = PlayerPrefs.GetInt("BloomIntensityKey", 1) == 0;
-        BloomPerformanceMode.isOn = PlayerPrefs.GetInt("BloomPerformanceModeKey", 1) == 0;
+        BloomThreshold.isOn = PlayerPrefs.GetInt("BloomThresholdKey", 1) != 0;
+        BloomIntensity.isOn = PlayerPrefs.GetInt("BloomIntensityKey", 1) != 0;
+        BloomPerformanceMode.isOn = PlayerPrefs.GetInt("BloomPerformanceModeKey", 1) != 0;
 
         BloomThresholdSlider.value = PlayerPrefs.GetFloat("BloomThresholdSliderKey", 0.1f);
         BloomIntensitySlider.value = PlayerPrefs.GetFloat("BloomIntensitySliderKey", 0.1f);

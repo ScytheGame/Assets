@@ -1,9 +1,14 @@
+using TMPro;
 using UnityEngine;
 
 public class WeaponSelector : MonoBehaviour
 {
     [SerializeField] SkillsController SkillsController;
     [SerializeField] AllSkills AllSkills;
+    [SerializeField] string Class;
+    [SerializeField] TextMeshProUGUI UnlockButton;
+    bool RapidClass;
+    bool HomingClass;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -13,6 +18,21 @@ public class WeaponSelector : MonoBehaviour
         {
             SkillsController = Player.GetComponent<SkillsController>();
             AllSkills = Player.GetComponent<AllSkills>();
+        }
+        RapidClass = (PlayerPrefs.GetInt("RapidClass") != 0);
+        HomingClass = (PlayerPrefs.GetInt("HomingClass") != 0);
+
+        if (Class.Equals("Rapid") && !RapidClass)
+        {
+            UnlockButton.text = ("Locked");
+        }
+        else if (Class.Equals("Homing") && !HomingClass)
+        {
+            UnlockButton.text = ("Locked");
+        }
+        else
+        {
+            UnlockButton.text = ("Select");
         }
     }
 
@@ -26,18 +46,24 @@ public class WeaponSelector : MonoBehaviour
     }
     public void RapidWeapon()
     {
-        Time.timeScale = 1;
-        SkillsController.SkillPanel.SetActive(false);
-        SkillsController.SelectedWeapon = SkillsController.BaseWeapon.Rapid;
-        SkillsController.WeaponSelected = true;
-        AllSkills.SelectedWeapon(1);
+        if (RapidClass)
+        {
+            Time.timeScale = 1;
+            SkillsController.SkillPanel.SetActive(false);
+            SkillsController.SelectedWeapon = SkillsController.BaseWeapon.Rapid;
+            SkillsController.WeaponSelected = true;
+            AllSkills.SelectedWeapon(1);
+        }
     }
     public void HomingWeapon()
     {
-        Time.timeScale = 1;
-        SkillsController.SkillPanel.SetActive(false);
-        SkillsController.SelectedWeapon = SkillsController.BaseWeapon.Homing;
-        SkillsController.WeaponSelected = true;
-        AllSkills.SelectedWeapon(2);
+        if (HomingClass)
+        {
+            Time.timeScale = 1;
+            SkillsController.SkillPanel.SetActive(false);
+            SkillsController.SelectedWeapon = SkillsController.BaseWeapon.Homing;
+            SkillsController.WeaponSelected = true;
+            AllSkills.SelectedWeapon(2);
+        }
     }
 }
