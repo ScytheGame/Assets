@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using static UnityEngine.Rendering.DebugUI;
 
 public class AllSkills : MonoBehaviour
 {
@@ -7,6 +8,8 @@ public class AllSkills : MonoBehaviour
     [SerializeField] SkillsController SkillsController;
     [SerializeField] SkillData SkillData;
     [SerializeField] Skill Skill;
+    [SerializeField] float BiasFactor;
+    [SerializeField] float MaxValue;
     [SerializeField] List<SkillData> Skills = new List<SkillData>();
     public List<SkillData> allSkills = new List<SkillData>();
 
@@ -31,14 +34,17 @@ public class AllSkills : MonoBehaviour
     // Heavy Weapons
     SkillData Nuke = new SkillData("Nuke", "Gain A Nuke As An Extra Weapon, Reduces (Damage, Attack Speed, Projectile Speed) All By 50%", "Unlocks Nuke", Bool: true);
     SkillData Flak = new SkillData("Flak", "Gain A Flak As An Extra Weapon, Reduces (Damage, Attack Speed, Projectile Speed) All By 50%", "Unlocks Flak", Bool: true);
+    SkillData MineHeavy = new SkillData("Heavy Mine", "Gain A Mine As An Extra Weapon, Reduces (Damage, Attack Speed, Projectile Speed) All By 50%", "Unlocks Mine", Bool: true);
 
     // Homing Weapons
     SkillData Drone = new SkillData("Drone", "Gain Seeker Drones As An Extra Weapon, Reduces (Damage, Attack Speed, Projectile Speed) All By 50%", "Unlocks Drone", Bool: true);
     SkillData HomingMissile = new SkillData("Homing Missile", "Gain A Homing Missile As An Extra Weapon, Reduces (Damage, Attack Speed, Projectile Speed) All By 50%", "Unlocks Homing Missile", Bool: true);
+    SkillData MineHoming = new SkillData("Homing Mine", "Gain A Mine As An Extra Weapon, Reduces (Damage, Attack Speed, Projectile Speed) All By 50%", "Unlocks Mine", Bool: true);
 
     // Rapid Fire Weapons
     SkillData MiniGun = new SkillData("Minigun", "Gain A Minigun As An Extra Weapon, Reduces (Damage, Attack Speed, Projectile Speed) All By 50%", "Unlocks Minigun", Bool: true);
     SkillData LaserGun = new SkillData("Laser", "Gain A Laser Gun As An Extra Weapon, Reduces (Damage, Attack Speed, Projectile Speed) All By 50%", "Unlocks Laser gun", Bool: true);
+    SkillData MineRapid = new SkillData("Rapid Mine", "Gain A Mine As An Extra Weapon, Reduces (Damage, Attack Speed, Projectile Speed) All By 50%", "Unlocks Mine", Bool: true);
 
     // Class Specific Skills
 
@@ -68,28 +74,6 @@ public class AllSkills : MonoBehaviour
         XPBuff.requiredLevel = 5;
         Spread.requiredLevel = 5;
 
-        //Weapon Skills
-
-        //heavy 
-        Nuke.prerequisites.Add(DamageBoost);
-        Nuke.requiredSkillLevel = 2;
-        Nuke.requiredLevel = 10;
-        Flak.requiredLevel = 15;
-        ArrayShot.requiredLevel = 10;
-
-        //rapid
-        BurstAmount.requiredLevel = 5;
-        BurstDelay.requiredLevel = 10;
-        RapidFire.prerequisites.Add(BurstDelay);
-        RapidFire.requiredSkillLevel = 3;
-        RapidFire.requiredLevel = 15;
-        LaserGun.requiredLevel = 30;
-        ArrayShot.requiredLevel = 5;
-
-        // homing
-        HomingMissile.prerequisites.Add(DoubleShot);
-        HomingMissile.requiredLevel = 10;
-        ArrayShot.requiredLevel = 15;
 
         // Upgradeable Skills
         allSkills.Add(DamageBoost);
@@ -118,96 +102,167 @@ public class AllSkills : MonoBehaviour
     }
     public void SelectedWeapon(float Weapon)
     {
+        SkillTreeData SkillData = SkillTreeData.Load();
+
+        //Weapon Skills
+
+
+
+
         if (Weapon == 0)
         {
             StatsController.Missile = true;
             Skill.mainWeapon = Skill.WeaponCode.Missile;
 
-            allSkills.Add(Nuke);
-            allSkills.Add(Flak);
+            //heavy 
+            Nuke.prerequisites.Add(DamageBoost);
+            Nuke.requiredSkillLevel = 2;
+            Nuke.requiredLevel = 10;
+
+            if (SkillData.Nuke)
+                Flak.requiredLevel = 20;
+            else
+                Flak.requiredLevel = 15;
+
+            ArrayShot.requiredLevel = 10;
+
+            MineHeavy.requiredLevel = 25;
+
+
+            if (SkillData.Nuke)
+                allSkills.Add(Nuke);
+
+            if (SkillData.Flak)
+                allSkills.Add(Flak);
+
+            if (SkillData.MineHeavy)
+                allSkills.Add(MineHeavy);
 
 
             // One Time Skills
-            if ((PlayerPrefs.GetInt("DoubleShotH") != 0))
+            if (SkillData.DoubleShotH)
                 allSkills.Add(DoubleShot);
 
-            if ((PlayerPrefs.GetInt("BackwardsFireH") != 0))
+            if (SkillData.BackwardsFireH)
                 allSkills.Add(BackwardsFire);
             
-            if ((PlayerPrefs.GetInt("MultiShotH") != 0))
+            if (SkillData.MultiShotH)
                 allSkills.Add(MultiShot);
 
             // Idle Skills
-            if ((PlayerPrefs.GetInt("ArrayShotH") != 0))
+            if (SkillData.ArrayShotH)
                 allSkills.Add(ArrayShot);
             
-            if ((PlayerPrefs.GetInt("ArrayShotH") != 0))
+            if (SkillData.ArrayShotH)
                 allSkills.Add(ArrayDelay);
             
-            if ((PlayerPrefs.GetInt("ArrayShotDoubleShotH") != 0))
+            if (SkillData.ArrayShotDoubleShotH)
                 allSkills.Add(ArrayDoubleShot);
 
 
+            Debug.Log("Number of skills: " + allSkills.Count);
+            foreach (SkillData skillData in allSkills)
+            {
+                Debug.Log("Skill Name: " + skillData.skillName);
+            }
         }
         if (Weapon == 1)
         {
             StatsController.Minigun = true;
             Skill.mainWeapon = Skill.WeaponCode.MiniGun;
 
-            allSkills.Add(LaserGun);
+            //rapid
+            BurstAmount.requiredLevel = 5;
+            BurstDelay.requiredLevel = 10;
+            RapidFire.prerequisites.Add(BurstDelay);
+            RapidFire.requiredSkillLevel = 3;
+            RapidFire.requiredLevel = 15;
+            LaserGun.requiredLevel = 35;
+            ArrayShot.requiredLevel = 5;
+            MineRapid.requiredLevel = 20;
+
             allSkills.Add(BurstDelay);
             allSkills.Add(BurstAmount);
-            if ((PlayerPrefs.GetInt("RapidFireR") != 0))
+
+            if (SkillData.Laser)
+                allSkills.Add(LaserGun);
+
+            if (SkillData.MineRapid)
+                allSkills.Add(MineRapid);
+
+            if (SkillData.RapidFireR)
                 allSkills.Add(RapidFire);
 
 
             // One Time Skills
-            if ((PlayerPrefs.GetInt("DoubleShotR") != 0))
+            if (SkillData.DoubleShotR)
                 allSkills.Add(DoubleShot);
 
-            if ((PlayerPrefs.GetInt("BackwardsFireR") != 0))
+            if (SkillData.BackwardsFireR)
                 allSkills.Add(BackwardsFire);
 
-            if ((PlayerPrefs.GetInt("MultiShotR") != 0))
+            if (SkillData.MultiShotR)
                 allSkills.Add(MultiShot);
 
             // Idle Skills
-            if ((PlayerPrefs.GetInt("ArrayShotR") != 0))
+            if (SkillData.ArrayShotR)
                 allSkills.Add(ArrayShot);
 
-            if ((PlayerPrefs.GetInt("ArrayShotR") != 0))
+            if (SkillData.ArrayShotR)
                 allSkills.Add(ArrayDelay);
 
-            if ((PlayerPrefs.GetInt("ArrayShotDoubleShot") != 0))
+            if (SkillData.ArrayShotDoubleShotR)
                 allSkills.Add(ArrayDoubleShot);
 
+            Debug.Log("Number of skills: " + allSkills.Count);
+            foreach (SkillData skillData in allSkills)
+            {
+                Debug.Log("Skill Name: " + skillData.skillName);
+            }
         }
         if (Weapon == 2)
         {
             StatsController.Drone = true;
             Skill.mainWeapon = Skill.WeaponCode.Drone;
 
-            allSkills.Add(HomingMissile);
+            // homing
+            HomingMissile.prerequisites.Add(DoubleShot);
+            HomingMissile.requiredLevel = 10;
+            MineHoming.requiredLevel = 20;
+            ArrayShot.requiredLevel = 15;
+
+            if (SkillData.HomingMissile)
+                allSkills.Add(HomingMissile);
+
+            if (SkillData.MineHoming)
+                allSkills.Add(MineHoming);
 
 
-            if ((PlayerPrefs.GetInt("DoubleShotHO") != 0))
+            // One Time Skills
+            if (SkillData.DoubleShotHO)
                 allSkills.Add(DoubleShot);
 
-            if ((PlayerPrefs.GetInt("BackwardsFireHO") != 0))
+            if (SkillData.BackwardsFireHO)
                 allSkills.Add(BackwardsFire);
 
-            if ((PlayerPrefs.GetInt("MultiShotHO") != 0))
+            if (SkillData.MultiShotHO)
                 allSkills.Add(MultiShot);
 
             // Idle Skills
-            if ((PlayerPrefs.GetInt("ArrayShotHO") != 0))
+            if (SkillData.ArrayShotHO)
                 allSkills.Add(ArrayShot);
 
-            if ((PlayerPrefs.GetInt("ArrayShotHO") != 0))
+            if (SkillData.ArrayShotHO)
                 allSkills.Add(ArrayDelay);
 
-            if ((PlayerPrefs.GetInt("ArrayShotDoubleShotHO") != 0))
+            if (SkillData.ArrayShotDoubleShotHO)
                 allSkills.Add(ArrayDoubleShot);
+
+            Debug.Log("Number of skills: " + allSkills.Count);
+            foreach (SkillData skillData in allSkills)
+            {
+                Debug.Log("Skill Name: " + skillData.skillName);
+            }
         }
     }
 
@@ -228,51 +283,57 @@ public class AllSkills : MonoBehaviour
 
         ProjectileSpeed.SkillUpdate("Bullet Speed", ValueUpdate());
     }
+
     public float ValueUpdate()
     {
-        float[] values = { 0.2f, 0.25f, 0.3f, 0.35f, 0.4f, 0.45f, 0.5f, 0.55f, 0.6f };
+        SkillTreeData skillData = SkillTreeData.Load();
+        BiasFactor = skillData.SkillChanceBias;
+        List<float> Values = GeneratedValues();
 
-        float randomValue = Random.Range(0, 100);
+        if (Values.Count == 0) 
+            return 0;
 
-        if (randomValue <= 35)
+        float TotalWeight = 0f;
+
+        List<float> CumulativeWeights = new List<float>();
+
+        for (int i = 0; i < Values.Count; i++)
         {
-            return values[0];
+            TotalWeight += Mathf.Pow(i + 1, BiasFactor);
+            CumulativeWeights.Add(TotalWeight);
         }
-        else if (randomValue <= 45)
+
+        for (int i = 0; i < Values.Count; i++)
         {
-            return values[1];
+            CumulativeWeights[i] /= TotalWeight;
         }
-        else if (randomValue <= 50)
+
+        float RandomValue = Random.Range(0f, 1f);
+
+        for (int i = 0; i < Values.Count; i ++)
         {
-            return values[2];
+            if (RandomValue <= CumulativeWeights[i])
+            {
+                return Values[i];
+            }
         }
-        else if (randomValue <= 60)
+
+        return Values[0];
+
+    }
+
+    List<float> GeneratedValues()
+    {
+        SkillTreeData skillData = SkillTreeData.Load();
+        MaxValue = skillData.SkillValueBoost;
+        List<float> Values = new List<float>();
+
+        for (float i = MaxValue; i >= 0.05f; i -= 0.05f)
         {
-            return values[3];
+            float roundedValue = Mathf.Round(i * 100f) / 100f;
+            Debug.Log(" Available skill percent: " + roundedValue);
+            Values.Add(roundedValue);
         }
-        else if (randomValue <= 70)
-        {
-            return values[4];
-        }
-        else if (randomValue <= 75)
-        {
-            return values[5];
-        }
-        else if (randomValue <= 85)
-        {
-            return values[6];
-        }
-        else if (randomValue <= 95)
-        {
-            return values[7];
-        }
-        else if (randomValue <= 100)
-        {
-            return values[8];
-        }
-        else
-        {
-            return values[0];
-        }
+        return Values;
     }
 }

@@ -15,7 +15,7 @@ public class LaserGunControllerPlayer : MonoBehaviour
     [SerializeField] public float BulletSpeed = 30f;
     [SerializeField] private float shotDelay = 0.01f;
     [SerializeField] public float fireDelay = 0.01f;
-    [SerializeField] private float StaminaPerShot = 5f;
+    [SerializeField] private float StaminaPerShot = 10f;
     [SerializeField] float Damage;
 
     public Skill Skill;
@@ -43,6 +43,7 @@ public class LaserGunControllerPlayer : MonoBehaviour
         setDelayTimer = fireDelay;
         BulletSpeed = StatsController.LaserSpeed;
         fireDelay = StatsController.LaserFireDelay;
+        StaminaPerShot = StatsController.LaserAmmoCost;
 
         if (canFire == true && delayTimer >= setDelayTimer && StaminaRegen.isReloading == false)
         {
@@ -76,7 +77,6 @@ public class LaserGunControllerPlayer : MonoBehaviour
         {
             if (StatsController.DoubleShot == true)
             {
-                StaminaPerShot = 5f;
                 StatsController.CurrentStamina -= StaminaPerShot;
                 AudioManager.PlaySFX(AudioManager.MiniGunShot, Source);
                 int AngleOfSpread = Random.Range(-Spread, Spread);
@@ -106,7 +106,6 @@ public class LaserGunControllerPlayer : MonoBehaviour
             }
             else
             {
-                StaminaPerShot = 10f;
                 StatsController.CurrentStamina -= StaminaPerShot;
                 AudioManager.PlaySFX(AudioManager.MiniGunShot, Source);
                 int AngleOfSpread = Random.Range(-Spread, Spread);

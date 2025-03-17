@@ -41,6 +41,7 @@ public class NukeControllerPlayer : MonoBehaviour
         Damage = StatsController.NukeDamage;
         NukeSpeed = StatsController.NukeSpeed;
         fireDelay = StatsController.NukeFireDelay;
+        StaminaPerShot = StatsController.NukeAmmoCost;
         if (canFire == true && StaminaRegen.isReloading == false)
         {
             //Double Shot
@@ -49,7 +50,6 @@ public class NukeControllerPlayer : MonoBehaviour
 
                 if (Skill.usingMainWeaponNuke == true || Skill.usingBackupWeaponNuke == true)
                 {
-                    StaminaPerShot = 25f;
                     FireNuke();
                     canFire = false;
                     setDelayTimer = 0f;
@@ -62,7 +62,6 @@ public class NukeControllerPlayer : MonoBehaviour
             {
                 if (Skill.usingMainWeaponNuke == true || Skill.usingBackupWeaponNuke == true)
                 {
-                    StaminaPerShot = 50f;
                     FireNuke();
                     canFire = false;
                     setDelayTimer = 0f;

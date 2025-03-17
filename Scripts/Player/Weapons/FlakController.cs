@@ -40,6 +40,7 @@ public class FlakControllerPlayer : MonoBehaviour
         Damage = StatsController.FlakDamage;
         FlakSpeed = StatsController.FlakSpeed;
         fireDelay = StatsController.FlakFireDelay;
+        StaminaPerShot = StatsController.FlakAmmoCost;
         if (canFire == true && StaminaRegen.isReloading == false)
         {
             if (Skill.usingMainWeaponFlak == true || Skill.usingBackupWeaponFlak == true) 

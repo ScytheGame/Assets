@@ -41,6 +41,7 @@ public class MissleControllerPlayer : MonoBehaviour
         missileSpeed = StatsController.MissileSpeed;
         Damage = StatsController.MissileDamage;
         fireDelay = StatsController.MissileFireDelay;
+        StaminaPerShot = StatsController.MissileAmmoCost;
         if (canFire == true && StaminaRegen.isReloading == false)
         {
 
@@ -50,7 +51,6 @@ public class MissleControllerPlayer : MonoBehaviour
 
                 if (Skill.usingMainWeaponMissile == true || Skill.usingBackupWeaponMissile == true)
                 {
-                    StaminaPerShot = 2.5f;
                     FireMissile();
                     firedFirstMissile = true;
                     setDelayTimer = 0f;
@@ -64,7 +64,6 @@ public class MissleControllerPlayer : MonoBehaviour
             {
                 if (Skill.usingMainWeaponMissile == true || Skill.usingBackupWeaponMissile == true)
                 {
-                    StaminaPerShot = 5f;
                     FireMissile();
                     setDelayTimer = 0f;
 

@@ -11,7 +11,9 @@ public class Weapons : MonoBehaviour
     [SerializeField] GameObject FlakWeapon;
     [SerializeField] GameObject DroneWeapon;
     [SerializeField] GameObject LaserWeapon;
-    [SerializeField] GameObject VoidNeedleWeapon;
+    [SerializeField] GameObject MineHeavyWeapon;
+    [SerializeField] GameObject MineRapidWeapon;
+    [SerializeField] GameObject MineHomingWeapon;
 
     public void MissileUnlocked()
     {
@@ -44,9 +46,17 @@ public class Weapons : MonoBehaviour
     {
         LaserWeapon.SetActive(true);
     }
-    public void VoidNeedleUnlocked()
+    public void MineHeavyUnlocked()
     {
-        VoidNeedleWeapon.SetActive(true);
+        MineHeavyWeapon.SetActive(true);
+    }
+    public void MineRapidUnlocked()
+    {
+        MineRapidWeapon.SetActive(true);
+    }
+    public void MineHomingUnlocked()
+    {
+        MineHomingWeapon.SetActive(true);
     }
 
 
@@ -59,6 +69,8 @@ public class Weapons : MonoBehaviour
         FlakWeapon.SetActive(false);
         DroneWeapon.SetActive(false);
         LaserWeapon.SetActive(false);
-        VoidNeedleWeapon.SetActive(false);
+        MineHeavyWeapon.SetActive(false);
+        MineRapidWeapon.SetActive(false);
+        MineHomingWeapon.SetActive(false);
     }
 }

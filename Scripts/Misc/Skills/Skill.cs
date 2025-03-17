@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class Skill : MonoBehaviour
 {
-    public enum WeaponCode { None = 0, Missile = 1, Nuke = 2, MiniGun = 3, HomingMissile = 4, Flak = 5, Drone = 6, Laser = 7, VoidNeedle = 8 }
+    public enum WeaponCode { None = 0, Missile = 1, Nuke = 2, MiniGun = 3, HomingMissile = 4, Flak = 5, Drone = 6, Laser = 7, MineHeavy = 8, MineRapid = 9, MineHoming =10 }
 
     public WeaponCode mainWeapon = WeaponCode.None;
     public WeaponCode backupWeapon = WeaponCode.None;
@@ -23,10 +23,23 @@ public class Skill : MonoBehaviour
     public bool usingBackupWeaponDrone = false;
     public bool usingMainWeaponLaser = false;
     public bool usingBackupWeaponLaser = false;
-    public bool usingMainWeaponVoidNeedle = false;
-    public bool usingBackupWeaponVoidNeedle = false;
+    public bool usingMainWeaponMineHeavy = false;
+    public bool usingBackupWeaponMineHeavy = false;
+    public bool usingMainWeaponMineRapid = false;
+    public bool usingBackupWeaponMineRapid = false;
+    public bool usingMainWeaponMineHoming = false;
+    public bool usingBackupWeaponMineHoming = false;
 
     public bool isAttacking = false;
+    private bool isOwned;
+    private float upgradeLevel;
+    internal bool IsOwned;
+
+    public Skill(bool isOwned, float upgradeLevel)
+    {
+        this.isOwned = isOwned;
+        this.upgradeLevel = upgradeLevel;
+    }
 
     public void SetMainWeapon(int weaponCode)
     {
@@ -190,25 +203,67 @@ public class Skill : MonoBehaviour
             usingBackupWeaponLaser = false;
         }
 
-        // for VoidNeedleWeapon
+        // for MineHeavy
 
 
-        if (mainWeapon == WeaponCode.VoidNeedle && Input.GetMouseButton(0) || isAttacking == true)
+        if (mainWeapon == WeaponCode.MineHeavy && Input.GetMouseButton(0) || isAttacking == true)
         {
-            usingMainWeaponVoidNeedle = true;
+            usingMainWeaponMineHeavy = true;
         }
         else
         {
-            usingMainWeaponVoidNeedle = false;
+            usingMainWeaponMineHeavy = false;
         }
 
-        if (backupWeapon == WeaponCode.VoidNeedle && Input.GetMouseButton(1) || isAttacking == true)
+        if (backupWeapon == WeaponCode.MineHeavy && Input.GetMouseButton(1) || isAttacking == true)
         {
-            usingBackupWeaponVoidNeedle = true;
+            usingBackupWeaponMineHeavy = true;
         }
         else
         {
-            usingBackupWeaponVoidNeedle = false;
+            usingBackupWeaponMineHeavy = false;
+        }
+
+        // for MineRapid
+
+
+        if (mainWeapon == WeaponCode.MineRapid && Input.GetMouseButton(0) || isAttacking == true)
+        {
+            usingMainWeaponMineRapid = true;
+        }
+        else
+        {
+            usingMainWeaponMineRapid = false;
+        }
+
+        if (backupWeapon == WeaponCode.MineRapid && Input.GetMouseButton(1) || isAttacking == true)
+        {
+            usingBackupWeaponMineRapid = true;
+        }
+        else
+        {
+            usingBackupWeaponMineRapid = false;
+        }
+
+        // for MineHoming
+
+
+        if (mainWeapon == WeaponCode.MineHoming && Input.GetMouseButton(0) || isAttacking == true)
+        {
+            usingMainWeaponMineHoming = true;
+        }
+        else
+        {
+            usingMainWeaponMineHoming = false;
+        }
+
+        if (backupWeapon == WeaponCode.MineHoming && Input.GetMouseButton(1) || isAttacking == true)
+        {
+            usingBackupWeaponMineHoming = true;
+        }
+        else
+        {
+            usingBackupWeaponMineHoming = false;
         }
     }
 }

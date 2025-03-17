@@ -123,7 +123,7 @@ Transform:
   m_Children:
   - {fileID: 5593157810235757879}
   - {fileID: 79078896971454311}
-  - {fileID: 8035432784865215650}
+  - {fileID: 4929199102351161214}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6955607628810055675
@@ -438,7 +438,7 @@ MonoBehaviour:
   Trails:
   - {fileID: 7652267961175945671}
   Particles:
-  - {fileID: 4697281224337642586}
+  - {fileID: 0}
   IsExplosion: 0
   Sprite: []
 --- !u!114 &-7205229115222748593
@@ -620,6 +620,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2134563174765001964}
     m_Modifications:
+    - target: {fileID: 5937370956168254558, guid: 8480844f953b37043a47a932378e056c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6286417565378951034, guid: 8480844f953b37043a47a932378e056c, type: 3}
       propertyPath: m_Name
       value: Particle
@@ -669,13 +673,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8480844f953b37043a47a932378e056c, type: 3}
---- !u!1 &4697281224337642586 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6286417565378951034, guid: 8480844f953b37043a47a932378e056c, type: 3}
-  m_PrefabInstance: {fileID: 1589153957948810016}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &8035432784865215650 stripped
+--- !u!4 &4929199102351161214 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 8759035708072175490, guid: 8480844f953b37043a47a932378e056c, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5937370956168254558, guid: 8480844f953b37043a47a932378e056c, type: 3}
   m_PrefabInstance: {fileID: 1589153957948810016}
   m_PrefabAsset: {fileID: 0}

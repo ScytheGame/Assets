@@ -1309,18 +1309,18 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.7080811, g: 0.6656064, b: 0.7017516, a: 0}
-        key1: {r: 0.32360262, g: 0.32360262, b: 0.32360262, a: 1}
-        key2: {r: 0, g: 0, b: 0, a: 0}
-        key3: {r: 0.17835522, g: 0.055807915, b: 0.036604404, a: 0}
+        key0: {r: 0.5764706, g: 0.7686275, b: 1, a: 0}
+        key1: {r: 0.3803922, g: 0.6901961, b: 1, a: 1}
+        key2: {r: 0.098039225, g: 0.2509804, b: 0.4039216, a: 0}
+        key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
         ctime0: 9407
         ctime1: 29804
-        ctime2: 45320
-        ctime3: 65535
+        ctime2: 45104
+        ctime3: 45320
         ctime4: 0
         ctime5: 0
         ctime6: 0
@@ -4847,12 +4847,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Lifetime: 1
-  MinX: 0
-  MinY: 0
-  MaxX: 0
-  MaxY: 0
-  Number: 0
-  pos: {x: 0, y: 0}
-  Offset: {x: 0, y: 0}
-  PoisonEffects: []
-  EffectCalled: 0

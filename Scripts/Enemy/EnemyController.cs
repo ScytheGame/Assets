@@ -49,16 +49,19 @@ public class EnemyController : MonoBehaviour
     public bool IsBossEnemy = false;
     float expTimeBuff = 0;
     float poisondamagelength = 1f;
+    float EnemyBonusLevel = 0;
     bool ApplyOnce;
 
 
 
     void Start()
     {
+        SkillTreeData skillData = SkillTreeData.Load();
+
         AttackChance = PlayerPrefs.GetFloat("EnemyAttackChance", 100);
         EnemyAttackRateMultiplier = PlayerPrefs.GetFloat("EnemyAttackRateMultiplier", 0.6f);
         EnemyProjectileSpeedMultiplier = PlayerPrefs.GetFloat("EnemyProjectileSpeedMultiplier", 1);
-
+        EnemyBonusLevel = skillData.EnemyBonusLevel;
         GameObject player = GameObject.FindWithTag("Player");
         GameObject level = GameObject.FindWithTag("ui");
         GameObject EnemyGenerator = GameObject.FindWithTag("EnemySpawn");
@@ -109,7 +112,8 @@ public class EnemyController : MonoBehaviour
         }
         GameTime = RandomEnemySpawn.gameTime;
         minutes = RandomEnemySpawn.minutes;
-        Level = Random.Range(StatsController.currentLevel - 5, StatsController.currentLevel + 5);
+        float LevelRange = EnemyBonusLevel + 5;
+        Level = Random.Range(StatsController.currentLevel + EnemyBonusLevel - 5, StatsController.currentLevel + EnemyBonusLevel + LevelRange);
 
 
 
@@ -307,7 +311,7 @@ public class EnemyController : MonoBehaviour
         if (SettingController.DamageTextEnabled == true)
         {
             var go = Instantiate(TextPrefab, transform.position, Quaternion.identity, transform);
-            go.GetComponent<TextMeshPro>().text = Damage.ToString();
+            go.GetComponent<TextMeshPro>().text = Mathf.Round(Damage).ToString();
         }
         else
         {
@@ -323,13 +327,12 @@ public class EnemyController : MonoBehaviour
             string ID = col.gameObject.GetComponent<PlayerWeaponStats>().ID;
             enemyHealth -= Damage;
 
-            HealthReturn = Damage * StatsController.lifesteal;
+            HealthReturn = Damage * StatsController.lifeSteal;
             playerController.playerHealth += HealthReturn;
 
             Debug.Log("Enemy Damage Taken " + Damage);
             Debug.Log("Enemy Health " + enemyHealth);
             DamageDisplay(Damage);
-            StartCoroutine(poisondamage(ID));
         }
     }
 
@@ -341,81 +344,25 @@ public class EnemyController : MonoBehaviour
             string ID = col.gameObject.GetComponent<PlayerWeaponStats>().ID;
             enemyHealth -= Damage;
 
-            HealthReturn = Damage * StatsController.lifesteal;
+            HealthReturn = Damage * StatsController.lifeSteal;
             playerController.playerHealth += HealthReturn;
 
             Debug.Log("Enemy Damage Taken " + Damage);
             Debug.Log("Enemy Health " + enemyHealth);
             DamageDisplay(Damage);
-            StartCoroutine(poisondamage(ID));
         }
-    }
+        if (col.gameObject.tag == "Mine")
+        {
+            float Damage = col.gameObject.GetComponent<MineExplosionController>().Damage;
+            string ID = "Mine";
+            enemyHealth -= Damage;
 
-    IEnumerator poisondamage(string weapon)
-    {
-        if (weapon == "Missile" && StatsController.poisonShoot == true)
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                ApplyPoisonDamage(StatsController.poisonShootMissile);
-                yield return new WaitForSeconds(1);
-            }
-        }
-        if (weapon == "Nuke" && StatsController.poisonShoot == true)
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                ApplyPoisonDamage(StatsController.poisonShootNuke);
-                yield return new WaitForSeconds(1);
-            }
-        }
-        if (weapon == "Minigun" && StatsController.poisonShoot == true)
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                ApplyPoisonDamage(StatsController.poisonShootMiniGun);
-                yield return new WaitForSeconds(1);
-            }
-        }
-        if (weapon == "HomingMissile" && StatsController.poisonShoot == true)
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                ApplyPoisonDamage(StatsController.poisonShootHoming);
-                yield return new WaitForSeconds(1);
-            }
-        }
-        if (weapon == "Flak" && StatsController.poisonShoot == true)
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                ApplyPoisonDamage(StatsController.poisonShootFlak);
-                yield return new WaitForSeconds(1);
-            }
-        }
-        if (weapon == "Drone" && StatsController.poisonShoot == true)
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                ApplyPoisonDamage(StatsController.poisonShootDrone);
-                yield return new WaitForSeconds(1);
-            }
-        }
-        if (weapon == "Laser" && StatsController.poisonShoot == true)
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                ApplyPoisonDamage(StatsController.poisonShootLaser);
-                yield return new WaitForSeconds(1);
-            }
-        }
-    }
+            HealthReturn = Damage * StatsController.lifeSteal;
+            playerController.playerHealth += HealthReturn;
 
-    void ApplyPoisonDamage(float damage)
-    {
-        enemyHealth -= damage;
-        DamageDisplay(damage);
-        Vector3 rotation = new Vector3(transform.rotation.x, transform.rotation.y, transform.rotation.z + Random.Range(-360, 360));
-        Instantiate(PoisonEffect, transform.position, transform.rotation, transform);
+            Debug.Log("Enemy Damage Taken " + Damage);
+            Debug.Log("Enemy Health " + enemyHealth);
+            DamageDisplay(Damage);
+        }
     }
 }

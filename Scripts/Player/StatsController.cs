@@ -38,7 +38,11 @@ public class StatsController : MonoBehaviour
     [TabGroup("Weapon Damage")]
     public float LaserDamage = 150;
     [TabGroup("Weapon Damage")]
-    public float MineDamage = 350;
+    public float MineHeavyDamage = 350;
+    [TabGroup("Weapon Damage")]
+    public float MineHomingDamage = 350;
+    [TabGroup("Weapon Damage")]
+    public float MineRapidDamage = 350;
     [TabGroup("Weapon Damage")]
     public float DamageBonus = 1;
     [Space(10)]
@@ -73,30 +77,46 @@ public class StatsController : MonoBehaviour
     [TabGroup("Weapon Stats")]
     public float ArrayShotSpeed = 30;
     [TabGroup("Weapon Stats")]
-    public float MineSpeed = 5;
+    public float MineHeavySpeed = 5;
     [TabGroup("Weapon Stats")]
-    public float MineFireDelay = 2f;
+    public float MineRapidSpeed = 15;
+    [TabGroup("Weapon Stats")]
+    public float MineHomingSpeed = 10;
+    [TabGroup("Weapon Stats")]
+    public float MineHeavyFireDelay = 2.5f;
+    [TabGroup("Weapon Stats")]
+    public float MineRapidFireDelay = 0.9f;
+    [TabGroup("Weapon Stats")]
+    public float MineHomingFireDelay = 1.5f;
+    [TabGroup("Weapon Stats")]
+    public float MissileAmmoCost = 5f;
+    [TabGroup("Weapon Stats")]
+    public float NukeAmmoCost = 50f;
+    [TabGroup("Weapon Stats")]
+    public float FlakAmmoCost = 5f;
+    [TabGroup("Weapon Stats")]
+    public float MinigunAmmoCost = 5f;
+    [TabGroup("Weapon Stats")]
+    public float LaserAmmoCost = 10f;
+    [TabGroup("Weapon Stats")]
+    public float DroneAmmoCost = 1.5f;
+    [TabGroup("Weapon Stats")]
+    public float HomingMissileAmmoCost = 15f;
+    [TabGroup("Weapon Stats")]
+    public float MineHeavyAmmoCost = 20f;
+    [TabGroup("Weapon Stats")]
+    public float MineRapidAmmoCost = 5f;
+    [TabGroup("Weapon Stats")]
+    public float MineHomingAmmoCost = 10f;
+    [TabGroup("Weapon Stats")]
+    public float MineHeavyExplosionRadius = 20f;
+    [TabGroup("Weapon Stats")]
+    public float MineRapidExplosionRadius = 5f;
+    [TabGroup("Weapon Stats")]
+    public float MineHomingExplosionRadius = 10f;
 
+    public float lifeSteal = 0;
 
-    [Space(10)]
-    [TabGroup("Weapon Poison Damage")]
-    public float poisonShootMissile;
-    [TabGroup("Weapon Poison Damage")]
-    public float poisonShootNuke;
-    [TabGroup("Weapon Poison Damage")]
-    public float poisonShootMiniGun;
-    [TabGroup("Weapon Poison Damage")]
-    public float poisonShootHoming;
-    [TabGroup("Weapon Poison Damage")]
-    public float poisonShootFlak;
-    [TabGroup("Weapon Poison Damage")]
-    public float poisonShootDrone;
-    [TabGroup("Weapon Poison Damage")]
-    public float poisonShootLaser;
-    [TabGroup("Weapon Poison Damage")]
-    public float lifesteal;
-    [TabGroup("Weapon Poison Damage")]
-    public bool poisonShoot = false;
 
     [Space(10)]
     [TabGroup("Level Stats")]
@@ -150,7 +170,11 @@ public class StatsController : MonoBehaviour
     [TabGroup("Bool Skills")]
     public bool ArrayShot;
     [TabGroup("Bool Skills")]
-    public bool Mine;
+    public bool MineHeavy;
+    [TabGroup("Bool Skills")]
+    public bool MineRapid;
+    [TabGroup("Bool Skills")]
+    public bool MineHoming;
 
     int skillCheck = 0;
     float buffAmount;
@@ -164,67 +188,47 @@ public class StatsController : MonoBehaviour
 
     private void Start()
     {
+        SkillTreeData skillData = SkillTreeData.Load();
+
         MaxHealth = PlayerPrefs.GetFloat("PlayerHealth", 2500);
         MaxStamina = PlayerPrefs.GetFloat("PlayerAmmo", 100);
 
         // Skill tree upgrades
 
-        MoveSpeed *= PlayerPrefs.GetFloat("SpeedBoostST", 1);
+        MoveSpeed *= skillData.SpeedBoost;
 
-        MaxHealth += PlayerPrefs.GetFloat("HealthBoostST", 0);
+        MaxHealth += skillData.HealthBoost;
 
-        MaxStamina += PlayerPrefs.GetFloat("AmmoBoostST", 0);
+        MaxStamina += skillData.AmmoBoost;
 
-        expGain += PlayerPrefs.GetFloat("ExperienceBoostST", 0);
+        expGain = skillData.ExperienceBoost;
 
         // Damage 
-
-        MissileDamage *= PlayerPrefs.GetFloat("DamageBoostMissileST", 1);
-
-        NukeDamage *= PlayerPrefs.GetFloat("DamageBoostNukeST", 1);
-
-        MinigunDamage *= PlayerPrefs.GetFloat("DamageBoostMinigunST", 1);
-
-        HomingMissileDamage *= PlayerPrefs.GetFloat("DamageBoostHomingMissileST", 1);
-
-        FlakDamage *= PlayerPrefs.GetFloat("DamageBoostFlakST", 1);
-
-        DroneDamage *= PlayerPrefs.GetFloat("DamageBoostDroneST", 1);
-
-        LaserDamage *= PlayerPrefs.GetFloat("DamageBoostLaserST", 1);
+        MissileDamage *= skillData.DamageBoostMissile;
+        NukeDamage *= skillData.DamageBoostNuke;
+        MinigunDamage *= skillData.DamageBoostMinigun;
+        HomingMissileDamage *= skillData.DamageBoostHomingMissile;
+        FlakDamage *= skillData.DamageBoostFlak;
+        DroneDamage *= skillData.DamageBoostDrone;
+        LaserDamage *= skillData.DamageBoostLaser;
 
         // Attack Speed
-
-        MissileFireDelay /= PlayerPrefs.GetFloat("AttackSpeedMissileST", 1);
-
-        NukeFireDelay /= PlayerPrefs.GetFloat("AttackSpeedNukeST", 1);
-
-        MinigunFireDelay /= PlayerPrefs.GetFloat("AttackSpeedMinigunST", 1);
-
-        HomingMissileFireDelay /= PlayerPrefs.GetFloat("AttackSpeedHomingMissileST", 1);
-
-        FlakFireDelay /= PlayerPrefs.GetFloat("AttackSpeedFlakST", 1);
-
-        DroneFireDelay /= PlayerPrefs.GetFloat("AttackSpeedDroneST", 1);
-
-        LaserFireDelay /= PlayerPrefs.GetFloat("AttackSpeedLaserST", 1);
+        MissileFireDelay /= skillData.AttackSpeedMissile;
+        NukeFireDelay /= skillData.AttackSpeedNuke;
+        MinigunFireDelay /= skillData.AttackSpeedMinigun;
+        HomingMissileFireDelay /= skillData.AttackSpeedHomingMissile;
+        FlakFireDelay /= skillData.AttackSpeedFlak;
+        DroneFireDelay /= skillData.AttackSpeedDrone;
+        LaserFireDelay /= skillData.AttackSpeedLaser;
 
         // Projectile Speed
-
-        MissileSpeed *= PlayerPrefs.GetFloat("ProjectileSpeedMissileST", 1);
-
-        NukeSpeed *= PlayerPrefs.GetFloat("ProjectileSpeedNukeST", 1);
-
-        MinigunSpeed *= PlayerPrefs.GetFloat("ProjectileSpeedMinigunST", 1);
-
-        HomingMissileSpeed *= PlayerPrefs.GetFloat("ProjectileSpeedHomingMissileST", 1);
-
-        FlakSpeed *= PlayerPrefs.GetFloat("ProjectileSpeedFlakST", 1);
-
-        DroneSpeed *= PlayerPrefs.GetFloat("ProjectileSpeedDroneST", 1);
-
-        LaserSpeed *= PlayerPrefs.GetFloat("ProjectileSpeedLaserST", 1);
-
+        MissileSpeed *= skillData.ProjectileSpeedMissile;
+        NukeSpeed *= skillData.ProjectileSpeedNuke;
+        MinigunSpeed *= skillData.ProjectileSpeedMinigun;
+        HomingMissileSpeed *= skillData.ProjectileSpeedHomingMissile;
+        FlakSpeed *= skillData.ProjectileSpeedFlak;
+        DroneSpeed *= skillData.ProjectileSpeedDrone;
+        LaserSpeed *= skillData.ProjectileSpeedLaser;
         // other
         DamageBonus += PlayerPrefs.GetFloat("PlayerDamageBonus", 1);
         MissileDamage *= DamageBonus;
@@ -238,9 +242,11 @@ public class StatsController : MonoBehaviour
         ExpGain = PlayerPrefs.GetFloat("PlayerXPGain", 20);
         targetXpIncrease = PlayerPrefs.GetFloat("PlayerXPIncreaseCost", 15);
         expTimeBuffCost = PlayerPrefs.GetFloat("PlayerXPTimeCost", 1);
+        ExpGain += expGain;
         CurrentHealth = MaxHealth;
         CurrentStamina = MaxStamina;
     }
+    float LevelIncreaseCost = 10;
     void Update()
     {
         minutes = RandomEnemySpawn.minutes;
@@ -251,6 +257,11 @@ public class StatsController : MonoBehaviour
             expTime += expTimeBuff;
             expTimeCost += expTimeBuffCost;
             timeinterval += 2;
+        }
+        if (currentLevel >= LevelIncreaseCost)
+        {
+            targetXpIncrease += LevelIncreaseCost / 10;
+            LevelIncreaseCost += 10;
         }
     }
     void DamageDebuff(float Value)
@@ -357,6 +368,15 @@ public class StatsController : MonoBehaviour
         if (SkillName == "Laser")
             _LaserGun(Bool);
 
+        if (SkillName == "Heavy Mine")
+            _MineHeavy(Bool);
+
+        if (SkillName == "Rapid Mine")
+            _MineRapid(Bool);
+
+        if (SkillName == "Homing Mine")
+            _MineHoming(Bool);
+
         if (SkillName == "Rapid Fire")
             _RapidFire(Bool);
 
@@ -383,6 +403,19 @@ public class StatsController : MonoBehaviour
         FlakDamage *= Value;
         DroneDamage *= Value;
         LaserDamage *= Value;
+        MissileAmmoCost *= Value / 2;
+        NukeAmmoCost *= Value / 2;
+        FlakAmmoCost *= Value / 2;
+        MinigunAmmoCost *= Value / 2;
+        LaserAmmoCost *= Value / 2;
+        DroneAmmoCost *= Value / 2;
+        HomingMissileAmmoCost *= Value / 2;
+        MineHeavyDamage *= Value;
+        MineRapidDamage *= Value;
+        MineHomingDamage *= Value;
+        MineHeavyAmmoCost *= Value / 2;
+        MineRapidAmmoCost *= Value / 2;
+        MineHomingAmmoCost *= Value / 2;
     }
     void SpeedBoost(float Value)
     {
@@ -394,7 +427,7 @@ public class StatsController : MonoBehaviour
     }
     void LifeSteal(float Value)
     {
-        lifesteal += Value - 1;
+        lifeSteal += Value - 1;
     }
     void HealthBoost(float Value)
     {
@@ -402,14 +435,16 @@ public class StatsController : MonoBehaviour
     }
     void AttackSpeed(float Value)
     {
-        MissileSpeed *= Value;
-        NukeSpeed *= Value;
-        MinigunSpeed *= Value;
-        HomingMissileSpeed *= Value;
-        FlakSpeed *= Value;
-        DroneSpeed *= Value;
-        LaserSpeed *= Value;
-        ArrayShotSpeed *= Value;
+        MissileFireDelay *= Value;
+        NukeFireDelay *= Value;
+        MinigunFireDelay *= Value;
+        HomingMissileFireDelay *= Value;
+        FlakFireDelay *= Value;
+        DroneFireDelay *= Value;
+        LaserFireDelay *= Value;
+        MineHeavyFireDelay *= Value;
+        MineRapidFireDelay *= Value;
+        MineHomingFireDelay *= Value;
     }
     void XPBuff(float Value)
     {
@@ -429,6 +464,9 @@ public class StatsController : MonoBehaviour
         DroneSpeed *= Value;
         LaserSpeed *= Value;
         ArrayShotSpeed *= Value;
+        MineHeavySpeed *= Value;
+        MineRapidSpeed *= Value;
+        MineHomingSpeed *= Value;
 
     }
     void Spread(float Value)
@@ -481,6 +519,21 @@ public class StatsController : MonoBehaviour
     void _LaserGun(bool Value)
     {
         Laser = Value;
+        StatDebuff(1.5f);
+    }
+    void _MineHeavy(bool Value)
+    {
+        MineHeavy = Value;
+        StatDebuff(1.5f);
+    }
+    void _MineRapid(bool Value)
+    {
+        MineRapid = Value;
+        StatDebuff(1.5f);
+    }
+    void _MineHoming(bool Value)
+    {
+        MineHoming = Value;
         StatDebuff(1.5f);
     }
 

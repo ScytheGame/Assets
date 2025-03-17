@@ -37,6 +37,7 @@ public class HomingMissleControllerPlayer : MonoBehaviour
         Damage = StatsController.HomingMissileDamage;
         missileSpeed = StatsController.HomingMissileSpeed;
         fireDelay = StatsController.HomingMissileFireDelay;
+        StaminaPerShot = StatsController.HomingMissileAmmoCost;
         if (canFire == true && StaminaRegen.isReloading == false)
         {
             //Double Shot
@@ -45,7 +46,6 @@ public class HomingMissleControllerPlayer : MonoBehaviour
 
                 if (Skill.usingMainWeaponHomingMissile == true || Skill.usingBackupWeaponHomingMissile == true)
                 {
-                    StaminaPerShot = 7.5f;
                     FireMissile();
                     canFire = false;
                     setDelayTimer = 0f;
@@ -58,7 +58,6 @@ public class HomingMissleControllerPlayer : MonoBehaviour
             {
                 if (Skill.usingMainWeaponHomingMissile == true || Skill.usingBackupWeaponHomingMissile == true)
                 {
-                    StaminaPerShot = 15f;
                     FireMissile();
                     canFire = false;
                     setDelayTimer = 0f;

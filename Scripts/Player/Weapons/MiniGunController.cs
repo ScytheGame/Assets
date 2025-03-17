@@ -49,6 +49,7 @@ public class MiniGunControllerPlayer : MonoBehaviour
         BulletSpeed = StatsController.MinigunSpeed;
         fireDelay = StatsController.MinigunFireDelay;
         SetBurstDelay = StatsController.BurstDelay;
+        StaminaPerShot = StatsController.MinigunAmmoCost;
 
         if (RapidFire)
         {
@@ -56,7 +57,6 @@ public class MiniGunControllerPlayer : MonoBehaviour
             {
                 if (Skill.usingMainWeaponMiniGun || Skill.usingBackupWeaponMiniGun)
                 {
-                    StaminaPerShot = 2.5f;
                     FireBullet();
                     firedFirstBullet = true;
                     canFire = false;
@@ -86,7 +86,6 @@ public class MiniGunControllerPlayer : MonoBehaviour
                 {
                     if (Skill.usingMainWeaponMiniGun || Skill.usingBackupWeaponMiniGun)
                     {
-                        StaminaPerShot = 2.5f;
                         FireBullet();
                         firedFirstBullet = true;
                         canFire = false;

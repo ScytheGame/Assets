@@ -1,3 +1,4 @@
+using Radishmouse;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
@@ -8,25 +9,26 @@ public class SkillPrefabController : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] GameObject SkillCard;
-    [SerializeField] TextMeshProUGUI SkillNameText;
-    [SerializeField] TextMeshProUGUI skillDescriptionText;
-    [SerializeField] TextMeshProUGUI CelestialCostText;
-    [SerializeField] TextMeshProUGUI SolarCostText;
-    [SerializeField] GameObject CelestialCostGameObject;
-    [SerializeField] GameObject SolarCostGameObject;
-    [SerializeField] TextMeshProUGUI UpgradeLevelText;
-    [SerializeField] GameObject UnlockButtonGameObject;
+    [SerializeField] GameObject UI;
+    [SerializeField] UILineRenderer UILine;
+    [SerializeField] public string SkillNameText;
+    [SerializeField] public string skillDescriptionText;
+    [SerializeField] public string CelestialCostText;
+    [SerializeField] public string SolarCostText;
+    [SerializeField] public string UpgradeLevelText;
     [SerializeField] Button UnlockButton;
-    [SerializeField] TextMeshProUGUI UnlockButtonText;
+
+    [SerializeField] GameObject[] UnlockButtonSprite;
+
+    [SerializeField] Image ButtonSpriteColor;
+    [SerializeField] Color[] SkillColour;
+
     [SerializeField] Upgradepoints Stats;
-    [SerializeField] SkillTreeController Skill;
-    [SerializeField] List<SkillPrefabController> PreviousSkills;
-    [SerializeField] List<SkillPrefabController> OtherSkillTypes;
-    [SerializeField] List<SkillPrefabController> DisableCards;
-    [SerializeField] enum Weapon { None = 0, Missile = 1, Nuke = 2, Minigun = 3, HomingMissile = 4, Flak = 5, Drone = 6, Laser = 7, Heavy = 8, Rapid = 9, Homing = 10 };
+    [SerializeField] public SkillPrefabController PreviousSkill;
+    [SerializeField] enum Weapon { None = 0, Missile = 1, Nuke = 2, Minigun = 3, Homing_Missile = 4, Flak = 5, Drone = 6, Laser = 7, Heavy = 8, Rapid = 9, Homing = 10, Start = 11, Heavy_Mine = 12, Rapid_Mine = 13, Homing_Mine = 14};
     [SerializeField] Weapon SkillWeapon;
     [SerializeField] float SkillWeaponFloat;
-    [SerializeField] enum ID { None = 0, DB = 1, SB = 2, AS = 3, PS = 4, HB = 5, EB = 6, MS = 7, DS = 8, BF = 9, ArrS = 10, ArrSB = 11, RF = 12, Rapid = 13, Homing = 14, Nuke = 15, FLak = 16, Laser = 17, HomingMissile = 18};
+    [SerializeField] enum ID { None = 0, DB = 1, SB = 2, AS = 3, PS = 4, HB = 5, AB = 6, EB = 7, SVB = 8, SCB = 9, MS = 10, DS = 11, BF = 12, ArrS = 13, ArrSB = 14, RF = 15, Heavy = 16, Rapid = 17, Homing = 18, Nuke = 19, Flak = 20, Laser = 21, HomingMissile = 22, Start = 23, MineH = 24, MineR = 25, MineHO = 26 };
     [SerializeField] ID skillID;
     [SerializeField] string SkillID;
 
@@ -36,14 +38,19 @@ public class SkillPrefabController : MonoBehaviour
     [SerializeField] float CelestialCost;
     [SerializeField] float SolarCost;
     [SerializeField] float SkillValue;
-    [SerializeField] public bool IsOwned;
-    [SerializeField] bool IsLocked;
-    [SerializeField] bool IsUpgradable;
+    [SerializeField] float CelestialCostIncreasePerLevel;
+    [SerializeField] float SolarCostIncreasePerLevel;
+    float CostIncrease = 0;
     [SerializeField] float UpgradeLevel;
     [SerializeField] float MaxUpgradeLevel;
+    [SerializeField] public bool IsOwned;
+    [SerializeField] public bool IsLocked;
+    [SerializeField] public bool IsHidden;
     [SerializeField] bool CanAfford;
-    [SerializeField] bool NonEnding;
-    [SerializeField] float RandomValue;
+    [SerializeField] bool CanBuy;
+    [SerializeField] public bool IsMouseOver;
+    [SerializeField] public bool ShowLine;
+
     private void Start()
     {
 
@@ -57,7 +64,7 @@ public class SkillPrefabController : MonoBehaviour
             SkillWeaponFloat = 2;
         if (SkillWeapon == Weapon.Minigun)
             SkillWeaponFloat = 3;
-        if (SkillWeapon == Weapon.HomingMissile)
+        if (SkillWeapon == Weapon.Homing_Missile)
             SkillWeaponFloat = 4;
         if (SkillWeapon == Weapon.Flak)
             SkillWeaponFloat = 5;
@@ -71,282 +78,353 @@ public class SkillPrefabController : MonoBehaviour
             SkillWeaponFloat = 9;
         if (SkillWeapon == Weapon.Homing)
             SkillWeaponFloat = 10;
+        if (SkillWeapon == Weapon.Heavy_Mine)
+            SkillWeaponFloat = 11;
+        if (SkillWeapon == Weapon.Rapid_Mine)
+            SkillWeaponFloat = 12;
+        if (SkillWeapon == Weapon.Homing_Mine)
+            SkillWeaponFloat = 13;
 
-        if (CelestialCost == 0)
-        {
-            CelestialCostGameObject.SetActive(false);
-        }
-        else
-        {
-            CelestialCostText.text = (":" + CelestialCost);
-            CelestialCostGameObject.SetActive(true);
-        }
-        if (SolarCost == 0)
-        {
-            SolarCostGameObject.SetActive(false);
-        }
-        else
-        {
-            SolarCostText.text = (":" + SolarCost);
-            SolarCostGameObject.SetActive(true);
-        }
-
-
-
-        if (Stats.CelestialPoints >= CelestialCost && Stats.SolarPoints >= SolarCost)
-        {
-            CanAfford = true;
-        }
-        else
-        {
-            CanAfford = false;
-        }
         SkillName();
         SkillDescription();
 
-        IsOwned = (PlayerPrefs.GetInt("IsOwnedST") != 0);
-        UpgradeLevel = PlayerPrefs.GetFloat("UpgradeLevelST", 0);
+        for (float i = CostIncrease; i <= UpgradeLevel; i++)
+        {
+            CelestialCost += CelestialCostIncreasePerLevel;
+            SolarCost += SolarCostIncreasePerLevel;
+        }
 
-        Debug.Log(IsOwned);
-        Debug.Log(UpgradeLevel);
+
+        Load();
     }
     void SkillName()
     {
-        if (!SkillID.Equals("MS") || !SkillID.Equals("DS") || !SkillID.Equals("BF") || !SkillID.Equals("ArrS") || !SkillID.Equals("ArrSD") || !SkillID.Equals("Rapid") || !SkillID.Equals("Homing") || !SkillID.Equals("Nuke") || !SkillID.Equals("Flak") || !SkillID.Equals("Laser") || !SkillID.Equals("HomingMissile"))
-        {
 
-            if (SkillID.Equals("DB"))
-                SkillNameText.text = ("Damage Boost");
+        if (SkillID.Equals("Start"))
+            SkillNameText = ("Start");
 
-            if (SkillID.Equals("SB"))
-                SkillNameText.text = ("Speed Boost");
+        if (SkillID.Equals("DB"))
+            SkillNameText = ("Damage Boost");
 
-            if (SkillID.Equals("AS"))
-                SkillNameText.text = ("Attack Speed Boost");
+        if (SkillID.Equals("SB"))
+            SkillNameText = ("Speed Boost");
 
-            if (SkillID.Equals("PS"))
-                SkillNameText.text = ("Projectile Speed Boost");
+        if (SkillID.Equals("AS"))
+            SkillNameText = ("Attack Speed Boost");
 
-            if (SkillID.Equals("HB"))
-                SkillNameText.text = ("Health Boost");
+        if (SkillID.Equals("PS"))
+            SkillNameText = ("Projectile Speed Boost");
 
-            if (SkillID.Equals("EB"))
-                SkillNameText.text = ("Experience Boost");
-        }
-        else
-        {
-            if (SkillID.Equals("MS"))
-                SkillNameText.text = ("Multi shot");
+        if (SkillID.Equals("HB"))
+            SkillNameText = ("Health Boost");
 
-            if (SkillID.Equals("DS"))
-                SkillNameText.text = ("Double shot");
+        if (SkillID.Equals("AB"))
+            SkillNameText = ("Ammo Boost");
 
-            if (SkillID.Equals("BF"))
-                SkillNameText.text = ("Backwards Fire");
+        if (SkillID.Equals("EB"))
+            SkillNameText = ("Experience Boost");
 
-            if (SkillID.Equals("ArrS"))
-                SkillNameText.text = ("Array Shot");
+        if (SkillID.Equals("SVB"))
+            SkillNameText = ("Skill Value Boost");
 
-            if (SkillID.Equals("ArrSD"))
-                SkillNameText.text = ("Array Shot Double Shot");
+        if (SkillID.Equals("SCB"))
+            SkillNameText = ("Skill Chance Boost");
 
-            if (SkillID.Equals("RF"))
-                SkillNameText.text = ("Rapid Fire");
+        if (SkillID.Equals("MS"))
+            SkillNameText = ("Multi shot");
+
+        if (SkillID.Equals("DS"))
+            SkillNameText = ("Double shot");
+
+        if (SkillID.Equals("BF"))
+            SkillNameText = ("Backwards Fire");
+
+        if (SkillID.Equals("ArrS"))
+            SkillNameText = ("Array Shot");
+
+        if (SkillID.Equals("ArrSD"))
+            SkillNameText = ("Array Shot Double Shot");
+
+        if (SkillID.Equals("RF"))
+            SkillNameText = ("Rapid Fire");
 
 
-            if (SkillID.Equals("Rapid"))
-                SkillNameText.text = ("Rapid Class");
+        if (SkillID.Equals("Heavy"))
+            SkillNameText = ("Heavy Class");
 
-            if (SkillID.Equals("Homing"))
-                SkillNameText.text = ("Homing Class");
+        if (SkillID.Equals("Rapid"))
+            SkillNameText = ("Rapid Class");
+
+        if (SkillID.Equals("Homing"))
+            SkillNameText = ("Homing Class");
 
 
-            if (SkillID.Equals("Nuke"))
-                SkillNameText.text = ("Nuke Weapon");
+        if (SkillID.Equals("Nuke"))
+            SkillNameText = ("Nuke Weapon");
 
-            if (SkillID.Equals("Flak"))
-                SkillNameText.text = ("Flak Weapon");
+        if (SkillID.Equals("Flak"))
+            SkillNameText = ("Flak Weapon");
 
-            if (SkillID.Equals("Laser"))
-                SkillNameText.text = ("Laser Weapon");
+        if (SkillID.Equals("Laser"))
+            SkillNameText = ("Laser Weapon");
 
-            if (SkillID.Equals("HomingMissile"))
-                SkillNameText.text = ("Homing Missile Weapon");
-        }
+        if (SkillID.Equals("HomingMissile"))
+            SkillNameText = ("Homing Missile Weapon");
+
+        if (SkillID.Equals("MineH"))
+            SkillNameText = ("Heavy Mine Weapon");
+
+        if (SkillID.Equals("MineR"))
+            SkillNameText = ("Rapid Mine Weapon");
+
+        if (SkillID.Equals("MineHO"))
+            SkillNameText = ("Homing Mine Weapon");
+
     }
     void SkillDescription()
     {
+
+        if (SkillID.Equals("Start"))
+            skillDescriptionText = ("This is the start of your journey, hope you enjoy!");
+
         if (SkillID.Equals("DB"))
-            skillDescriptionText.text = ("Boosts " + SkillWeapon + " Damage By " + SkillValue * 100 + "%");
+            skillDescriptionText = ("Boosts " + SkillWeapon + " Damage By " + SkillValue * 100 + "%");
 
         if (SkillID.Equals("SB"))
-            skillDescriptionText.text = ("Boosts Speed By " + SkillValue * 100 + "%");
+            skillDescriptionText = ("Boosts Speed By " + SkillValue * 100 + "%");
 
         if (SkillID.Equals("AS"))
-            skillDescriptionText.text = ("Boosts " + SkillWeapon + " Attack Speed By " + SkillValue * 100 + "%");
+            skillDescriptionText = ("Boosts " + SkillWeapon + " Attack Speed By " + SkillValue * 100 + "%");
 
         if (SkillID.Equals("PS"))
-            skillDescriptionText.text = ("Boosts " + SkillWeapon + " Projectile Speed By " + SkillValue * 100 + "%");
+            skillDescriptionText = ("Boosts " + SkillWeapon + " Projectile Speed By " + SkillValue * 100 + "%");
 
         if (SkillID.Equals("HB"))
-            skillDescriptionText.text = ("Boosts Health By " + SkillValue);
+            skillDescriptionText = ("Boosts Health By " + SkillValue);
+
+        if (SkillID.Equals("AB"))
+            skillDescriptionText = ("Boosts Ammo By " + SkillValue);
 
         if (SkillID.Equals("EB"))
-            skillDescriptionText.text = ("Boosts Experience Gain By " + SkillValue);
+            skillDescriptionText = ("Boosts Experience Gain By " + SkillValue);
+
+        if (SkillID.Equals("SVB"))
+            skillDescriptionText = ("Boosts Max Level Up Percent by 5%");
+
+        if (SkillID.Equals("SCB"))
+            skillDescriptionText = ("Boosts Level Up Value Rates to be higher");
 
         if (SkillID.Equals("MS"))
-            skillDescriptionText.text = ("Unlocks Multishot");
+            skillDescriptionText = ("Unlocks Multishot");
 
         if (SkillID.Equals("DS"))
-            skillDescriptionText.text = ("Unlocks Doubleshot");
+            skillDescriptionText = ("Unlocks Doubleshot");
 
         if (SkillID.Equals("BF"))
-            skillDescriptionText.text = ("Unlocks Backwards Fire");
+            skillDescriptionText = ("Unlocks Backwards Fire");
 
         if (SkillID.Equals("RF"))
-            skillDescriptionText.text = ("Unlocks Rapid Fire");
+            skillDescriptionText = ("Unlocks Rapid Fire");
+
+        if (SkillID.Equals("Heavy"))
+            skillDescriptionText = ("Unlocks The Heavy Class Skill Tree");
 
         if (SkillID.Equals("Rapid"))
-            skillDescriptionText.text = ("Unlocks The Rapid Class");
+            skillDescriptionText = ("Unlocks The Rapid Class, And Skill Tree");
 
         if (SkillID.Equals("Homing"))
-            skillDescriptionText.text = ("Unlocks the homing Class");
+            skillDescriptionText = ("Unlocks the homing Class, And Skill Tree");
 
         if (SkillID.Equals("Nuke"))
-            skillDescriptionText.text = ("Unlocks The Nuke Weapon");
+            skillDescriptionText = ("Unlocks The Nuke Weapon");
 
         if (SkillID.Equals("Flak"))
-            skillDescriptionText.text = ("Unlocks The Flak Weapon");
+            skillDescriptionText = ("Unlocks The Flak Weapon");
 
         if (SkillID.Equals("Laser"))
-            skillDescriptionText.text = ("Unlocks The Laser Weapon");
+            skillDescriptionText = ("Unlocks The Laser Weapon");
 
         if (SkillID.Equals("HomingMissile"))
-            skillDescriptionText.text = ("Unlocks The Homing Missile Weapon");
+            skillDescriptionText = ("Unlocks The Homing Missile Weapon");
+
+        if (SkillID.Equals("MineH"))
+            skillDescriptionText = ("Unlocks the Heavy Mine Weapon");
+
+        if (SkillID.Equals("MineR"))
+            skillDescriptionText = ("Unlocks the Rapid Mine Weapon");
+
+        if (SkillID.Equals("MineHO"))
+            skillDescriptionText = ("Unlocks the Homing Mine Weapon");
 
     }
-
-    void Update()
+    private void Update()
     {
         if (!IsOwned)
         {
-            foreach (SkillPrefabController PreviousSkill in PreviousSkills)
+            if (CelestialCost != 0)
+                CelestialCostText = ("Celestial Cost:" + Stats.CelestialPoints + " / " + CelestialCost);
+            if (SolarCost != 0)
+                SolarCostText = ("Solar Cost:" + Stats.SolarPoints + " / " + SolarCost);
+
+                UpgradeLevelText = ( UpgradeLevel + " / " + MaxUpgradeLevel);
+
+            if (CelestialCost == 0)
+                ShowLine = true;
+            else
+                ShowLine = false;
+
+            if (Stats.CelestialPoints >= CelestialCost && Stats.SolarPoints >= SolarCost)
+                CanAfford = true;
+
+            else
+                CanAfford = false;
+
+            if (PreviousSkill != null)
             {
-                if (PreviousSkill != null)
-                {
-                    if (PreviousSkill.IsOwned)
-                    {
-                        UnlockButton.interactable = true;
-                        UnlockButtonText.text = ("Unlock");
-                    }
-                    else
-                    {
-                        UnlockButton.interactable = false;
-                        UnlockButtonText.text = ("Locked");
-                        break;
-                    }
-                }
+                if (PreviousSkill.IsOwned)
+                    CanBuy = true;
+                else
+                    CanBuy = false;
             }
-        }
-        if (NonEnding)
-        {
-            UpgradeLevelText.text = ("");
+            else
+            {
+                CanBuy = true;
+            }
         }
         else
         {
-            UpgradeLevelText.text = (UpgradeLevel + "/" + MaxUpgradeLevel);
+            CelestialCostText = "";
+            SolarCostText = "";
+            UpgradeLevelText = "";
         }
-        foreach (SkillPrefabController OtherSkillTypes in OtherSkillTypes)
+        if (PreviousSkill != null)
         {
-            if (OtherSkillTypes != null)
+            if (PreviousSkill.IsLocked)
             {
-                if (OtherSkillTypes.IsOwned)
-                {
-                    Disable();
-                }
+                IsHidden = true;
+            }
+            else
+            {
+                IsHidden = false;
             }
         }
+        else
+        {
+            IsHidden = false;
+        }
+
+        if (PreviousSkill != null)
+        {
+            if (PreviousSkill.IsOwned)
+            {
+                IsLocked = false;
+            }
+            else
+            {
+                IsLocked = true;
+            }
+        }
+        else
+        {
+            IsLocked = false;
+        }
+
+
+        if (!CanAfford || !CanBuy || IsOwned || IsLocked)
+        {
+            Disable();
+        }
+        if (CanAfford && CanBuy && !IsOwned)
+        {
+            Enable();
+        }
+
+        if (IsMouseOver)
+        {
+            UILine.color = SkillColour[2];
+            ButtonSpriteColor.color = SkillColour[2];
+        }
+        else if (IsOwned)
+        {
+            UILine.color = SkillColour[1];
+            ButtonSpriteColor.color = SkillColour[1];
+        }
+        else
+        {
+            UILine.color = SkillColour[0];
+            ButtonSpriteColor.color = SkillColour[0];
+        }
+
+
+
+
+        UnlockButtonSprite[0].SetActive(IsLocked); // if true will be true 
+        UnlockButtonSprite[1].SetActive(!IsLocked); // if true will be false
+
+        UI.SetActive(!IsHidden);
+        UILine.enabled = !IsHidden;
     }
 
     public void Unlock()
     {
-        if (Stats.CelestialPoints >= CelestialCost && Stats.SolarPoints >= SolarCost)
+        if (CanAfford && IsOwned == false)
         {
-            if (DisableCards != null)
+            if (CanBuy)
             {
-                foreach (SkillPrefabController Card in DisableCards)
+                if (UpgradeLevel < MaxUpgradeLevel)
                 {
-                    DisableCard(Card);
-                }
-            }
-            Stats.CelestialPoints -= CelestialCost;
-            Stats.SolarPoints -= SolarCost;
+                    UpgradeLevel++;
+                    Stats.CelestialPoints -= CelestialCost;
+                    Stats.SolarPoints -= SolarCost;
+                    if (UpgradeLevel >= MaxUpgradeLevel)
+                        IsOwned = true;
 
-            Skill.Upgrade(SkillID, SkillWeaponFloat, SkillValue);
-            if (NonEnding)
-            {
-
-            }
-            else
-            {
-                UpgradeLevel++;
-            }
-            if (UpgradeLevel >= MaxUpgradeLevel)
-            {
-                IsUpgradable = false;
-            }
-            else
-            {
-                IsUpgradable = true;
-            }
-            if (!IsUpgradable)
-            {
-                IsOwned = true;
-                UnlockButtonText.text = ("Owned");
-                UnlockButton.interactable = false;
-            }
-            else
-            {
-                if (IsLocked)
-                {
-                    if (!IsUpgradable)
+                    for (float i = CostIncrease; i <= UpgradeLevel; i++)
                     {
-                        IsLocked = false;
+                        CelestialCost += CelestialCostIncreasePerLevel;
+                        SolarCost += SolarCostIncreasePerLevel;
                     }
-                }
-                else
-                {
-                    IsOwned = true;
-                }
-                UnlockButtonText.text = ("Upgrade");
-            }
-            Stats.Save();
-            Save();
-        }
-        else
-        {
-            UnlockButtonText.text = ("Can't afford");
-        }
+                    SkillTreeData skillData = SkillTreeData.Load();
+                    skillData.Apply(SkillID,SkillWeaponFloat,SkillValue);
 
+                    //Skill.Upgrade(SkillID, SkillWeaponFloat, SkillValue); // SkillId, Float Weapon, Float Value
+                    Save();
+                    Stats.Save();
+                }
+            }
+        }
     }
 
-    public void Disable()
+    void Enable()
+    {
+        UnlockButton.interactable = true;
+    }
+
+    void Disable()
     {
         UnlockButton.interactable = false;
-        UnlockButtonText.text = ("Cannot Unlock");
-    }
-    void DisableCard(SkillPrefabController Card)
-    {
-        Card.Disable();
     }
 
     void Save()
     {
-        Debug.Log(IsOwned);
-        Debug.Log(UpgradeLevel);
-        PlayerPrefs.SetFloat("UpgradeLevelST", UpgradeLevel);
-        PlayerPrefs.SetInt("IsOwnedST", (IsOwned ? 1 : 0));
-        Debug.Log("Saved Skill Tree");
+        SkillTreeSkillData skillData = SkillTreeSkillData.LoadSkill();
+        skillData.Save(gameObject.name, SkillID, SkillValue, IsOwned, UpgradeLevel);
+    }
 
+    void Load()
+    {
+        SkillTreeSkillData skillData = SkillTreeSkillData.LoadSkill();
+        SkillEntry SkillEntry = skillData.Load(gameObject.name, SkillID, SkillValue);
+        if (SkillEntry != null)
+        {
+            IsOwned = SkillEntry.IsOwned;
+            UpgradeLevel = SkillEntry.UpgradeLevel;
+        }
+        else
+        {
+            Debug.LogWarning( gameObject.name + "_ID_" + SkillID + "_Value_" + SkillValue + " not found default values will be used");
+            IsOwned = false;
+            UpgradeLevel = 0;
+        }
     }
 }

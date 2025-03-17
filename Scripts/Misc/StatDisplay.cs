@@ -69,10 +69,10 @@ public class StatDisplay : MonoBehaviour
         enemyCount = RandomEnemySpawn.enemyCount;
         KillCount = RandomEnemySpawn.KillCount;
 
-        Health.text = "Health " + playerController.playerHealth + ":" + playerController.maxHealth;
-        Ammo.text = "Ammo " + playerController.playerStamina + ":" + playerController.maxStamina;
-        Speed.text = "Speed " + playerController.moveSpeed;
-        LifeSteal.text = "Life Steal " + StatsController.lifesteal;
+        Health.text = "Health " + Mathf.Round(playerController.playerHealth) + "/" + playerController.maxHealth;
+        Ammo.text = "Ammo " + Mathf.Round(playerController.playerStamina) + "/" + playerController.maxStamina;
+        Speed.text = "Speed " + Mathf.Round(playerController.moveSpeed);
+        LifeSteal.text = "Life Steal " + Mathf.Round(StatsController.lifeSteal * 10) / 10;
         ExtraLives.text = "Extra lives " + StatsController.ExtraLives;
         ExpBuff.text = "XP gain " + ExpGain;
         EnemyCount.text = "Enemy Count " + enemyCount;
@@ -86,66 +86,43 @@ public class StatDisplay : MonoBehaviour
         }
         if (Skill.mainWeapon == Skill.WeaponCode.Missile)
         {
-            MainDamage.text = "Main Damage " + MissileDamage;
-            MainAttackSpeed.text = "Main Attack Speed " + MissleControllerPlayer.fireDelay;
-            MainProjectileSpeed.text = "Main Projectile Speed " + MissleControllerPlayer.missileSpeed;
-            MainDamage1.SetActive(true);
-            MainAttackSpeed1.SetActive(true);
-            MainProjectileSpeed1.SetActive(true);
+            MainWeaponDisplay(StatsController.MissileDamage, StatsController.MissileFireDelay, StatsController.MissileSpeed);
         }
         if (Skill.mainWeapon == Skill.WeaponCode.Nuke)
         {
-            MainDamage.text = "Main Damage " + NukeDamage;
-            MainAttackSpeed.text = "Main Attack Speed " + NukeControllerPlayer.fireDelay;
-            MainProjectileSpeed.text = "Main Projectile Speed " + NukeControllerPlayer.NukeSpeed;
-            MainDamage1.SetActive(true);
-            MainAttackSpeed1.SetActive(true);
-            MainProjectileSpeed1.SetActive(true);
+            MainWeaponDisplay(StatsController.NukeDamage, StatsController.NukeFireDelay, StatsController.NukeSpeed);
         }
-            if (Skill.mainWeapon == Skill.WeaponCode.MiniGun)
+        if (Skill.mainWeapon == Skill.WeaponCode.MiniGun)
         {
-            MainDamage.text = "Main Damage " + MiniGunDamage;
-            MainAttackSpeed.text = "Main Attack Speed " + MiniGunControllerPlayer.fireDelay;
-            MainProjectileSpeed.text = "Main Projectile Speed " + MiniGunControllerPlayer.BulletSpeed;
-            MainDamage1.SetActive(true);
-            MainAttackSpeed1.SetActive(true);
-            MainProjectileSpeed1.SetActive(true);
+            MainWeaponDisplay(StatsController.MinigunDamage, StatsController.MinigunFireDelay, StatsController.MinigunSpeed);
         }
         if (Skill.mainWeapon == Skill.WeaponCode.HomingMissile)
         {
-            MainDamage.text = "Main Damage " + HomingMissile;
-            MainAttackSpeed.text = "Main Attack Speed " + HomingMissleControllerPlayer.fireDelay;
-            MainProjectileSpeed.text = "Main Projectile Speed " + HomingMissleControllerPlayer.missileSpeed;
-            MainDamage1.SetActive(true);
-            MainAttackSpeed1.SetActive(true);
-            MainProjectileSpeed1.SetActive(true);
+            MainWeaponDisplay(StatsController.HomingMissileDamage, StatsController.HomingMissileFireDelay, StatsController.HomingMissileSpeed);
         }
         if (Skill.mainWeapon == Skill.WeaponCode.Flak)
         {
-            MainDamage.text = "Main Damage " + Flak;
-            MainAttackSpeed.text = "Main Attack Speed " + FlakControllerPlayer.fireDelay;
-            MainProjectileSpeed.text = "Main Projectile Speed " + FlakControllerPlayer.FlakSpeed;
-            MainDamage1.SetActive(true);
-            MainAttackSpeed1.SetActive(true);
-            MainProjectileSpeed1.SetActive(true);
+            MainWeaponDisplay(StatsController.FlakDamage, StatsController.FlakFireDelay, StatsController.FlakSpeed);
         }
         if (Skill.mainWeapon == Skill.WeaponCode.Drone)
         {
-            MainDamage.text = "Main Damage " + Drone;
-            MainAttackSpeed.text = "Main Attack Speed " + DroneControllerPlayer.fireDelay;
-            MainProjectileSpeed.text = "Main Projectile Speed " + DroneControllerPlayer.DroneSpeed;
-            MainDamage1.SetActive(true);
-            MainAttackSpeed1.SetActive(true);
-            MainProjectileSpeed1.SetActive(true);
+            MainWeaponDisplay(StatsController.DroneDamage, StatsController.DroneFireDelay, StatsController.DroneSpeed);
         }
         if (Skill.mainWeapon == Skill.WeaponCode.Laser)
         {
-            MainDamage.text = "Main Damage " + Laser;
-            MainAttackSpeed.text = "Main Attack Speed " + LaserGunControllerPlayer.fireDelay;
-            MainProjectileSpeed.text = "Main Projectile Speed " + LaserGunControllerPlayer.BulletSpeed;
-            MainDamage1.SetActive(true);
-            MainAttackSpeed1.SetActive(true);
-            MainProjectileSpeed1.SetActive(true);
+            MainWeaponDisplay(StatsController.LaserDamage, StatsController.LaserFireDelay, StatsController.LaserSpeed);
+        }
+        if (Skill.mainWeapon == Skill.WeaponCode.MineHeavy)
+        {
+            MainWeaponDisplay(StatsController.MineHeavyDamage, StatsController.MineHeavyFireDelay, StatsController.MineHeavySpeed);
+        }
+        if (Skill.mainWeapon == Skill.WeaponCode.MineRapid)
+        {
+            MainWeaponDisplay(StatsController.MineRapidDamage, StatsController.MineRapidFireDelay, StatsController.MineRapidSpeed);
+        }
+        if (Skill.mainWeapon == Skill.WeaponCode.MineHoming)
+        {
+            MainWeaponDisplay(StatsController.MineHomingDamage, StatsController.MineHomingFireDelay, StatsController.MineHomingSpeed);
         }
         if (Skill.backupWeapon == Skill.WeaponCode.None)
         {
@@ -155,67 +132,63 @@ public class StatDisplay : MonoBehaviour
         }
         if (Skill.backupWeapon == Skill.WeaponCode.Missile)
         {
-            SubDamage.text = "Sub Damage " + MissileDamage;
-            SubAttackSpeed.text = "Sub Attack Speed " + MissleControllerPlayer.fireDelay;
-            SubProjectileSpeed.text = "Sub Projectile Speed " + MissleControllerPlayer.missileSpeed;
-            SubDamage1.SetActive(true);
-            SubAttackSpeed1.SetActive(true);
-            SubProjectileSpeed1.SetActive(true);
+            BackupWeaponDisplay(MissileDamage, MissleControllerPlayer.fireDelay, MissleControllerPlayer.missileSpeed);
         }
         if (Skill.backupWeapon == Skill.WeaponCode.Nuke)
         {
-            SubDamage.text = "Sub Damage " + NukeDamage;
-            SubAttackSpeed.text = "Sub Attack Speed " + NukeControllerPlayer.fireDelay;
-            SubProjectileSpeed.text = "Sub Projectile Speed " + NukeControllerPlayer.NukeSpeed;
-            SubDamage1.SetActive(true);
-            SubAttackSpeed1.SetActive(true);
-            SubProjectileSpeed1.SetActive(true);
+            BackupWeaponDisplay(NukeDamage, NukeControllerPlayer.fireDelay, NukeControllerPlayer.NukeSpeed);
         }
         if (Skill.backupWeapon == Skill.WeaponCode.MiniGun)
         {
-            SubDamage.text = "Sub Damage " + StatsController.MinigunDamage;
-            SubAttackSpeed.text = "Sub Attack Speed " + MiniGunControllerPlayer.fireDelay;
-            SubProjectileSpeed.text = "Sub Projectile Speed " + MiniGunControllerPlayer.BulletSpeed;
-            SubDamage1.SetActive(true);
-            SubAttackSpeed1.SetActive(true);
-            SubProjectileSpeed1.SetActive(true);
+            BackupWeaponDisplay(StatsController.MinigunDamage, MiniGunControllerPlayer.fireDelay, MiniGunControllerPlayer.BulletSpeed);
         }
         if (Skill.backupWeapon == Skill.WeaponCode.HomingMissile)
         {
-            SubDamage.text = "Sub Damage " + HomingMissile;
-            SubAttackSpeed.text = "Sub Attack Speed " + HomingMissleControllerPlayer.fireDelay;
-            SubProjectileSpeed.text = "Sub Projectile Speed " + HomingMissleControllerPlayer.missileSpeed;
-            SubDamage1.SetActive(true);
-            SubAttackSpeed1.SetActive(true);
-            SubProjectileSpeed1.SetActive(true);
+            BackupWeaponDisplay(HomingMissile, HomingMissleControllerPlayer.fireDelay, HomingMissleControllerPlayer.missileSpeed);
         }
         if (Skill.backupWeapon == Skill.WeaponCode.Flak)
         {
-            SubDamage.text = "Sub Damage " + Flak;
-            SubAttackSpeed.text = "Sub Attack Speed " + FlakControllerPlayer.fireDelay;
-            SubProjectileSpeed.text = "Sub Projectile Speed " + FlakControllerPlayer.FlakSpeed;
-            SubDamage1.SetActive(true);
-            SubAttackSpeed1.SetActive(true);
-            SubProjectileSpeed1.SetActive(true);
+            BackupWeaponDisplay(Flak, FlakControllerPlayer.fireDelay, FlakControllerPlayer.FlakSpeed);
         }
         if (Skill.backupWeapon == Skill.WeaponCode.Drone)
         {
-            SubDamage.text = "Sub Damage " + Drone;
-            SubAttackSpeed.text = "Sub Attack Speed " + DroneControllerPlayer.fireDelay;
-            SubProjectileSpeed.text = "Sub Projectile Speed " + DroneControllerPlayer.DroneSpeed;
-            SubDamage1.SetActive(true);
-            SubAttackSpeed1.SetActive(true);
-            SubProjectileSpeed1.SetActive(true);
+            BackupWeaponDisplay(Drone, DroneControllerPlayer.fireDelay, DroneControllerPlayer.DroneSpeed);
         }
         if (Skill.backupWeapon == Skill.WeaponCode.Laser)
         {
-            SubDamage.text = "Sub Damage " + Laser;
-            SubAttackSpeed.text = "Sub Attack Speed " + LaserGunControllerPlayer.fireDelay;
-            SubProjectileSpeed.text = "Sub Projectile Speed " + LaserGunControllerPlayer.BulletSpeed;
-            SubDamage1.SetActive(true);
-            SubAttackSpeed1.SetActive(true);
-            SubProjectileSpeed1.SetActive(true);
+            BackupWeaponDisplay(Laser, LaserGunControllerPlayer.fireDelay, LaserGunControllerPlayer.BulletSpeed);
+        }
+        if (Skill.backupWeapon == Skill.WeaponCode.MineHeavy)
+        {
+            BackupWeaponDisplay(StatsController.MineHeavyDamage, StatsController.MineHeavyFireDelay, StatsController.MineHeavySpeed);
+        }
+        if (Skill.backupWeapon == Skill.WeaponCode.MineRapid)
+        {
+            BackupWeaponDisplay(StatsController.MineRapidDamage, StatsController.MineRapidFireDelay, StatsController.MineRapidSpeed);
+        }
+        if (Skill.backupWeapon == Skill.WeaponCode.MineHoming)
+        {
+            BackupWeaponDisplay(StatsController.MineHomingDamage, StatsController.MineHomingFireDelay, StatsController.MineHomingSpeed);
         }
 
+    }
+
+    void MainWeaponDisplay(float MainDamage, float MainAttackSpeed, float MainProjectileSpeed)
+    {
+        this.MainDamage.text = "Main Damage " + Mathf.Round(MainDamage);
+        this.MainAttackSpeed.text = "Main Attack Speed " + Mathf.Round(MainAttackSpeed * 10) / 10 + "s";
+        this.MainProjectileSpeed.text = "Main Projectile Speed " + Mathf.Round(MainProjectileSpeed * 10) / 10 + "s";
+        MainDamage1.SetActive(true);
+        MainAttackSpeed1.SetActive(true);
+        MainProjectileSpeed1.SetActive(true);
+    }
+    void BackupWeaponDisplay(float SubDamage, float SubAttackSpeed, float SubProjectileSpeed)
+    {
+        this.SubDamage.text = "Sub Damage " + Mathf.Round(SubDamage);
+        this.SubAttackSpeed.text = "Sub Attack Speed " + Mathf.Round(SubAttackSpeed * 10) / 10 + "s";
+        this.SubProjectileSpeed.text = "Sub Projectile Speed " + Mathf.Round(SubProjectileSpeed * 10) / 10 + "s";
+        SubDamage1.SetActive(true);
+        SubAttackSpeed1.SetActive(true);
+        SubProjectileSpeed1.SetActive(true);
     }
 }

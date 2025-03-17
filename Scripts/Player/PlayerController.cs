@@ -118,6 +118,18 @@ public class PlayerController : MonoBehaviour
         {
             Weapons.LaserUnlocked();
         }
+        if (StatsController.MineHeavy == true)
+        {
+            Weapons.MineHeavyUnlocked();
+        }
+        if (StatsController.MineRapid == true)
+        {
+            Weapons.MineRapidUnlocked();
+        }
+        if (StatsController.MineHoming == true)
+        {
+            Weapons.MineHomingUnlocked();
+        }
         if (minutes > timeInterval)
         {
             percentIncrease += 0.1f;

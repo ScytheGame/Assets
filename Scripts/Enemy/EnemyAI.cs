@@ -7,6 +7,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] GameObject Player;
     [SerializeField] float Distance;
     [SerializeField] float MinDistance;
+    [SerializeField] float TeleportDistance;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] EnemyController EnemyController;
     [SerializeField] NavMeshAgent Agent;
@@ -29,6 +30,12 @@ public class EnemyAI : MonoBehaviour
     {
         Agent.speed = Speed;
         Distance = Vector3.Distance(transform.position, Player.transform.position);
+
+        if (Distance >= TeleportDistance)
+        {
+            Warp();
+        }
+
         if (Distance >= MinDistance)
             FollowPlayer();
         else
@@ -38,9 +45,16 @@ public class EnemyAI : MonoBehaviour
 
     }
 
+    void Warp()
+    {
+        offset = new Vector3(RandomValue(100), RandomValue(100), RandomValue(100));
+        Position = Player.transform.position + offset;
+        Agent.Warp(Position);
+    }
+
     void FollowPlayer()
     {
-        offset = new Vector3(RandomValue(), RandomValue(), RandomValue());
+        offset = new Vector3(RandomValue(10), RandomValue(10), RandomValue(10));
         Position = Player.transform.position + offset;
         Agent.SetDestination(Position);
     }
@@ -50,9 +64,9 @@ public class EnemyAI : MonoBehaviour
         Agent.SetDestination(Position);
     }
 
-    float RandomValue()
+    float RandomValue(float Value)
     {
-        float RandomValue = Random.Range(-10, 10);
+        float RandomValue = Random.Range(-Value, Value);
         return RandomValue;
     }
 }

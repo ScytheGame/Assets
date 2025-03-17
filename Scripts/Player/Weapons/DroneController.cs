@@ -42,6 +42,7 @@ public class DroneControllerPlayer : MonoBehaviour
         Damage = StatsController.DroneDamage;
         DroneSpeed = StatsController.DroneSpeed;
         fireDelay = StatsController.DroneFireDelay;
+        StaminaPerShot = StatsController.DroneAmmoCost;
         if (canFire == true && StaminaRegen.isReloading == false)
         {
             if (Skill.usingMainWeaponDrone == true || Skill.usingMainWeaponDrone == true)

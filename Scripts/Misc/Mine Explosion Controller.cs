@@ -1,9 +1,10 @@
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class MineExplosionController : MonoBehaviour
 {
     [SerializeField] CircleCollider2D Collider2D;
-    [SerializeField] ParticleSystem ParticleSystem;
+    [SerializeField] VisualEffect vfx;
     public float Size;
     public float Damage;
 
@@ -11,9 +12,10 @@ public class MineExplosionController : MonoBehaviour
     void Start()
     {
         Collider2D.radius = Size;
-        ParticleSystem.MainModule main = ParticleSystem.main;
-        main.startLifetime =  Size;
-        main.startSize = Size;
+        if (vfx.HasFloat("Radius"))
+        {
+            vfx.SetFloat("Radius", Size);
+        }
     }
 
     // Update is called once per frame
