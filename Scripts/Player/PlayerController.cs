@@ -61,11 +61,7 @@ public class PlayerController : MonoBehaviour
         maxStamina = StatsController.MaxStamina;
         moveSpeed = StatsController.MoveSpeed;
         minutes = RandomEnemySpawn.minutes;
-        Vector3 mousePosition = Input.mousePosition;
-        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-        Vector2 direction = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y);
         
-        transform.up = direction;
 
         if (StatsController.CurrentHealth <= 0)
         {
@@ -153,6 +149,10 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(new Vector2(inputHorizontal * moveSpeed, inputVertical * moveSpeed));
         }
+        Vector3 mousePosition = Input.mousePosition;
+        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        Vector2 direction = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y);
+        transform.up = direction;
     }
     public void SkillsAfterLevelUp()
     {

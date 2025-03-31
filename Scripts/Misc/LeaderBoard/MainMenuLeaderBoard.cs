@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
-using static Cinemachine.DocumentationSortingAttribute;
 using TMPro;
 
 public class MainMenuLeaderBoard : MonoBehaviour
