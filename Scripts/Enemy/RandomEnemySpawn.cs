@@ -4,10 +4,11 @@ using TMPro;
 public class RandomEnemySpawn : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] GameObject Enemy;
-    [SerializeField] GameObject Enemy1;
+    [SerializeField] GameObject[] Enemy;
+    [SerializeField] GameObject[] Bosses;
     [SerializeField] TextMeshProUGUI RunLength;
     [SerializeField] GameSettings GameSettings;
+    [SerializeField] StatsController PlayerStatsController;
 
     [Space(10)]
     [Header("RandomGen Coordinates")]
@@ -30,10 +31,12 @@ public class RandomEnemySpawn : MonoBehaviour
     private bool toManyEnemies = false;
     private float timeMinute = 60;
     private float timeChunks = 1;
-    private bool spawnEnemy1 = false;
-    int bossEnemyChance = 0;
+    bool CanSpawnEnemies = true;
     int enemyUpdateMaxCount = 10;
     int num = 20;
+    int BossSpawnLevelinterval = 15;
+    int BossSpawnLevel = 15;
+
 
     void Start()
     {
@@ -42,11 +45,11 @@ public class RandomEnemySpawn : MonoBehaviour
     }
     void Update()
     {
-        if (GameSettings.EnemySpawnRateFloat >= 1 || GameSettings.EnemySpawnCountFloat >= 1)
-        {
-            maxCount = GameSettings.EnemySpawnCountFloat;
-            spawnDelay = GameSettings.EnemySpawnRateFloat;
-        }
+        //if (GameSettings.EnemySpawnRateFloat >= 1 || GameSettings.EnemySpawnCountFloat >= 1)
+        //{
+        //    maxCount = GameSettings.EnemySpawnCountFloat;
+        //    spawnDelay = GameSettings.EnemySpawnRateFloat;
+        //}
         gameTime += Time.deltaTime;
         minutes = Mathf.FloorToInt(gameTime / 60);
         int seconds = Mathf.FloorToInt(gameTime % 60);
@@ -65,23 +68,18 @@ public class RandomEnemySpawn : MonoBehaviour
         }
         if (spawnTimer >= spawnDelay)
         {
-            SpawnEnemies(Random.Range(1, 2));
-            spawnTimer = 0f;
-        }
-        if (minutes > enemyUpdateMaxCount)
-        {
-            enemyUpdateMaxCount += 5;
-            maxCount += 5;
-
-        }
-        if (minutes >= num)
-        {
-            num += 5;
-            bossEnemyChance += 1;
-            if ( bossEnemyChance > 4)
+            if (CanSpawnEnemies)
             {
-                bossEnemyChance--;
+                SpawnEnemies(Random.Range(1, 2));
+                spawnTimer = 0f;
             }
+        }
+
+        int PlayerLevel = PlayerStatsController.currentLevel;
+        if (PlayerLevel == BossSpawnLevel)
+        {
+            DeleteEnemies();
+            SpawnBoss();
         }
     }
 
@@ -98,7 +96,7 @@ public class RandomEnemySpawn : MonoBehaviour
                 {
                     spawnDelay -= 2f;
                 }
-                Debug.Log("spawn delay " + spawnDelay);
+                //Debug.Log("spawn delay " + spawnDelay);
             }
         }
     }
@@ -116,19 +114,54 @@ public class RandomEnemySpawn : MonoBehaviour
 
             if (toManyEnemies == false)
             {
-                if (Random.Range(1, 11) <= bossEnemyChance)
+                int unlockedEnemies = Mathf.Min(1 + (int)(gameTime / 300f), Enemy.Length);
+
+                int RandomEnemy = 0;
+                if (unlockedEnemies == Enemy.Length)
                 {
-                    Instantiate(Enemy1, groupCenter, Quaternion.identity);
-                    enemyCount++;
-                    Debug.Log("enemy count is " + enemyCount);
+                    float bias = Mathf.Clamp01((gameTime - 300f) / 1500f);
+
+                    float rand = Mathf.Pow(Random.value, 1f - bias);
+                    RandomEnemy = Mathf.Clamp(Mathf.FloorToInt(rand * Enemy.Length), 0, Enemy.Length - 1);
                 }
                 else
                 {
-                    Instantiate(Enemy, groupCenter, Quaternion.identity);
-                    enemyCount++;
-                    Debug.Log("enemy count is " + enemyCount);
+                    // Only pick from unlocked enemies
+                    RandomEnemy = Random.Range(0, unlockedEnemies);
                 }
+                Instantiate(Enemy[RandomEnemy], groupCenter, Quaternion.identity);
+                enemyCount++;
+                //Debug.Log("enemy count is " + enemyCount);
             }
         }
+    }
+    void SpawnBoss()
+    {
+        Vector3 groupCenter;
+        do
+        {
+            groupCenter = new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY), 0);
+        }
+        while (Vector3.Distance(groupCenter, Vector3.zero) < minSpawnDistanceFromCenter);
+
+        enemyCount = 0;
+        CanSpawnEnemies = false;
+
+        BossSpawnLevel += BossSpawnLevelinterval;
+
+        int RandomEnemy = Random.Range(0, Bosses.Length);
+        Instantiate(Bosses[RandomEnemy], groupCenter, Quaternion.identity);
+
+    }
+    void DeleteEnemies()
+    {
+        foreach(GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            Destroy(enemy);
+        }
+    }
+    public void DefeatedBoss()
+    {
+        CanSpawnEnemies = true;
     }
 }

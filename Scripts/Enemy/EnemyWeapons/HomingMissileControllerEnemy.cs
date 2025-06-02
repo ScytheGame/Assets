@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class HomingMissleControllerEnemy : MonoBehaviour
 {
-    [SerializeField] private Transform ProjectileSpawnPoint3;
+    [SerializeField] private Transform ProjectileSpawnPointLeft;
+    [SerializeField] private Transform ProjectileSpawnPointRight;
+    [SerializeField] GameObject Parent;
     [SerializeField] private GameObject MissilePrefab;
     [SerializeField] private AudioManager AudioManager;
     [SerializeField] AudioSource Source;
@@ -23,11 +25,13 @@ public class HomingMissleControllerEnemy : MonoBehaviour
     private Transform SpawnPoint;
     public bool canFire = true;
     private bool Loaded = false;
-
+    bool FirstShotShot = false;
+    Animator anim;
     void Start()
     {
         GameObject audioManager = GameObject.FindGameObjectWithTag("AudioManager");
         AudioManager = audioManager.GetComponent<AudioManager>();
+        anim = Parent.GetComponent<Animator>();
         GetComponent<EnemyController>();
     }
 
@@ -47,11 +51,24 @@ public class HomingMissleControllerEnemy : MonoBehaviour
         {
             if (EnemyController.isAttacking == true)
             {
-                FireMissile(ProjectileSpawnPoint3);
-                SpawnPoint = ProjectileSpawnPoint3;
-                setDelayTimer = 0f;
-
-                canFire = false;
+                if (!FirstShotShot)
+                {
+                    FireMissile(ProjectileSpawnPointLeft);
+                    SpawnPoint = ProjectileSpawnPointLeft;
+                    anim.SetTrigger("LeftWeaponShot");
+                    setDelayTimer = 0f;
+                    FirstShotShot = true;
+                    canFire = false;
+                }
+                else
+                {
+                    FireMissile(ProjectileSpawnPointRight);
+                    SpawnPoint = ProjectileSpawnPointRight;
+                    anim.SetTrigger("RightWeaponShot");
+                    setDelayTimer = 0f;
+                    FirstShotShot = false;
+                    canFire = false;
+                }
             }
         }
         else
@@ -71,7 +88,8 @@ public class HomingMissleControllerEnemy : MonoBehaviour
     {
         if (PlayerController.enemyStamina < StaminaPerShot)
         {
-            canFire = false;
+            StaminaRegenEnemy StaminaRegenEnemy = Parent.GetComponent<StaminaRegenEnemy>();
+            StaminaRegenEnemy.StartReloading();
         }
         else
         {

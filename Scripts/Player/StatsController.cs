@@ -403,19 +403,9 @@ public class StatsController : MonoBehaviour
         FlakDamage *= Value;
         DroneDamage *= Value;
         LaserDamage *= Value;
-        MissileAmmoCost *= Value / 2;
-        NukeAmmoCost *= Value / 2;
-        FlakAmmoCost *= Value / 2;
-        MinigunAmmoCost *= Value / 2;
-        LaserAmmoCost *= Value / 2;
-        DroneAmmoCost *= Value / 2;
-        HomingMissileAmmoCost *= Value / 2;
         MineHeavyDamage *= Value;
         MineRapidDamage *= Value;
         MineHomingDamage *= Value;
-        MineHeavyAmmoCost *= Value / 2;
-        MineRapidAmmoCost *= Value / 2;
-        MineHomingAmmoCost *= Value / 2;
     }
     void SpeedBoost(float Value)
     {
@@ -435,16 +425,16 @@ public class StatsController : MonoBehaviour
     }
     void AttackSpeed(float Value)
     {
-        MissileFireDelay *= Value;
-        NukeFireDelay *= Value;
-        MinigunFireDelay *= Value;
-        HomingMissileFireDelay *= Value;
-        FlakFireDelay *= Value;
-        DroneFireDelay *= Value;
-        LaserFireDelay *= Value;
-        MineHeavyFireDelay *= Value;
-        MineRapidFireDelay *= Value;
-        MineHomingFireDelay *= Value;
+        MissileFireDelay /= Value;
+        NukeFireDelay /= Value;
+        MinigunFireDelay /= Value;
+        HomingMissileFireDelay /= Value;
+        FlakFireDelay /= Value; 
+        DroneFireDelay /= Value;
+        LaserFireDelay /= Value;
+        MineHeavyFireDelay /= Value;
+        MineRapidFireDelay /= Value;
+        MineHomingFireDelay /= Value;
     }
     void XPBuff(float Value)
     {

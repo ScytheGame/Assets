@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class DroneControllerPlayer : MonoBehaviour
 {
-    [SerializeField] private Transform ProjectileSpawnPoint1;
-    [SerializeField] private Transform ProjectileSpawnPoint2;
-    [SerializeField] private Transform ProjectileSpawnPoint3;
+    [SerializeField] private Transform ProjectileSpawnPointLeft;
+    [SerializeField] private Transform ProjectileSpawnPointRight;
+    [SerializeField] private Transform ProjectileSpawnPointBackLeft;
+    [SerializeField] private Transform ProjectileSpawnPointBackRight;
     [SerializeField] private GameObject MissilePrefab;
-    [SerializeField] private AudioManager AudioManager;
-    [SerializeField] AudioSource Source;
+    private AudioManager AudioManager;
+    AudioSource Source;
 
     [SerializeField] public float DroneSpeed = 25f;
     [SerializeField] public float fireDelay = 1.5f;
@@ -17,24 +18,31 @@ public class DroneControllerPlayer : MonoBehaviour
     [SerializeField] private float spread = 20f;
     [SerializeField] float Damage;
 
-    public Skill Skill;
-    public PlayerController playerController;
-    public SkillsController skillsController;
-    public StatsController StatsController;
-    public StaminaRegen StaminaRegen;
+    Skill Skill;
+    PlayerController playerController;
+    SkillsController skillsController;
+    StatsController StatsController;
+    StaminaRegen StaminaRegen;
 
     public float delayTimer = 0f;
     private float setDelayTimer = 0f;
-    private Transform SpawnPoint;
     public bool canFire = true;
     int skillCheck = 0;
     public int spawnCount = 0;
-
+    Animator anim;
     void Start()
     {
         GameObject audioManager = GameObject.FindGameObjectWithTag("AudioManager");
         AudioManager = audioManager.GetComponent<AudioManager>();
-        GetComponent<PlayerController>();
+        Source = GameObject.FindWithTag("Player").GetComponent<AudioSource>();
+        anim = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
+        Skill = GameObject.FindGameObjectWithTag("Canvas").GetComponent<Skill>();
+
+        GameObject Player = GameObject.FindGameObjectWithTag("Player");
+        playerController = Player.GetComponent<PlayerController>();
+        skillsController = Player.GetComponent<SkillsController>();
+        StatsController = Player.GetComponent<StatsController>();
+        StaminaRegen = Player.GetComponent<StaminaRegen>();
     }
 
     void Update()
@@ -45,32 +53,55 @@ public class DroneControllerPlayer : MonoBehaviour
         StaminaPerShot = StatsController.DroneAmmoCost;
         if (canFire == true && StaminaRegen.isReloading == false)
         {
-            if (Skill.usingMainWeaponDrone == true || Skill.usingMainWeaponDrone == true)
+            if (Skill.usingMainWeaponDrone == true)
             {
                 if (StatsController.DoubleShot)
                 {
                     for (int i = 1; i <= 3; i++)
                     {
                         StatsController.CurrentStamina -= StaminaPerShot;
-                        FireMissile(ProjectileSpawnPoint1);
-                        SpawnPoint = ProjectileSpawnPoint1;
+                        FireMissile(false, ProjectileSpawnPointLeft);
+                        anim.SetTrigger("LeftWeaponShot");
+
                         StatsController.CurrentStamina -= StaminaPerShot;
-                        FireMissile(ProjectileSpawnPoint2);
-                        SpawnPoint = ProjectileSpawnPoint2;
+                        FireMissile(false, ProjectileSpawnPointRight);
+                        anim.SetTrigger("RightWeaponShot");
+
+                        if (StatsController.BackwardsFire)
+                        {
+                            StatsController.CurrentStamina -= StaminaPerShot;
+                            FireMissile(false, ProjectileSpawnPointBackLeft);
+                            anim.SetTrigger("LeftWeaponShot");
+
+                            StatsController.CurrentStamina -= StaminaPerShot;
+                            FireMissile(false, ProjectileSpawnPointBackRight);
+                            anim.SetTrigger("RightWeaponShot");
+                        }
                         delayTimer = 0f;
                     }
                 }
                 else
                 {
                     StatsController.CurrentStamina -= StaminaPerShot;
-                    FireMissile(ProjectileSpawnPoint1);
-                    SpawnPoint = ProjectileSpawnPoint1;
+                    FireMissile(false, ProjectileSpawnPointLeft);
+                    anim.SetTrigger("LeftWeaponShot");
+
                     StatsController.CurrentStamina -= StaminaPerShot;
-                    FireMissile(ProjectileSpawnPoint2);
-                    SpawnPoint = ProjectileSpawnPoint2;
+                    FireMissile(false, ProjectileSpawnPointRight);
+                    anim.SetTrigger("RightWeaponShot");
+
+                    if (StatsController.BackwardsFire)
+                    {
+                        StatsController.CurrentStamina -= StaminaPerShot;
+                        FireMissile(false, ProjectileSpawnPointBackLeft);
+                        anim.SetTrigger("LeftWeaponShot");
+
+                        StatsController.CurrentStamina -= StaminaPerShot;
+                        FireMissile(false, ProjectileSpawnPointBackRight);
+                        anim.SetTrigger("RightWeaponShot");
+                    }
                     delayTimer = 0f;
                 }
-                FireBackwards();
             }
         }
         else
@@ -84,7 +115,7 @@ public class DroneControllerPlayer : MonoBehaviour
             }
         }
     }
-    private void FireMissile(Transform SpawnPoint)
+    private void FireMissile(bool SecondShot, Transform SpawnPoint)
     {
         if (playerController.playerStamina < StaminaPerShot)
         {
@@ -126,65 +157,15 @@ public class DroneControllerPlayer : MonoBehaviour
                 spawnCount = 0;
             }
             canFire = false;
-            if (StatsController.MultiShot)
+            if (StatsController.MultiShot && !SecondShot)
             {
                 StartCoroutine(FireMultiShot(SpawnPoint));
             }
         }
     }
-    void FireBackwards()
-    {
-        if (StatsController.BackwardsFire == true)
-        {
-            AudioManager.PlaySFX(AudioManager.DroneShot, Source);
-            var offsetRotation = SpawnPoint.rotation * Quaternion.Euler(0, 0, spread);
-            var Missile = Instantiate(MissilePrefab, ProjectileSpawnPoint3.position, offsetRotation);
-            Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPoint3.up * DroneSpeed;
-            Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 15, Damage + 30);
-            AudioManager.PlaySFX(AudioManager.DroneShot, Source);
-            offsetRotation = SpawnPoint.rotation * Quaternion.Euler(0, 0, -spread);
-            Missile = Instantiate(MissilePrefab, ProjectileSpawnPoint3.position, offsetRotation);
-            Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPoint3.up * DroneSpeed;
-            Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 15, Damage + 30);
-        }
-    }
     private IEnumerator FireMultiShot(Transform SpawnPoint)
     {
         yield return new WaitForSeconds(0.3f);
-        if (spawnCount == 0)
-        {
-            AudioManager.PlaySFX(AudioManager.DroneShot, Source);
-            var Missile = Instantiate(MissilePrefab, SpawnPoint.position, SpawnPoint.rotation);
-            Missile.GetComponent<Rigidbody2D>().linearVelocity = SpawnPoint.up * DroneSpeed;
-            Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 15, Damage + 30);
-            spawnCount++;
-            if (StatsController.DoubleShot == false)
-            {
-                spawnCount = 0;
-            }
-
-        }
-        else if (spawnCount == 1)
-        {
-            AudioManager.PlaySFX(AudioManager.DroneShot, Source);
-            var offsetRotation = SpawnPoint.rotation * Quaternion.Euler(0, 0, spread);
-            var Missile = Instantiate(MissilePrefab, SpawnPoint.position, offsetRotation);
-
-            Missile.GetComponent<Rigidbody2D>().linearVelocity = Missile.transform.up * DroneSpeed;
-            Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 15, Damage + 30);
-            spawnCount++;
-        }
-        else if (spawnCount == 2)
-        {
-            AudioManager.PlaySFX(AudioManager.DroneShot,Source);
-            var offsetRotation = SpawnPoint.rotation * Quaternion.Euler(0, 0, -spread);
-            var Missile = Instantiate(MissilePrefab, SpawnPoint.position, offsetRotation);
-
-            Missile.GetComponent<Rigidbody2D>().linearVelocity = Missile.transform.up * DroneSpeed;
-            Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 15, Damage + 30);
-            spawnCount = 0;
-        }
-        canFire = false;
-        FireBackwards();
+        FireMissile(true, SpawnPoint);
     }
 }

@@ -3,9 +3,9 @@ using static UnityEngine.ParticleSystem;
 
 public class MiniGunControllerEnemy : MonoBehaviour
 {
-    [SerializeField] private Transform ProjectileSpawnPoint1;
-    [SerializeField] private Transform ProjectileSpawnPoint2;
-    [SerializeField] private Transform ProjectileSpawnPoint3;
+    [SerializeField] private Transform ProjectileSpawnPointLeft;
+    [SerializeField] private Transform ProjectileSpawnPointRight;
+    [SerializeField] GameObject Parent;
     [SerializeField] private GameObject MiniGunPrefab;
     [SerializeField] private AudioManager AudioManager;
     [SerializeField] AudioSource Source;
@@ -25,18 +25,16 @@ public class MiniGunControllerEnemy : MonoBehaviour
     private bool firedFirstBullet = false;
     public float delayTimer = 0f;
     private float setDelayTimer = 0f;
-    private Transform SpawnPoint;
     public bool canFire = true;
     private bool EnemyDoubleShot = false;
     private int DoubleShot = 0;
-    private float burst = 0f;
-    private bool betweenBurst = false;
     private bool Loaded = false;
-
+    Animator anim;
     void Start()
     {
         GameObject audioManager = GameObject.FindGameObjectWithTag("AudioManager");
         AudioManager = audioManager.GetComponent<AudioManager>();
+        anim = Parent.GetComponent<Animator>();
         GetComponent<EnemyController>();
         DoubleShot = UnityEngine.Random.Range(1, 3);
         if (DoubleShot >= 1.5)
@@ -61,67 +59,46 @@ public class MiniGunControllerEnemy : MonoBehaviour
             BulletSpeed *= ProjectileSpeedMultiplier;
             Loaded = true;
         }
-        if (burst >= 20)
-        {
-            betweenBurst = true;
-        }
-        if (burst <= 0)
-        {
-            betweenBurst = false;
-        }
-        if (betweenBurst == true)
-        {
-            canFire = false;
-            burst -= Time.deltaTime * 20f;
-        }
-        if (betweenBurst == false)
-        {
-            canFire = true;
-        }
         if (canFire == true)
         {
-            if (EnemyDoubleShot)
+            if (EnemyController.isAttacking == true)
             {
-                if (EnemyController.isAttacking == true)
+                if (EnemyDoubleShot)
                 {
                     StaminaPerShot = 0.75f;
+                    FireBullet(ProjectileSpawnPointLeft);
+                    anim.SetTrigger("LeftWeaponShot");
 
-                    if (!firedFirstBullet)
-                    {
-                        FireBullet(ProjectileSpawnPoint1);
-                        SpawnPoint = ProjectileSpawnPoint1;
-                        firedFirstBullet = true;
-                        delayTimer = 0f;
-                    }
-
-                    if (firedFirstBullet)
-                    {
-                        delayTimer += Time.deltaTime;
-
-                        if (delayTimer >= shotDelay)
-                        {
-                            FireBullet(ProjectileSpawnPoint2);
-                            SpawnPoint = ProjectileSpawnPoint2;
-                            firedFirstBullet = false;
-                            setDelayTimer = 0f;
-                            canFire = false;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                if (EnemyController.isAttacking == true)
-                {
-                    StaminaPerShot = 1f;
-                    FireBullet(ProjectileSpawnPoint3);
-                    SpawnPoint = ProjectileSpawnPoint3;
-                    setDelayTimer = 0f;
-
+                    FireBullet(ProjectileSpawnPointRight);
+                    anim.SetTrigger("RightWeaponShot");
+                    setDelayTimer = 0;
 
                     canFire = false;
                 }
+
+                else
+                {
+                    StaminaPerShot = 1f;
+                    if (!firedFirstBullet)
+                    {
+                        FireBullet(ProjectileSpawnPointLeft);
+                        anim.SetTrigger("LeftWeaponShot");
+                        firedFirstBullet = true;
+                    }
+
+                    else if (firedFirstBullet)
+                    {
+                        FireBullet(ProjectileSpawnPointRight);
+                        anim.SetTrigger("RightWeaponShot");
+                        firedFirstBullet = false;
+                        setDelayTimer = 0f;
+                        canFire = false;
+                    }
+
+
+                }
             }
+
         }
         else
         {
@@ -139,7 +116,8 @@ public class MiniGunControllerEnemy : MonoBehaviour
     {
         if (playerController.enemyStamina < StaminaPerShot)
         {
-            canFire = false;
+            StaminaRegenEnemy StaminaRegenEnemy = Parent.GetComponent<StaminaRegenEnemy>();
+            StaminaRegenEnemy.StartReloading();
         }
         else
         {
@@ -147,8 +125,6 @@ public class MiniGunControllerEnemy : MonoBehaviour
             var Bullet = Instantiate(MiniGunPrefab, SpawnPoint.position, SpawnPoint.rotation);
             Bullet.GetComponent<Rigidbody2D>().linearVelocity = SpawnPoint.up * BulletSpeed;
             Bullet.GetComponent<EnemyWeaponStats>().Damage = Random.Range(Damage - 15, Damage);
-
-            burst++;
 
             System.Random rng = new System.Random();
             int randomValue = rng.Next(0, 5);

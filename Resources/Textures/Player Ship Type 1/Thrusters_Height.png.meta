@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Thrusters_Height_0: 1060497850263859670
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -11,72 +12,58 @@ public class DeathMenuLeaderBoard : MonoBehaviour
     [SerializeField] Button submitNameButton;
     [SerializeField] ValueLoad ValueSave;
 
-    [Header("Saved Scores")]
-    private int TimePlayed;
-    private int Level;
-    private int KillCount;
-    private string playerName;
+    private string leaderboardFilePath;
 
     void Start()
     {
-        // Attach listener to the submit button
+        leaderboardFilePath = Path.Combine(Application.persistentDataPath, "leaderboard.json");
         submitNameButton.onClick.AddListener(OnSubmitName);
     }
+
     public void OnSubmitName()
     {
-        // Retrieve or initialize the player list
-        List<string> allPlayers = new List<string>(PlayerPrefs.GetString("AllPlayerNames", "").Split(','));
-        allPlayers.RemoveAll(string.IsNullOrEmpty);
+        string playerName = playerNameInputField.text.Trim();
+        if (string.IsNullOrEmpty(playerName)) return;
 
-        // Fetch the player name from the input field
-        playerName = playerNameInputField.text.Trim();
+        LeaderboardData leaderboard = LoadLeaderboard();
 
-        if (string.IsNullOrEmpty(playerName))
+        // Check if player already exists
+        PlayerStats existing = leaderboard.players.Find(p => p.PlayerName == playerName);
+        if (existing == null)
         {
-            Debug.LogWarning("Player name is empty. Cannot save stats.");
-            return;
+            existing = new PlayerStats { PlayerName = playerName };
+            leaderboard.players.Add(existing);
         }
 
-        // Add the player name if it doesn't exist
-        if (!allPlayers.Contains(playerName))
-        {
-            allPlayers.Add(playerName);
-        }
-
-        // Save the updated player list
-        PlayerPrefs.SetString("AllPlayerNames", string.Join(",", allPlayers));
-
-        // Save stats for the player
-        Save(playerName);
-
-        // Save all PlayerPrefs data
-        PlayerPrefs.Save();
-
-        Debug.Log($"Stats saved for {playerName}: TimePlayed = {TimePlayed}, Level = {Level}, KillCount = {KillCount}");
-    }
-
-    private void Save(string playerName)
-    {
+        // Update stats from ValueSave
         if (ValueSave != null)
         {
-            // Retrieve stats from ValueSave before saving
-            TimePlayed = ValueSave.TimePlayed;
-            Level = ValueSave.Level;
-            KillCount = ValueSave.KillCount;
+            existing.TimePlayed = ValueSave.TimePlayed;
+            existing.Level = ValueSave.Level;
+            existing.KillCount = ValueSave.KillCount;
         }
         else
         {
-            Debug.LogWarning("ValueSave is null. Unable to retrieve stats.");
             return;
         }
 
-        // Save the player's stats to PlayerPrefs
-        PlayerPrefs.SetInt(playerName + "_TimePlayed", TimePlayed);
-        PlayerPrefs.SetInt(playerName + "_Level", Level);
-        PlayerPrefs.SetInt(playerName + "_KillCount", KillCount);
-
-
-        Debug.Log($"Saved stats for {playerName}: TimePlayed = {TimePlayed}, Level = {Level}, KillCount = {KillCount}");
+        SaveLeaderboard(leaderboard);
+        Debug.Log($"Saved stats for {playerName}: TimePlayed = {existing.TimePlayed}, Level = {existing.Level}, KillCount = {existing.KillCount}");
     }
 
+    private LeaderboardData LoadLeaderboard()
+    {
+        if (File.Exists(leaderboardFilePath))
+        {
+            string json = File.ReadAllText(leaderboardFilePath);
+            return JsonUtility.FromJson<LeaderboardData>(json) ?? new LeaderboardData();
+        }
+        return new LeaderboardData();
+    }
+
+    private void SaveLeaderboard(LeaderboardData leaderboard)
+    {
+        string json = JsonUtility.ToJson(leaderboard, true);
+        File.WriteAllText(leaderboardFilePath, json);
+    }
 }

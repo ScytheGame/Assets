@@ -4,13 +4,13 @@ using UnityEngine.UIElements;
 
 public class MiniGunControllerPlayer : MonoBehaviour
 {
-    [SerializeField] private Transform ProjectileSpawnPoint1;
-    [SerializeField] private Transform ProjectileSpawnPoint2;
-    [SerializeField] private Transform ProjectileSpawnPoint3;
-    [SerializeField] private Transform ProjectileSpawnPoint4;
+    [SerializeField] private Transform ProjectileSpawnPointLeft;
+    [SerializeField] private Transform ProjectileSpawnPointRight;
+    [SerializeField] private Transform ProjectileSpawnPointBackLeft;
+    [SerializeField] private Transform ProjectileSpawnPointBackRight;
     [SerializeField] private GameObject MiniGunPrefab;
-    [SerializeField] private AudioManager AudioManager;
-    [SerializeField] AudioSource Source;
+    private AudioManager AudioManager;
+    AudioSource Source;
 
     [SerializeField] public float BulletSpeed = 30f;
     [SerializeField] private float shotDelay = 0.01f;
@@ -20,11 +20,11 @@ public class MiniGunControllerPlayer : MonoBehaviour
     [SerializeField] private float spread = 10;
     [SerializeField] float Damage;
 
-    public Skill Skill;
-    public PlayerController playerController;
-    public SkillsController skillsController;
-    public StatsController StatsController;
-    public StaminaRegen StaminaRegen;
+    Skill Skill;
+    PlayerController playerController;
+    SkillsController skillsController;
+    StatsController StatsController;
+    StaminaRegen StaminaRegen;
 
 
     private bool firedFirstBullet = false;
@@ -36,11 +36,20 @@ public class MiniGunControllerPlayer : MonoBehaviour
     private bool RapidFire = false;
     private float AngleOfSpread;
     float Burst = 0;
+    Animator anim;
     void Start()
     {
         GameObject audioManager = GameObject.FindGameObjectWithTag("AudioManager");
         AudioManager = audioManager.GetComponent<AudioManager>();
-        GetComponent<PlayerController>();
+        Source = GameObject.FindWithTag("Player").GetComponent<AudioSource>();
+        anim = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
+        Skill = GameObject.FindGameObjectWithTag("Canvas").GetComponent<Skill>();
+
+        GameObject Player = GameObject.FindGameObjectWithTag("Player");
+        playerController = Player.GetComponent<PlayerController>();
+        skillsController = Player.GetComponent<SkillsController>();
+        StatsController = Player.GetComponent<StatsController>();
+        StaminaRegen = Player.GetComponent<StaminaRegen>();
     }
 
     void Update()
@@ -55,9 +64,9 @@ public class MiniGunControllerPlayer : MonoBehaviour
         {
             if (canFire && delayTimer >= fireDelay && !StaminaRegen.isReloading)
             {
-                if (Skill.usingMainWeaponMiniGun || Skill.usingBackupWeaponMiniGun)
+                if (Skill.usingMainWeaponMiniGun)
                 {
-                    FireBullet();
+                    FireBullet(false);
                     firedFirstBullet = true;
                     canFire = false;
                     delayTimer = 0f;
@@ -84,9 +93,9 @@ public class MiniGunControllerPlayer : MonoBehaviour
             {
                 if (canFire && delayTimer >= fireDelay && !StaminaRegen.isReloading)
                 {
-                    if (Skill.usingMainWeaponMiniGun || Skill.usingBackupWeaponMiniGun)
+                    if (Skill.usingMainWeaponMiniGun)
                     {
-                        FireBullet();
+                        FireBullet(false);
                         firedFirstBullet = true;
                         canFire = false;
                         delayTimer = 0f;
@@ -108,8 +117,8 @@ public class MiniGunControllerPlayer : MonoBehaviour
             }
         }
     }
-
-    private void FireBullet()
+    int FireCount = 0;
+    private void FireBullet(bool SecondShot)
     {
         if (StatsController.CurrentStamina < StaminaPerShot)
         {
@@ -123,19 +132,21 @@ public class MiniGunControllerPlayer : MonoBehaviour
                 StatsController.CurrentStamina -= StaminaPerShot;
                 AudioManager.PlaySFX(AudioManager.MiniGunShot, Source);
                 AngleOfSpread = Random.Range(-spread, spread);
-                var offsetRotation = ProjectileSpawnPoint1.rotation * Quaternion.Euler(0, 0, AngleOfSpread);
-                var Bullet = Instantiate(MiniGunPrefab, ProjectileSpawnPoint1.position, offsetRotation);
+                var offsetRotation = ProjectileSpawnPointLeft.rotation * Quaternion.Euler(0, 0, AngleOfSpread);
+                var Bullet = Instantiate(MiniGunPrefab, ProjectileSpawnPointLeft.position, offsetRotation);
                 Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed;
                 Bullet.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 10, Damage + 30);
+                anim.SetTrigger("LeftWeaponShot");
                 Burst++;
 
                 StatsController.CurrentStamina -= StaminaPerShot;
                 AudioManager.PlaySFX(AudioManager.MiniGunShot, Source);
                 AngleOfSpread = Random.Range(-spread, spread);
-                offsetRotation = ProjectileSpawnPoint2.rotation * Quaternion.Euler(0, 0, AngleOfSpread);
-                Bullet = Instantiate(MiniGunPrefab, ProjectileSpawnPoint2.position, offsetRotation);
+                offsetRotation = ProjectileSpawnPointRight.rotation * Quaternion.Euler(0, 0, AngleOfSpread);
+                Bullet = Instantiate(MiniGunPrefab, ProjectileSpawnPointRight.position, offsetRotation);
                 Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed;
                 Bullet.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 10, Damage + 30);
+                anim.SetTrigger("RightWeaponShot");
                 Burst++;
 
                 if (StatsController.BackwardsFire == true)
@@ -143,37 +154,78 @@ public class MiniGunControllerPlayer : MonoBehaviour
                     StatsController.CurrentStamina -= StaminaPerShot;
                     AudioManager.PlaySFX(AudioManager.MiniGunShot, Source);
                     AngleOfSpread = Random.Range(-spread, spread);
-                    offsetRotation = ProjectileSpawnPoint4.rotation * Quaternion.Euler(0, 0, AngleOfSpread);
-                    Bullet = Instantiate(MiniGunPrefab, ProjectileSpawnPoint4.position, offsetRotation);
+                    offsetRotation = ProjectileSpawnPointBackLeft.rotation * Quaternion.Euler(0, 0, AngleOfSpread);
+                    Bullet = Instantiate(MiniGunPrefab, ProjectileSpawnPointBackLeft.position, offsetRotation);
                     Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed;
                     Bullet.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 10, Damage + 30);
-                    Burst++;
+                    anim.SetTrigger("LeftWeaponShot");
+
+                    StatsController.CurrentStamina -= StaminaPerShot;
+                    AudioManager.PlaySFX(AudioManager.MiniGunShot, Source);
+                    AngleOfSpread = Random.Range(-spread, spread);
+                    offsetRotation = ProjectileSpawnPointBackRight.rotation * Quaternion.Euler(0, 0, AngleOfSpread);
+                    Bullet = Instantiate(MiniGunPrefab, ProjectileSpawnPointBackRight.position, offsetRotation);
+                    Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed;
+                    Bullet.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 10, Damage + 30);
+                    anim.SetTrigger("RightWeaponShot");
                 }
             }
             else
             {
-                StatsController.CurrentStamina -= StaminaPerShot;
-                AudioManager.PlaySFX(AudioManager.MiniGunShot, Source);
-                AngleOfSpread = Random.Range(-spread, spread);
-                var offsetRotation = ProjectileSpawnPoint3.rotation * Quaternion.Euler(0, 0, AngleOfSpread);
-                var Bullet = Instantiate(MiniGunPrefab, ProjectileSpawnPoint3.position, offsetRotation);
-                Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed;
-                Bullet.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 10, Damage + 30);
-                Burst++;
-
-                if (StatsController.BackwardsFire == true)
+                if (FireCount == 0)
                 {
                     StatsController.CurrentStamina -= StaminaPerShot;
                     AudioManager.PlaySFX(AudioManager.MiniGunShot, Source);
                     AngleOfSpread = Random.Range(-spread, spread);
-                    offsetRotation = ProjectileSpawnPoint4.rotation * Quaternion.Euler(0, 0, AngleOfSpread);
-                    Bullet = Instantiate(MiniGunPrefab, ProjectileSpawnPoint4.position, offsetRotation);
+                    var offsetRotation = ProjectileSpawnPointLeft.rotation * Quaternion.Euler(0, 0, AngleOfSpread);
+                    var Bullet = Instantiate(MiniGunPrefab, ProjectileSpawnPointLeft.position, offsetRotation);
                     Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed;
                     Bullet.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 10, Damage + 30);
+                    anim.SetTrigger("LeftWeaponShot");
                     Burst++;
+
+                    if (StatsController.BackwardsFire == true)
+                    {
+                        StatsController.CurrentStamina -= StaminaPerShot;
+                        AudioManager.PlaySFX(AudioManager.MiniGunShot, Source);
+                        AngleOfSpread = Random.Range(-spread, spread);
+                        offsetRotation = ProjectileSpawnPointBackLeft.rotation * Quaternion.Euler(0, 0, AngleOfSpread);
+                        Bullet = Instantiate(MiniGunPrefab, ProjectileSpawnPointBackLeft.position, offsetRotation);
+                        Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed;
+                        Bullet.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 10, Damage + 30);
+                        anim.SetTrigger("LeftWeaponShot");
+                        Burst++;
+                    }
+                    FireCount++;
+                }
+                else
+                {
+                    StatsController.CurrentStamina -= StaminaPerShot;
+                    AudioManager.PlaySFX(AudioManager.MiniGunShot, Source);
+                    AngleOfSpread = Random.Range(-spread, spread);
+                    var offsetRotation = ProjectileSpawnPointRight.rotation * Quaternion.Euler(0, 0, AngleOfSpread);
+                    var Bullet = Instantiate(MiniGunPrefab, ProjectileSpawnPointRight.position, offsetRotation);
+                    Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed;
+                    Bullet.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 10, Damage + 30);
+                    anim.SetTrigger("RightWeaponShot");
+                    Burst++;
+
+                    if (StatsController.BackwardsFire == true)
+                    {
+                        StatsController.CurrentStamina -= StaminaPerShot;
+                        AudioManager.PlaySFX(AudioManager.MiniGunShot, Source);
+                        AngleOfSpread = Random.Range(-spread, spread);
+                        offsetRotation = ProjectileSpawnPointBackRight.rotation * Quaternion.Euler(0, 0, AngleOfSpread);
+                        Bullet = Instantiate(MiniGunPrefab, ProjectileSpawnPointBackRight.position, offsetRotation);
+                        Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed;
+                        Bullet.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 10, Damage + 30);
+                        anim.SetTrigger("RightWeaponShot");
+                        Burst++;
+                    }
+                    FireCount = 0;
                 }
             }
-            if (StatsController.MultiShot)
+            if (StatsController.MultiShot && !SecondShot)
             {
                 StartCoroutine(FireMultiShot());
             }
@@ -182,56 +234,6 @@ public class MiniGunControllerPlayer : MonoBehaviour
     private IEnumerator FireMultiShot()
     {
         yield return new WaitForSeconds(0.3f);
-        if (StatsController.DoubleShot == true)
-        {
-            AudioManager.PlaySFX(AudioManager.MiniGunShot, Source);
-            AngleOfSpread = Random.Range(-spread, spread);
-            var offsetRotation = ProjectileSpawnPoint1.rotation * Quaternion.Euler(0, 0, AngleOfSpread);
-            var Bullet = Instantiate(MiniGunPrefab, ProjectileSpawnPoint1.position, offsetRotation);
-            Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed;
-            Bullet.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 10, Damage + 30);
-            Burst++;
-
-            AudioManager.PlaySFX(AudioManager.MiniGunShot, Source);
-            AngleOfSpread = Random.Range(-spread, spread);
-            offsetRotation = ProjectileSpawnPoint2.rotation * Quaternion.Euler(0, 0, AngleOfSpread);
-            Bullet = Instantiate(MiniGunPrefab, ProjectileSpawnPoint2.position, offsetRotation);
-            Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed;
-            Bullet.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 10, Damage + 30);
-            Burst++;
-
-            if (StatsController.BackwardsFire == true)
-            {
-                AudioManager.PlaySFX(AudioManager.MiniGunShot, Source);
-                AngleOfSpread = Random.Range(-spread, spread);
-                offsetRotation = ProjectileSpawnPoint4.rotation * Quaternion.Euler(0, 0, AngleOfSpread);
-                Bullet = Instantiate(MiniGunPrefab, ProjectileSpawnPoint4.position, offsetRotation);
-                Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed;
-                Bullet.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 10, Damage + 30);
-                Burst++;
-            }
-        }
-        else
-        {
-            AudioManager.PlaySFX(AudioManager.MiniGunShot, Source);
-            AngleOfSpread = Random.Range(-spread, spread);
-            var offsetRotation = ProjectileSpawnPoint3.rotation * Quaternion.Euler(0, 0, AngleOfSpread);
-            var Bullet = Instantiate(MiniGunPrefab, ProjectileSpawnPoint3.position, offsetRotation);
-            Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed;
-            Bullet.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 10, Damage + 30);
-            Burst++;
-
-            if (StatsController.BackwardsFire == true)
-            {
-                AudioManager.PlaySFX(AudioManager.MiniGunShot, Source);
-                AngleOfSpread = Random.Range(-spread, spread);
-                offsetRotation = ProjectileSpawnPoint4.rotation * Quaternion.Euler(0, 0, AngleOfSpread);
-                Bullet = Instantiate(MiniGunPrefab, ProjectileSpawnPoint4.position, offsetRotation);
-                Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed;
-                Bullet.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 10, Damage + 30);
-                Burst++;
-            }
-        }
-
+        FireBullet(true);
     }
 }

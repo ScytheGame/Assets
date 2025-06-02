@@ -6,7 +6,7 @@ public class GameMenu : MonoBehaviour
     [SerializeField] List<GameObject> Hud;
     [SerializeField] GameObject settings;
 
-    bool gamePaused = false;
+    public bool gamePaused = false;
     float waitTime = 0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

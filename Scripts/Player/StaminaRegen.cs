@@ -12,7 +12,8 @@ public class StaminaRegen : MonoBehaviour
     [SerializeField] public DroneControllerPlayer DroneControllerPlayer;
     [SerializeField] public StatsController StatsController;
     [SerializeField] public LaserGunControllerPlayer LaserGunControllerPlayer;
-
+    [SerializeField] public float ForceReloadDelay = 1.5f;
+    [SerializeField] public float ForceReloadTime = 0f;
     public bool isReloading = false;
 
     void Start()
@@ -23,6 +24,7 @@ public class StaminaRegen : MonoBehaviour
 
     void Update()
     {
+        ForceReloadTime += Time.deltaTime;
         if (playerController.canReload == true && !isReloading)
         {
             StartReloading();
@@ -34,7 +36,12 @@ public class StaminaRegen : MonoBehaviour
 
         if (Input.GetKey("r"))
         {
-            isReloading = true;
+
+            if (ForceReloadTime >= ForceReloadDelay)
+            {
+                isReloading = true;
+                ForceReloadTime = 0f;
+            }
         }
 
     }

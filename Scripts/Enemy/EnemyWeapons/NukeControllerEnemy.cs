@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class NukeControllerEnemy : MonoBehaviour
 {
-    [SerializeField] private Transform ProjectileSpawnPoint3;
+    [SerializeField] private Transform ProjectileSpawnPointLeft;
+    [SerializeField] private Transform ProjectileSpawnPointRight;
+    [SerializeField] GameObject Parent;
     [SerializeField] private GameObject NukePrefab;
     [SerializeField] private AudioManager AudioManager;
     [SerializeField] AudioSource Source;
@@ -23,11 +25,13 @@ public class NukeControllerEnemy : MonoBehaviour
     private float setDelayTimer = 0f;
     public bool canFire = true;
     private bool Loaded = false;
-
+    bool FirstShotShot = false;
+    Animator anim;
     void Start()
     {
         GameObject audioManager = GameObject.FindGameObjectWithTag("AudioManager");
         AudioManager = audioManager.GetComponent<AudioManager>();
+        anim = Parent.GetComponent<Animator>();
         GetComponent<EnemyController>();
     }
 
@@ -46,10 +50,24 @@ public class NukeControllerEnemy : MonoBehaviour
         {
             if (EnemyController.isAttacking == true)
             {
-                FireNuke(ProjectileSpawnPoint3);
-                setDelayTimer = 0f;
+                if (!FirstShotShot)
+                {
+                    FireNuke(ProjectileSpawnPointLeft);
+                    anim.SetTrigger("LeftWeaponShot");
+                    FirstShotShot = true;
+                    setDelayTimer = 0f;
 
-                canFire = false;
+                    canFire = false;
+                }
+                else
+                {
+                    FireNuke(ProjectileSpawnPointRight);
+                    anim.SetTrigger("RightWeaponShot");
+                    FirstShotShot = false;
+                    setDelayTimer = 0f;
+
+                    canFire = false;
+                }
             }
         }
         else
@@ -68,7 +86,8 @@ public class NukeControllerEnemy : MonoBehaviour
     {
         if (playerController.enemyStamina < StaminaPerShot)
         {
-            canFire = false;
+            StaminaRegenEnemy StaminaRegenEnemy = Parent.GetComponent<StaminaRegenEnemy>();
+            StaminaRegenEnemy.StartReloading();
         }
         else
         {

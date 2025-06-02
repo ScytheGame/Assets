@@ -23,7 +23,6 @@ public class EnemyAI : MonoBehaviour
         {
             Debug.Log("Couldn't find Player");
         }
-        Speed = PlayerPrefs.GetFloat("EnemySpeed", 15);
     }
 
     void FixedUpdate()
@@ -47,7 +46,7 @@ public class EnemyAI : MonoBehaviour
 
     void Warp()
     {
-        offset = new Vector3(RandomValue(100), RandomValue(100), RandomValue(100));
+        offset = new Vector3(RandomValue(100), RandomValue(100), 2.5f);
         Position = Player.transform.position + offset;
         Agent.Warp(Position);
     }
@@ -60,10 +59,37 @@ public class EnemyAI : MonoBehaviour
     }
     void Sit()
     {
-        Position = transform.position;
+        Position = FindClosestEnemy().position;
         Agent.SetDestination(Position);
     }
 
+    Transform FindClosestEnemy()
+    {
+        float distanceToClosestEnemy = Mathf.Infinity;
+        GameObject closestEnemy = null;
+
+        GameObject[] allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        foreach (GameObject currentEnemy in allEnemies)
+        {
+            float distanceToEnemy = (currentEnemy.transform.position - transform.position).sqrMagnitude;
+
+            if (distanceToEnemy < distanceToClosestEnemy)
+            {
+                distanceToClosestEnemy = distanceToEnemy;
+                closestEnemy = currentEnemy;
+            }
+        }
+
+        if (closestEnemy != null)
+        {
+            return closestEnemy.transform;
+        }
+        else
+        {
+            return null;
+        }
+    }
     float RandomValue(float Value)
     {
         float RandomValue = Random.Range(-Value, Value);

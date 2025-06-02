@@ -18,12 +18,12 @@ public class DeathMenu : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("LeaderBoardController component not found on the GameObject with tag 'LeaderBoard'.");
+                //Debug.LogWarning("LeaderBoardController component not found on the GameObject with tag 'LeaderBoard'.");
             }
         }
         else
         {
-            Debug.LogWarning("GameObject with tag 'LeaderBoard' not found.");
+            //Debug.LogWarning("GameObject with tag 'LeaderBoard' not found.");
         }
     }
 

@@ -3,33 +3,42 @@ using UnityEngine;
 
 public class HomingMissleControllerPlayer : MonoBehaviour
 {
-    [SerializeField] private Transform ProjectileSpawnPoint1;
-    [SerializeField] private Transform ProjectileSpawnPoint2;
-    [SerializeField] private Transform ProjectileSpawnPoint3;
-    [SerializeField] private Transform ProjectileSpawnPoint4;
+    [SerializeField] private Transform ProjectileSpawnPointLeft;
+    [SerializeField] private Transform ProjectileSpawnPointRight;
+    [SerializeField] private Transform ProjectileSpawnPointBackLeft;
+    [SerializeField] private Transform ProjectileSpawnPointBackRight;
     [SerializeField] private GameObject MissilePrefab;
-    [SerializeField] private AudioManager AudioManager;
-    [SerializeField] AudioSource Source;
+    private AudioManager AudioManager;
+    AudioSource Source;
 
     [SerializeField] public float missileSpeed = 25f;
     [SerializeField] public float fireDelay = 0.5f;
     [SerializeField] private float StaminaPerShot = 15f;
     [SerializeField] float Damage; 
 
-    public Skill Skill;
-    public PlayerController playerController;
-    public SkillsController SkillsController;
-    public StatsController StatsController;
-    public StaminaRegen StaminaRegen;
+    Skill Skill;
+    PlayerController playerController;
+    SkillsController SkillsController;
+    StatsController StatsController;
+    StaminaRegen StaminaRegen;
 
     public float delayTimer = 0f;
     private float setDelayTimer = 0f;
     public bool canFire = true;
+    Animator anim;
     void Start()
     {
         GameObject audioManager = GameObject.FindGameObjectWithTag("AudioManager");
         AudioManager = audioManager.GetComponent<AudioManager>();
-        GetComponent<PlayerController>();
+        Source = GameObject.FindWithTag("Player").GetComponent<AudioSource>();
+        anim = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
+        Skill = GameObject.FindGameObjectWithTag("Canvas").GetComponent<Skill>();
+
+        GameObject Player = GameObject.FindGameObjectWithTag("Player");
+        playerController = Player.GetComponent<PlayerController>();
+        SkillsController = Player.GetComponent<SkillsController>();
+        StatsController = Player.GetComponent<StatsController>();
+        StaminaRegen = Player.GetComponent<StaminaRegen>();
     }
 
     void Update()
@@ -44,9 +53,9 @@ public class HomingMissleControllerPlayer : MonoBehaviour
             if (StatsController.DoubleShot)
             {
 
-                if (Skill.usingMainWeaponHomingMissile == true || Skill.usingBackupWeaponHomingMissile == true)
+                if (Skill.usingMainWeaponHomingMissile == true)
                 {
-                    FireMissile();
+                    FireMissile(false);
                     canFire = false;
                     setDelayTimer = 0f;
                 }
@@ -56,9 +65,9 @@ public class HomingMissleControllerPlayer : MonoBehaviour
             //Single Shot
             else
             {
-                if (Skill.usingMainWeaponHomingMissile == true || Skill.usingBackupWeaponHomingMissile == true)
+                if (Skill.usingMainWeaponHomingMissile == true)
                 {
-                    FireMissile();
+                    FireMissile(false);
                     canFire = false;
                     setDelayTimer = 0f;
                 }
@@ -74,8 +83,8 @@ public class HomingMissleControllerPlayer : MonoBehaviour
             }
         }
     }
-
-    private void FireMissile()
+    int FireCount = 0;
+    private void FireMissile(bool SecondShot)
     {
        if (StatsController.CurrentStamina < StaminaPerShot)
        {
@@ -88,43 +97,79 @@ public class HomingMissleControllerPlayer : MonoBehaviour
             {
                 StatsController.CurrentStamina -= StaminaPerShot;
                 AudioManager.PlaySFX(AudioManager.HomingMissileShot, Source);
-                var Missile = Instantiate(MissilePrefab, ProjectileSpawnPoint1.position, ProjectileSpawnPoint1.rotation);
-                Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPoint1.up * missileSpeed;
+                var Missile = Instantiate(MissilePrefab, ProjectileSpawnPointLeft.position, ProjectileSpawnPointLeft.rotation);
+                Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointLeft.up * missileSpeed;
                 Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 100, Damage + 75);
+                anim.SetTrigger("LeftWeaponShot");
 
                 StatsController.CurrentStamina -= StaminaPerShot;
                 AudioManager.PlaySFX(AudioManager.HomingMissileShot, Source);
-                Missile = Instantiate(MissilePrefab, ProjectileSpawnPoint2.position, ProjectileSpawnPoint2.rotation);
-                Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPoint2.up * missileSpeed;
+                Missile = Instantiate(MissilePrefab, ProjectileSpawnPointRight.position, ProjectileSpawnPointRight.rotation);
+                Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointRight.up * missileSpeed;
                 Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 100, Damage + 75);
+                anim.SetTrigger("RightWeaponShot");
 
                 if (StatsController.BackwardsFire == true)
                 {
                     StatsController.CurrentStamina -= StaminaPerShot;
                     AudioManager.PlaySFX(AudioManager.HomingMissileShot, Source);
-                    Missile = Instantiate(MissilePrefab, ProjectileSpawnPoint4.position, ProjectileSpawnPoint4.rotation);
-                    Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPoint4.up * missileSpeed;
+                    Missile = Instantiate(MissilePrefab, ProjectileSpawnPointBackLeft.position, ProjectileSpawnPointBackLeft.rotation);
+                    Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointBackLeft.up * missileSpeed;
                     Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 100, Damage + 75);
+                    anim.SetTrigger("LeftWeaponShot");
+
+                    StatsController.CurrentStamina -= StaminaPerShot;
+                    AudioManager.PlaySFX(AudioManager.HomingMissileShot, Source);
+                    Missile = Instantiate(MissilePrefab, ProjectileSpawnPointBackRight.position, ProjectileSpawnPointBackRight.rotation);
+                    Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointBackRight.up * missileSpeed;
+                    Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 100, Damage + 75);
+                    anim.SetTrigger("RightWeaponShot");
                 }
             }
             else
             {
-                StatsController.CurrentStamina -= StaminaPerShot;
-                AudioManager.PlaySFX(AudioManager.HomingMissileShot, Source);
-                var Missile = Instantiate(MissilePrefab, ProjectileSpawnPoint3.position, ProjectileSpawnPoint3.rotation);
-                Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPoint3.up * missileSpeed;
-                Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 100, Damage + 75);
-
-                if (StatsController.BackwardsFire == true)
+                if (FireCount == 0)
                 {
                     StatsController.CurrentStamina -= StaminaPerShot;
                     AudioManager.PlaySFX(AudioManager.HomingMissileShot, Source);
-                    Missile = Instantiate(MissilePrefab, ProjectileSpawnPoint4.position, ProjectileSpawnPoint4.rotation);
-                    Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPoint4.up * missileSpeed;
+                    var Missile = Instantiate(MissilePrefab, ProjectileSpawnPointLeft.position, ProjectileSpawnPointLeft.rotation);
+                    Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointLeft.up * missileSpeed;
                     Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 100, Damage + 75);
+                    anim.SetTrigger("LeftWeaponShot");
+
+                    if (StatsController.BackwardsFire == true)
+                    {
+                        StatsController.CurrentStamina -= StaminaPerShot;
+                        AudioManager.PlaySFX(AudioManager.HomingMissileShot, Source);
+                        Missile = Instantiate(MissilePrefab, ProjectileSpawnPointBackLeft.position, ProjectileSpawnPointBackLeft.rotation);
+                        Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointBackLeft.up * missileSpeed;
+                        Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 100, Damage + 75);
+                        anim.SetTrigger("LeftWeaponShot");
+                    }
+                    FireCount++;
+                }
+                else
+                {
+                    StatsController.CurrentStamina -= StaminaPerShot;
+                    AudioManager.PlaySFX(AudioManager.HomingMissileShot, Source);
+                    var Missile = Instantiate(MissilePrefab, ProjectileSpawnPointRight.position, ProjectileSpawnPointRight.rotation);
+                    Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointRight.up * missileSpeed;
+                    Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 100, Damage + 75);
+                    anim.SetTrigger("RightWeaponShot");
+
+                    if (StatsController.BackwardsFire == true)
+                    {
+                        StatsController.CurrentStamina -= StaminaPerShot;
+                        AudioManager.PlaySFX(AudioManager.HomingMissileShot, Source);
+                        Missile = Instantiate(MissilePrefab, ProjectileSpawnPointBackRight.position, ProjectileSpawnPointBackRight.rotation);
+                        Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointBackRight.up * missileSpeed;
+                        Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 100, Damage + 75);
+                        anim.SetTrigger("RightWeaponShot");
+                    }
+                    FireCount = 0;
                 }
             }
-            if (StatsController.MultiShot)
+            if (StatsController.MultiShot && !SecondShot)
             {
                 StartCoroutine(FireMultiShot());
             }
@@ -133,40 +178,6 @@ public class HomingMissleControllerPlayer : MonoBehaviour
     private IEnumerator FireMultiShot()
     {
         yield return new WaitForSeconds(0.3f);
-        if (StatsController.DoubleShot)
-        {
-            AudioManager.PlaySFX(AudioManager.HomingMissileShot, Source);
-            var Missile = Instantiate(MissilePrefab, ProjectileSpawnPoint1.position, ProjectileSpawnPoint1.rotation);
-            Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPoint1.up * missileSpeed;
-            Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 100, Damage + 75);
-
-            AudioManager.PlaySFX(AudioManager.HomingMissileShot, Source);
-            Missile = Instantiate(MissilePrefab, ProjectileSpawnPoint2.position, ProjectileSpawnPoint2.rotation);
-            Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPoint2.up * missileSpeed;
-            Missile.GetComponent<PlayerWeaponStats>().Damage =  Random.Range(Damage - 100, Damage + 75);
-
-            if (StatsController.BackwardsFire == true)
-            {
-                AudioManager.PlaySFX(AudioManager.HomingMissileShot, Source);
-                Missile = Instantiate(MissilePrefab, ProjectileSpawnPoint4.position, ProjectileSpawnPoint4.rotation);
-                Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPoint4.up * missileSpeed;
-                Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 100, Damage + 75);
-            }
-        }
-        else
-        {
-            AudioManager.PlaySFX(AudioManager.HomingMissileShot, Source);
-            var Missile = Instantiate(MissilePrefab, ProjectileSpawnPoint3.position, ProjectileSpawnPoint3.rotation);
-            Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPoint3.up * missileSpeed;
-            Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 100, Damage + 75);
-
-            if (StatsController.BackwardsFire == true)
-            {
-                AudioManager.PlaySFX(AudioManager.HomingMissileShot, Source);
-                Missile = Instantiate(MissilePrefab, ProjectileSpawnPoint4.position, ProjectileSpawnPoint4.rotation);
-                Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPoint4.up * missileSpeed;
-                Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 100, Damage + 75);
-            }
-        }
+        FireMissile(true);
     }
 }

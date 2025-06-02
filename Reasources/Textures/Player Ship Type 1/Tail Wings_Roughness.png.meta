@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Tail Wings_Roughness_0: 7091498802343862138
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -3,8 +3,9 @@ using static Unity.VisualScripting.Member;
 
 public class MissileControllerEnemy : MonoBehaviour
 {
-    [SerializeField] private Transform ProjectileSpawnPoint1;
-    [SerializeField] private Transform ProjectileSpawnPoint2;
+    [SerializeField] private Transform ProjectileSpawnPointLeft;
+    [SerializeField] private Transform ProjectileSpawnPointRight;
+    [SerializeField] GameObject Parent;
     [SerializeField] public EnemyController EnemyController;
     [SerializeField] private GameObject MissilePrefab;
     [SerializeField] private AudioManager AudioManager;
@@ -26,12 +27,13 @@ public class MissileControllerEnemy : MonoBehaviour
     private bool EnemyDoubleShot = false;
     private int DoubleShot = 0;
     private bool Loaded = false;
-
+    Animator anim;
 
     void Start()
     {
         GameObject audioManager = GameObject.FindGameObjectWithTag("AudioManager");
         AudioManager = audioManager.GetComponent<AudioManager>();
+        anim = Parent.GetComponent<Animator>();
         GetComponent<EnemyController>();
         DoubleShot = UnityEngine.Random.Range(1, 3);
         if (DoubleShot >= 3)
@@ -60,24 +62,40 @@ public class MissileControllerEnemy : MonoBehaviour
             StaminaPerShot = 3.5f;
             if (EnemyController.isAttacking == true)
             {
-                if (!firedFirstMissile)
+                if (EnemyDoubleShot)
                 {
-                    FireMissile(ProjectileSpawnPoint1);
-                    SpawnPoint = ProjectileSpawnPoint1;
-                    firedFirstMissile = true;
+                    FireMissile(ProjectileSpawnPointLeft);
+                    SpawnPoint = ProjectileSpawnPointLeft;
+                    anim.SetTrigger("LeftWeaponShot");
+
+                    FireMissile(ProjectileSpawnPointRight);
+                    SpawnPoint = ProjectileSpawnPointRight;
+                    anim.SetTrigger("RightWeaponShot");
                     delayTimer = 0f;
                 }
-                if (firedFirstMissile)
+                else
                 {
-                    delayTimer += Time.deltaTime;
-
-                    if (delayTimer >= shotDelay)
+                    if (!firedFirstMissile)
                     {
-                        FireMissile(ProjectileSpawnPoint2);
-                        SpawnPoint = ProjectileSpawnPoint2;
-                        firedFirstMissile = false;
-                        setDelayTimer = 0f;
-                        canFire = false;
+                        FireMissile(ProjectileSpawnPointLeft);
+                        SpawnPoint = ProjectileSpawnPointLeft;
+                        anim.SetTrigger("LeftWeaponShot");
+                        firedFirstMissile = true;
+                        delayTimer = 0f;
+                    }
+                    else if (firedFirstMissile)
+                    {
+                        delayTimer += Time.deltaTime;
+
+                        if (delayTimer >= shotDelay)
+                        {
+                            FireMissile(ProjectileSpawnPointRight);
+                            SpawnPoint = ProjectileSpawnPointRight;
+                            anim.SetTrigger("RightWeaponShot");
+                            firedFirstMissile = false;
+                            setDelayTimer = 0f;
+                            canFire = false;
+                        }
                     }
                 }
             }
@@ -99,7 +117,8 @@ public class MissileControllerEnemy : MonoBehaviour
     {
         if (EnemyController.enemyStamina <= StaminaPerShot)
         {
-            canFire = false;
+            StaminaRegenEnemy StaminaRegenEnemy = Parent.GetComponent<StaminaRegenEnemy>();
+            StaminaRegenEnemy.StartReloading();
         }
         else
         {

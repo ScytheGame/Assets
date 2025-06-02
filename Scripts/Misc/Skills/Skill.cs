@@ -7,29 +7,27 @@ public class Skill : MonoBehaviour
     public enum WeaponCode { None = 0, Missile = 1, Nuke = 2, MiniGun = 3, HomingMissile = 4, Flak = 5, Drone = 6, Laser = 7, MineHeavy = 8, MineRapid = 9, MineHoming =10 }
 
     public WeaponCode mainWeapon = WeaponCode.None;
-    public WeaponCode backupWeapon = WeaponCode.None;
 
     public bool usingMainWeaponMissile = false;
-    public bool usingBackupWeaponMissile = false;
     public bool usingMainWeaponNuke = false;
-    public bool usingBackupWeaponNuke = false;
     public bool usingMainWeaponMiniGun = false;
-    public bool usingBackupWeaponMiniGun = false;
     public bool usingMainWeaponHomingMissile = false;
-    public bool usingBackupWeaponHomingMissile = false;
     public bool usingMainWeaponFlak = false;
-    public bool usingBackupWeaponFlak = false;
     public bool usingMainWeaponDrone = false;
-    public bool usingBackupWeaponDrone = false;
     public bool usingMainWeaponLaser = false;
-    public bool usingBackupWeaponLaser = false;
     public bool usingMainWeaponMineHeavy = false;
-    public bool usingBackupWeaponMineHeavy = false;
     public bool usingMainWeaponMineRapid = false;
-    public bool usingBackupWeaponMineRapid = false;
     public bool usingMainWeaponMineHoming = false;
-    public bool usingBackupWeaponMineHoming = false;
 
+    [SerializeField] GameObject[] MissileWeapon;
+    [SerializeField] GameObject[] NukeWeapon;
+    [SerializeField] GameObject[] MinigunWeapon;
+    [SerializeField] GameObject[] HomingMissileWeapon;
+    [SerializeField] GameObject[] FlakWeapon;
+    [SerializeField] GameObject[] DroneWeapon;
+    [SerializeField] GameObject[] LaserWeapon;
+    [SerializeField] GameObject[] MineWeapon;
+ 
     public bool isAttacking = false;
     private bool isOwned;
     private float upgradeLevel;
@@ -47,13 +45,41 @@ public class Skill : MonoBehaviour
         Debug.Log("Main Weapon Set to" + mainWeapon);
     }
 
-    public void SetBackupWeapon(int weaponCode)
-    {
-        backupWeapon = (WeaponCode)weaponCode;
-        Debug.Log("Backup Weapon Set to" + backupWeapon);
-    }
     void Update()
     {
+        foreach (GameObject weapon in MissileWeapon)
+        {
+            weapon.SetActive(mainWeapon == WeaponCode.Missile);
+        }
+        foreach (GameObject weapon in NukeWeapon)
+        {
+            weapon.SetActive(mainWeapon == WeaponCode.Nuke);
+        }
+        foreach (GameObject weapon in MinigunWeapon)
+        {
+            weapon.SetActive(mainWeapon == WeaponCode.MiniGun);
+        }
+        foreach (GameObject weapon in HomingMissileWeapon)
+        {
+            weapon.SetActive(mainWeapon == WeaponCode.HomingMissile);
+        }
+        foreach (GameObject weapon in FlakWeapon)
+        {
+            weapon.SetActive(mainWeapon == WeaponCode.Flak);
+        }
+        foreach (GameObject weapon in DroneWeapon)
+        {
+            weapon.SetActive(mainWeapon == WeaponCode.Drone);
+        }
+        foreach (GameObject weapon in LaserWeapon)
+        {
+            weapon.SetActive(mainWeapon == WeaponCode.Laser);
+        }
+        foreach (GameObject weapon in MineWeapon)
+        {
+            weapon.SetActive(mainWeapon == WeaponCode.MineHeavy || mainWeapon == WeaponCode.MineRapid || mainWeapon == WeaponCode.MineHoming);
+        }
+
         // for Missile
 
 
@@ -67,14 +93,6 @@ public class Skill : MonoBehaviour
 
         }
 
-        if (backupWeapon == WeaponCode.Missile && Input.GetMouseButton(1) || isAttacking == true)
-        {
-            usingBackupWeaponMissile = true;
-        }
-        else
-        {
-            usingBackupWeaponMissile = false;
-        }
 
         // for Nuke 
 
@@ -86,15 +104,6 @@ public class Skill : MonoBehaviour
         else
         {
             usingMainWeaponNuke = false;
-        }
-
-        if (backupWeapon == WeaponCode.Nuke && Input.GetMouseButton(1) || isAttacking == true)
-        {
-            usingBackupWeaponNuke = true;
-        }
-        else
-        {
-            usingBackupWeaponNuke = false;
         }
 
         // for MiniGun
@@ -110,14 +119,6 @@ public class Skill : MonoBehaviour
             usingMainWeaponMiniGun = false;
         }
 
-        if (backupWeapon == WeaponCode.MiniGun && Input.GetMouseButton(1) || isAttacking == true)
-        {
-            usingBackupWeaponMiniGun = true;
-        }
-        else
-        {
-            usingBackupWeaponMiniGun = false;
-        }
 
         // for HomingMissile
 
@@ -131,14 +132,6 @@ public class Skill : MonoBehaviour
             usingMainWeaponHomingMissile = false;
         }
 
-        if (backupWeapon == WeaponCode.HomingMissile && Input.GetMouseButton(1) || isAttacking == true)
-        {
-            usingBackupWeaponHomingMissile = true;
-        }
-        else
-        {
-            usingBackupWeaponHomingMissile = false;
-        }
 
         // for Flak
 
@@ -151,16 +144,6 @@ public class Skill : MonoBehaviour
         {
             usingMainWeaponFlak = false;
         }
-
-        if (backupWeapon == WeaponCode.Flak && Input.GetMouseButton(1) || isAttacking == true)
-        {
-            usingBackupWeaponFlak = true;
-        }
-        else
-        {
-            usingBackupWeaponFlak = false;
-        }
-
         // for Drone
 
 
@@ -173,14 +156,6 @@ public class Skill : MonoBehaviour
             usingMainWeaponDrone = false;
         }
 
-        if (backupWeapon == WeaponCode.Drone && Input.GetMouseButton(1) || isAttacking == true )
-        {
-            usingBackupWeaponDrone = true;
-        }
-        else
-        {
-            usingBackupWeaponDrone = false;
-        }
 
         // for LaserWeapon
 
@@ -194,14 +169,6 @@ public class Skill : MonoBehaviour
             usingMainWeaponLaser = false;
         }
 
-        if (backupWeapon == WeaponCode.Laser && Input.GetMouseButton(1) || isAttacking == true)
-        {
-            usingBackupWeaponLaser = true;
-        }
-        else
-        {
-            usingBackupWeaponLaser = false;
-        }
 
         // for MineHeavy
 
@@ -213,15 +180,6 @@ public class Skill : MonoBehaviour
         else
         {
             usingMainWeaponMineHeavy = false;
-        }
-
-        if (backupWeapon == WeaponCode.MineHeavy && Input.GetMouseButton(1) || isAttacking == true)
-        {
-            usingBackupWeaponMineHeavy = true;
-        }
-        else
-        {
-            usingBackupWeaponMineHeavy = false;
         }
 
         // for MineRapid
@@ -236,15 +194,6 @@ public class Skill : MonoBehaviour
             usingMainWeaponMineRapid = false;
         }
 
-        if (backupWeapon == WeaponCode.MineRapid && Input.GetMouseButton(1) || isAttacking == true)
-        {
-            usingBackupWeaponMineRapid = true;
-        }
-        else
-        {
-            usingBackupWeaponMineRapid = false;
-        }
-
         // for MineHoming
 
 
@@ -257,13 +206,5 @@ public class Skill : MonoBehaviour
             usingMainWeaponMineHoming = false;
         }
 
-        if (backupWeapon == WeaponCode.MineHoming && Input.GetMouseButton(1) || isAttacking == true)
-        {
-            usingBackupWeaponMineHoming = true;
-        }
-        else
-        {
-            usingBackupWeaponMineHoming = false;
-        }
     }
 }

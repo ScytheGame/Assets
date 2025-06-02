@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class DroneControllerEnemy : MonoBehaviour
 {
-    [SerializeField] private Transform ProjectileSpawnPoint1;
-    [SerializeField] private Transform ProjectileSpawnPoint2;
+    [SerializeField] private Transform ProjectileSpawnPointLeft;
+    [SerializeField] private Transform ProjectileSpawnPointRight;
+    [SerializeField] GameObject Parent;
     [SerializeField] private GameObject MissilePrefab;
     [SerializeField] private AudioManager AudioManager;
     [SerializeField] AudioSource Source;
@@ -24,11 +25,13 @@ public class DroneControllerEnemy : MonoBehaviour
     public bool canFire = true;
     public int spawnCount = 0;
     private bool Loaded = false;
-
+    bool FirstShotShot = false;
+    Animator anim;
     void Start()
     {
         GameObject audioManager = GameObject.FindGameObjectWithTag("AudioManager");
         AudioManager = audioManager.GetComponent<AudioManager>();
+        anim = Parent.GetComponent<Animator>();
         GetComponent<EnemyController>();
 
     }
@@ -50,14 +53,24 @@ public class DroneControllerEnemy : MonoBehaviour
             {
                 for (int i = 1; i <= 5; i++)
                 {
-                    EnemyController.enemyStamina -= StaminaPerShot;
-                    FireMissile(ProjectileSpawnPoint1);
-                    SpawnPoint = ProjectileSpawnPoint1;
-                    EnemyController.enemyStamina -= StaminaPerShot;
-                    FireMissile(ProjectileSpawnPoint2);
-                    SpawnPoint = ProjectileSpawnPoint2;
-                    delayTimer = 0f;
+                    if (!FirstShotShot)
+                    {
+                        EnemyController.enemyStamina -= StaminaPerShot;
+                        FireMissile(ProjectileSpawnPointLeft);
+                        SpawnPoint = ProjectileSpawnPointLeft;
+                        anim.SetTrigger("LeftWeaponShot");
+                        FirstShotShot = true;
+                    }
+                    else
+                    {
+                        EnemyController.enemyStamina -= StaminaPerShot;
+                        FireMissile(ProjectileSpawnPointRight);
+                        SpawnPoint = ProjectileSpawnPointRight;
+                        anim.SetTrigger("RightWeaponShot");
+                        FirstShotShot = false;
+                    }
                 }
+                delayTimer = 0f;
             }
         }
         else
@@ -76,7 +89,8 @@ public class DroneControllerEnemy : MonoBehaviour
     {
         if (EnemyController.enemyStamina < StaminaPerShot)
         {
-            canFire = false;
+            StaminaRegenEnemy StaminaRegenEnemy = Parent.GetComponent<StaminaRegenEnemy>();
+            StaminaRegenEnemy.StartReloading();
         }
         else
         {

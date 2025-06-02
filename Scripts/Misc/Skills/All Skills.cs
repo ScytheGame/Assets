@@ -92,10 +92,10 @@ public class AllSkills : MonoBehaviour
 
 
 
-        Debug.Log("Number of skills: " + allSkills.Count);
+        //Debug.Log("Number of skills: " + allSkills.Count);
         foreach (SkillData skillData in allSkills)
         {
-            Debug.Log("Skill Name: " + skillData.skillName);
+            //Debug.Log("Skill Name: " + skillData.skillName);
         }
 
         SkillsController.allSkills = allSkills;
@@ -160,10 +160,10 @@ public class AllSkills : MonoBehaviour
                 allSkills.Add(ArrayDoubleShot);
 
 
-            Debug.Log("Number of skills: " + allSkills.Count);
+            //Debug.Log("Number of skills: " + allSkills.Count);
             foreach (SkillData skillData in allSkills)
             {
-                Debug.Log("Skill Name: " + skillData.skillName);
+                //Debug.Log("Skill Name: " + skillData.skillName);
             }
         }
         if (Weapon == 1)
@@ -214,10 +214,10 @@ public class AllSkills : MonoBehaviour
             if (SkillData.ArrayShotDoubleShotR)
                 allSkills.Add(ArrayDoubleShot);
 
-            Debug.Log("Number of skills: " + allSkills.Count);
+            //Debug.Log("Number of skills: " + allSkills.Count);
             foreach (SkillData skillData in allSkills)
             {
-                Debug.Log("Skill Name: " + skillData.skillName);
+                //Debug.Log("Skill Name: " + skillData.skillName);
             }
         }
         if (Weapon == 2)
@@ -258,10 +258,10 @@ public class AllSkills : MonoBehaviour
             if (SkillData.ArrayShotDoubleShotHO)
                 allSkills.Add(ArrayDoubleShot);
 
-            Debug.Log("Number of skills: " + allSkills.Count);
+            //Debug.Log("Number of skills: " + allSkills.Count);
             foreach (SkillData skillData in allSkills)
             {
-                Debug.Log("Skill Name: " + skillData.skillName);
+                //Debug.Log("Skill Name: " + skillData.skillName);
             }
         }
     }
@@ -331,7 +331,7 @@ public class AllSkills : MonoBehaviour
         for (float i = MaxValue; i >= 0.05f; i -= 0.05f)
         {
             float roundedValue = Mathf.Round(i * 100f) / 100f;
-            Debug.Log(" Available skill percent: " + roundedValue);
+            //Debug.Log(" Available skill percent: " + roundedValue);
             Values.Add(roundedValue);
         }
         return Values;

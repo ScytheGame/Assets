@@ -29,9 +29,26 @@ public class ExplosionNukeController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        var Explosion = Instantiate(ExplosionPrefab, ExplosionSpawnPoint.position, ExplosionSpawnPoint.rotation);
-        AudioManager.PlaySFX(AudioManager.Explosion, Source);
+        if (col.gameObject.CompareTag("Enemy"))
+        {
+            var Explosion = Instantiate(ExplosionPrefab, ExplosionSpawnPoint.position, ExplosionSpawnPoint.rotation);
+            AudioManager.PlaySFX(AudioManager.Explosion, Source);
 
-        Destroy(gameObject);
+            Destroy(gameObject);
+        }
+        else
+        {
+
+            if (resistance > 0)
+            {
+                resistance--;
+                return;
+            }
+
+            var Explosion = Instantiate(ExplosionPrefab, ExplosionSpawnPoint.position, ExplosionSpawnPoint.rotation);
+            AudioManager.PlaySFX(AudioManager.Explosion, Source);
+
+            Destroy(gameObject);
+        }
     }
 }

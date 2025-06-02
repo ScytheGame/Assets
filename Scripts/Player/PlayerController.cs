@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -10,7 +12,12 @@ public class PlayerController : MonoBehaviour
 
     Rigidbody2D rb;
     [Header("References")]
-
+    public string Scene = "GameOverPc";
+    public bool Mobile;
+    Vector2 turnInput = new Vector2(0, 0);
+    InputAction MoveAction;
+    InputAction TurnAction;
+    [SerializeField] Animator anim;
     [SerializeField] Weapons Weapons;
     [SerializeField] GameMenu GameMenu;
     [SerializeField] SkillsController SkillsController;
@@ -31,6 +38,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject PoisonEffect;
     [SerializeField] GameSettings GameSettings;
     [SerializeField] GameObject StarParticle;
+    ValueSave ValueSave;
 
     [Space (10)]
     [Header("Settings")]
@@ -48,13 +56,31 @@ public class PlayerController : MonoBehaviour
     int timeInterval = 10;
     float percentIncrease = 0.1f;
     float Bonus = 1;
+    private void OnEnable()
+    {
+        MoveAction = InputSystem.actions.FindAction("Move", throwIfNotFound: true);
+        TurnAction = InputSystem.actions.FindAction("look", throwIfNotFound: true);
+        MoveAction.Enable();
+        TurnAction.Enable();
+    }
+    private void OnDisable()
+    {
+        MoveAction.Disable();
+        TurnAction.Disable();   
+    }
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
+        MoveAction = InputSystem.actions.FindAction("Move", throwIfNotFound: true);
+        TurnAction = InputSystem.actions.FindAction("look", throwIfNotFound: true);
+        ValueSave = GameObject.FindGameObjectWithTag("Value").GetComponent<ValueSave>();
+
     }
 
     void Update()
     {
+        bool Animations = (PlayerPrefs.GetInt("AnimationsActive") != 0);
+        anim.enabled = Animations;
         playerHealth = StatsController.CurrentHealth;
         maxHealth = StatsController.MaxHealth;
         playerStamina = StatsController.CurrentStamina;
@@ -65,18 +91,18 @@ public class PlayerController : MonoBehaviour
 
         if (StatsController.CurrentHealth <= 0)
         {
-            Debug.Log("Player Has < 0 hp");
+            //Debug.Log("Player Has < 0 hp");
             if (StatsController.ExtraLives >= 1)
             {
                 StatsController.CurrentHealth = StatsController.MaxHealth;
                 StatsController.ExtraLives--;
-                Debug.Log("Player Has Healed " + StatsController.CurrentHealth + "/"+ StatsController.MaxHealth);
-                Debug.Log("Player Has " + StatsController.ExtraLives + " Extra lives left");
+                //Debug.Log("Player Has Healed " + StatsController.CurrentHealth + "/"+ StatsController.MaxHealth);
+                //Debug.Log("Player Has " + StatsController.ExtraLives + " Extra lives left");
                 return;
             }
-
-            SceneManager.LoadScene("GameOverPc");
-            Debug.Log("Player Has Died");
+            ValueSave.Save();
+            SceneManager.LoadScene(Scene);
+            //Debug.Log("Player Has Died");
 
         }
         if (StatsController.CurrentHealth > StatsController.MaxHealth)
@@ -141,19 +167,36 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
 
-
-        inputHorizontal = Input.GetAxis("Horizontal");
-        inputVertical = Input.GetAxis("Vertical");
-
-        if (inputHorizontal != 0 || inputVertical != 0)
+        if (!Mobile)
         {
-            rb.AddForce(new Vector2(inputHorizontal * moveSpeed, inputVertical * moveSpeed));
+            inputHorizontal = Input.GetAxis("Horizontal");
+            inputVertical = Input.GetAxis("Vertical");
+
+            if (inputHorizontal != 0 || inputVertical != 0)
+            {
+                rb.AddForce(new Vector2(inputHorizontal * moveSpeed, inputVertical * moveSpeed));
+            }
+
+
+            Vector3 mousePosition = Input.mousePosition;
+            mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            Vector2 direction = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y);
+            transform.up = direction;
         }
-        Vector3 mousePosition = Input.mousePosition;
-        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-        Vector2 direction = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y);
-        transform.up = direction;
+        else
+        {
+
+            Vector2 moveInput = MoveAction.ReadValue<Vector2>();
+            rb.AddForce(moveInput * moveSpeed);
+
+            if (rb.linearVelocity.sqrMagnitude > 0.01f)
+            {
+                transform.up = rb.linearVelocity.normalized;
+            }
+
+        }
     }
+
     public void SkillsAfterLevelUp()
     {
         StatsController.CurrentHealth = StatsController.MaxHealth;

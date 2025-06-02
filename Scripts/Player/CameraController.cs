@@ -6,8 +6,8 @@ public class CameraController : MonoBehaviour
     public Camera MainCamera;
     public Transform player;
     public Vector3 offset;
-    public int size = 20;
-    public float wait = 0.1f;
+    public float size = 20;
+    public float Speed = 5;
     void LateUpdate()
     {
         transform.position = player.position + offset;
@@ -15,42 +15,17 @@ public class CameraController : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKey("-") || Input.GetKey("_"))
+        size += Input.GetAxis("Mouse ScrollWheel") * Speed;
+
+        if (size > 60)
         {
-            if (size <= 6)
-            {
-
-            }
-            else
-            {
-                wait -= Time.unscaledDeltaTime;
-
-                if (wait <= 0)
-                {
-                    size -= 1;
-                    wait = 0.01f;
-                }
-                
-            }
+            size = 60;
         }
-        if (Input.GetKey("=") || Input.GetKey("+"))
+        else if (size < 6)
         {
-
-            if (size >= 60)
-            {
-
-            }
-            else
-            {
-                wait -= Time.unscaledDeltaTime;
-
-                if (wait <= 0)
-                {
-                    size += 1;
-                    wait = 0.01f;
-                }
-            }
+            size = 6;
         }
+
 
         MainCamera.orthographicSize = size;
     }

@@ -8,8 +8,8 @@ public class LevelsManager : MonoBehaviour
     [Header("References")]
     [SerializeField] TextMeshProUGUI currentLevelText;
     [SerializeField] TextMeshProUGUI xpText;
-    [SerializeField] SkillsController SkillsController;
-    [SerializeField] StatsController StatsController;
+    SkillsController SkillsController;
+    StatsController StatsController;
     public Slider xpBar;
 
     [Space(10)]
@@ -25,6 +25,8 @@ public class LevelsManager : MonoBehaviour
 
     private void Start()
     {
+        SkillsController = GameObject.FindWithTag("Player").GetComponent<SkillsController>();
+        StatsController = GameObject.FindWithTag("Player").GetComponent<StatsController>();
         StatsController.currentLevel = 1;
         UpdateHUD();
     }

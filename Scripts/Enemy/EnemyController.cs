@@ -8,6 +8,7 @@ using UnityEngine.Rendering.UI;
 
 public class EnemyController : MonoBehaviour
 {
+    Animator anim;
     [SerializeField] EnemyAI EnemyAi;
     [SerializeField] GameObject TextPrefab;
     [SerializeField] GameObject PoisonEffect;
@@ -47,15 +48,16 @@ public class EnemyController : MonoBehaviour
     public float EnemyAttackRateMultiplier = 0.6f;
     public float EnemyProjectileSpeedMultiplier = 1;
     public bool IsBossEnemy = false;
+    EnemyBossHealthBar EnemyBossHealthBar;
     float expTimeBuff = 0;
     float poisondamagelength = 1f;
     float EnemyBonusLevel = 0;
     bool ApplyOnce;
 
 
-
     void Start()
     {
+        anim = GetComponent<Animator>();
         SkillTreeData skillData = SkillTreeData.Load();
 
         AttackChance = PlayerPrefs.GetFloat("EnemyAttackChance", 100);
@@ -78,19 +80,19 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Player GameObject not found! Make sure the Player is tagged as 'Player'.");
+            //Debug.LogError("Player GameObject not found! Make sure the Player is tagged as 'Player'.");
         }
         if (level != null)
         {
             LevelsManager = level.GetComponent<LevelsManager>();
             if (LevelsManager == null)
             {
-                Debug.LogError("LevelsManager component not found on the UI GameObject!");
+                //Debug.LogError("LevelsManager component not found on the UI GameObject!");
             }
             GameSettings = level.GetComponent<GameSettings>();
             if (GameSettings == null)
             {
-                Debug.LogError("GameSettings component not found on the UI GameObject!");
+                //Debug.LogError("GameSettings component not found on the UI GameObject!");
             }
         }
         if (EnemyGenerator != null)
@@ -99,7 +101,7 @@ public class EnemyController : MonoBehaviour
 
             if (RandomEnemySpawn == null)
             {
-                Debug.Log("RandomEnemySpawn Component not found on the EnemyGenerator gameobject");
+                //Debug.Log("RandomEnemySpawn Component not found on the EnemyGenerator gameobject");
             }
         }
         if (Stats != null)
@@ -107,7 +109,7 @@ public class EnemyController : MonoBehaviour
             StatDisplay = Stats.GetComponent<StatDisplay>();
             if (StatDisplay == null)
             {
-                Debug.Log("couldn't find statDisplay on gameobject Stats");
+                //Debug.Log("couldn't find statDisplay on gameobject Stats");
             }
         }
         GameTime = RandomEnemySpawn.gameTime;
@@ -182,6 +184,12 @@ public class EnemyController : MonoBehaviour
                 }
             }
         }
+        anim.enabled = (PlayerPrefs.GetInt("AnimationsActive") != 0);
+        if (IsBossEnemy)
+        {
+            EnemyBossHealthBar = GameObject.FindWithTag("EnemyBossHealthBar").GetComponent<EnemyBossHealthBar>();
+            EnemyBossHealthBar.ShowHealthBar();
+        }
     }
 
     void Update()
@@ -200,19 +208,22 @@ public class EnemyController : MonoBehaviour
             var Experince = Instantiate(ExperincePrefab, this.transform.position, this.transform.rotation);
             if (IsBossEnemy)
             {
-                Experince.GetComponent<ExperincePointStat>().Experince = Random.Range(StatsController.ExpGain, StatsController.ExpGain * 2);
+                Experince.GetComponent<ExperincePointStat>().Experince = Random.Range(StatsController.ExpGain * 4, StatsController.ExpGain * 10);
+                EnemyBossHealthBar.HideHealthBar();
+                RandomEnemySpawn.DefeatedBoss();
             }
             else
             {
                 Experince.GetComponent<ExperincePointStat>().Experince = Random.Range(StatsController.ExpGain * 0.75f, StatsController.ExpGain * 1.5f);
             }
             var Explosion = Instantiate(ExplosionPrefab, this.transform.position, this.transform.rotation);
+
             Destroy(gameObject);
         }
 
         if (playerTransform == null || Enemy == null)
         {
-            Debug.LogWarning("Player or Enemy transform is not assigned!");
+            //Debug.LogWarning("Player or Enemy transform is not assigned!");
             return;
         }
 
@@ -236,6 +247,11 @@ public class EnemyController : MonoBehaviour
 
         Enemy.rotation = Quaternion.Slerp(Enemy.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
+
+        if (IsBossEnemy && EnemyBossHealthBar != null)
+        {
+            EnemyBossHealthBar.UpdateHealthBar(enemyHealth, maxHealth);
+        }
         if (Mathf.Abs(angleDifference) <= attackThreshold && DistanceToPlayer <= 90 && ShotDelay <= 0)
         {
             float Chance = Random.Range(1, 100);
@@ -254,7 +270,7 @@ public class EnemyController : MonoBehaviour
             ShotDelay -= Time.deltaTime;
             if (ShotDelay <= 0)
             {
-                Debug.Log("Shot Delay inactive");
+                //Debug.Log("Shot Delay inactive");
             }
 
         }
@@ -330,8 +346,8 @@ public class EnemyController : MonoBehaviour
             HealthReturn = Damage * StatsController.lifeSteal;
             playerController.playerHealth += HealthReturn;
 
-            Debug.Log("Enemy Damage Taken " + Damage);
-            Debug.Log("Enemy Health " + enemyHealth);
+            //Debug.Log("Enemy Damage Taken " + Damage);
+            //Debug.Log("Enemy Health " + enemyHealth);
             DamageDisplay(Damage);
         }
     }
@@ -347,8 +363,8 @@ public class EnemyController : MonoBehaviour
             HealthReturn = Damage * StatsController.lifeSteal;
             playerController.playerHealth += HealthReturn;
 
-            Debug.Log("Enemy Damage Taken " + Damage);
-            Debug.Log("Enemy Health " + enemyHealth);
+            //Debug.Log("Enemy Damage Taken " + Damage);
+            //Debug.Log("Enemy Health " + enemyHealth);
             DamageDisplay(Damage);
         }
         if (col.gameObject.tag == "Mine")
@@ -360,8 +376,8 @@ public class EnemyController : MonoBehaviour
             HealthReturn = Damage * StatsController.lifeSteal;
             playerController.playerHealth += HealthReturn;
 
-            Debug.Log("Enemy Damage Taken " + Damage);
-            Debug.Log("Enemy Health " + enemyHealth);
+            //Debug.Log("Enemy Damage Taken " + Damage);
+            //Debug.Log("Enemy Health " + enemyHealth);
             DamageDisplay(Damage);
         }
     }

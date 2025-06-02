@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 
 [System.Serializable]
-public class Leaderboard
+public class LeaderboardData
 {
     
-    public List<LeaderboardEntry> entries = new List<LeaderboardEntry>();
+    public List<PlayerStats> players = new List<PlayerStats>();
 }

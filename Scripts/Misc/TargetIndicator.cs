@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,7 +7,7 @@ public class TargetIndicator : MonoBehaviour
     public float rotationSpeed = 5.0f;
     public Transform Player;
     public RectTransform arrowUI;
-
+    public TextMeshProUGUI DistanceText;
     void Update()
     {
         Transform nearestEnemy = FindClosestEnemy();
@@ -36,6 +37,7 @@ public class TargetIndicator : MonoBehaviour
 
         if (closestEnemy != null)
         {
+            DistanceText.text = "Distance: " + Mathf.RoundToInt(Mathf.Sqrt(distanceToClosestEnemy)) + "km";
             return closestEnemy.transform;
         }
         else

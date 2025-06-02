@@ -4,11 +4,13 @@ using UnityEngine;
 public class FlakControllerPlayer : MonoBehaviour
 {
 
-    [SerializeField] private Transform ProjectileSpawnPoint1;
-    [SerializeField] private Transform ProjectileSpawnPoint2;
+    [SerializeField] private Transform ProjectileSpawnPointLeft;
+    [SerializeField] private Transform ProjectileSpawnPointRight;
+    [SerializeField] private Transform ProjectileSpawnPointBackLeft;
+    [SerializeField] private Transform ProjectileSpawnPointBackRight;
     [SerializeField] private GameObject MissilePrefab;
-    [SerializeField] private AudioManager AudioManager;
-    [SerializeField] AudioSource Source;
+    private AudioManager AudioManager;
+    AudioSource Source;
 
     [SerializeField] public float FlakSpeed = 20f;
     [SerializeField] public float fireDelay = 1.5f;
@@ -16,23 +18,30 @@ public class FlakControllerPlayer : MonoBehaviour
     [SerializeField] private float Spread = 25f;
     [SerializeField] float Damage;
 
-    public Skill Skill;
-    public PlayerController playerController;
-    public SkillsController skillsController;
-    public StatsController StatsController;
-    public StaminaRegen StaminaRegen;
+    Skill Skill;
+    PlayerController playerController;
+    SkillsController skillsController;
+    StatsController StatsController;
+    StaminaRegen StaminaRegen;
 
     public float delayTimer = 0f;
     private float setDelayTimer = 0f;
-    private Transform SpawnPoint;
     public bool canFire = true;
     public int spawnCount = 0;
-
+    Animator anim;
+    int FireCount = 0;
     void Start()
     {
         GameObject audioManager = GameObject.FindGameObjectWithTag("AudioManager");
         AudioManager = audioManager.GetComponent<AudioManager>();
-        GetComponent<PlayerController>();
+        Source = GameObject.FindWithTag("Player").GetComponent<AudioSource>();
+        anim = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
+        Skill = GameObject.FindGameObjectWithTag("Canvas").GetComponent<Skill>();
+
+        playerController = GetComponentInParent<PlayerController>();
+        skillsController = GetComponentInParent<SkillsController>();
+        StatsController = GetComponentInParent<StatsController>();
+        StaminaRegen = GetComponentInParent<StaminaRegen>();
     }
 
     void Update()
@@ -43,14 +52,56 @@ public class FlakControllerPlayer : MonoBehaviour
         StaminaPerShot = StatsController.FlakAmmoCost;
         if (canFire == true && StaminaRegen.isReloading == false)
         {
-            if (Skill.usingMainWeaponFlak == true || Skill.usingBackupWeaponFlak == true) 
+            if (Skill.usingMainWeaponFlak == true)
             {
-                for (int i = 1; i <= 3; i++) 
+
+                if (StatsController.DoubleShot == true)
                 {
-                    FireMissile(ProjectileSpawnPoint1);
-                    SpawnPoint = ProjectileSpawnPoint1;
-                    delayTimer = 0f;
+                    FireMissile(false, ProjectileSpawnPointLeft);
+                    anim.SetTrigger("LeftWeaponShot");
+
+                    FireMissile(false, ProjectileSpawnPointRight);
+                    anim.SetTrigger("RightWeaponShot");
+
+                    if (StatsController.BackwardsFire == true)
+                    {
+                        FireMissile(false, ProjectileSpawnPointBackLeft);
+                        anim.SetTrigger("LeftWeaponShot");
+
+                        FireMissile(false, ProjectileSpawnPointBackRight);
+                        anim.SetTrigger("RightWeaponShot");
+                    }
                 }
+                else
+                {
+
+                    if (FireCount == 0)
+                    {
+                        FireMissile(false, ProjectileSpawnPointLeft);
+                        anim.SetTrigger("LeftWeaponShot");
+
+                        if (StatsController.BackwardsFire == true)
+                        {
+                            FireMissile(false, ProjectileSpawnPointBackLeft);
+                            anim.SetTrigger("LeftWeaponShot");
+                        }
+                        FireCount++;
+                    }
+                    else
+                    {
+                        FireMissile(false, ProjectileSpawnPointRight);
+                        anim.SetTrigger("RightWeaponShot");
+
+                        if (StatsController.BackwardsFire == true)
+                        {
+                            FireMissile(false, ProjectileSpawnPointBackRight);
+                            anim.SetTrigger("RightWeaponShot");
+                        }
+                        FireCount = 0;
+                    }
+                }
+                delayTimer = 0f;
+
             }
         }
         else
@@ -64,60 +115,54 @@ public class FlakControllerPlayer : MonoBehaviour
             }
         }
     }
-    private void FireMissile(Transform SpawnPoint)
+    private void FireMissile(bool SecondShot, Transform SpawnPoint)
+    {
+        for (int i = 1; i <= 3; i++)
         {
-        if (StatsController.CurrentStamina < StaminaPerShot)
-        {
-            canFire = false;
-            playerController.canReload = true;
-        }
-        else
-        {
-            if (spawnCount == 0)
+            if (StatsController.CurrentStamina < StaminaPerShot)
             {
-                AudioManager.PlaySFX(AudioManager.FlakShot, Source);
-                StatsController.CurrentStamina -= StaminaPerShot;
-                var Missile = Instantiate(MissilePrefab, SpawnPoint.position, SpawnPoint.rotation);
-                Missile.GetComponent<Rigidbody2D>().linearVelocity = SpawnPoint.up * FlakSpeed;
-                Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 50, Damage + 30);
-                spawnCount++;
+                canFire = false;
+                playerController.canReload = true;
             }
-            if (spawnCount == 1)
+            else
             {
-                AudioManager.PlaySFX(AudioManager.FlakShot, Source);
-                playerController.playerStamina -= StaminaPerShot;
-                var offsetRotation = SpawnPoint.rotation * Quaternion.Euler(0, 0, Spread);
-                var Missile = Instantiate(MissilePrefab, SpawnPoint.position, offsetRotation);
+                if (spawnCount == 0)
+                {
+                    AudioManager.PlaySFX(AudioManager.FlakShot, Source);
+                    StatsController.CurrentStamina -= StaminaPerShot;
+                    var Missile = Instantiate(MissilePrefab, SpawnPoint.position, SpawnPoint.rotation);
+                    Missile.GetComponent<Rigidbody2D>().linearVelocity = SpawnPoint.up * FlakSpeed;
+                    Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 50, Damage + 30);
+                    spawnCount++;
+                }
+                if (spawnCount == 1)
+                {
+                    AudioManager.PlaySFX(AudioManager.FlakShot, Source);
+                    playerController.playerStamina -= StaminaPerShot;
+                    var offsetRotation = SpawnPoint.rotation * Quaternion.Euler(0, 0, Spread);
+                    var Missile = Instantiate(MissilePrefab, SpawnPoint.position, offsetRotation);
 
-                Missile.GetComponent<Rigidbody2D>().linearVelocity = Missile.transform.up * FlakSpeed;
-                Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 50, Damage + 30);
-                spawnCount++;
-            }
-            if (spawnCount == 2)
-            {
-                AudioManager.PlaySFX(AudioManager.FlakShot, Source);
-                playerController.playerStamina -= StaminaPerShot;
-                var offsetRotation = SpawnPoint.rotation * Quaternion.Euler(0, 0, -Spread);
-                var Missile = Instantiate(MissilePrefab, SpawnPoint.position, offsetRotation);
+                    Missile.GetComponent<Rigidbody2D>().linearVelocity = Missile.transform.up * FlakSpeed;
+                    Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 50, Damage + 30);
+                    spawnCount++;
+                }
+                if (spawnCount == 2)
+                {
+                    AudioManager.PlaySFX(AudioManager.FlakShot, Source);
+                    playerController.playerStamina -= StaminaPerShot;
+                    var offsetRotation = SpawnPoint.rotation * Quaternion.Euler(0, 0, -Spread);
+                    var Missile = Instantiate(MissilePrefab, SpawnPoint.position, offsetRotation);
 
-                Missile.GetComponent<Rigidbody2D>().linearVelocity = Missile.transform.up * FlakSpeed;
-                Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 50, Damage + 30);
-                spawnCount = 0;
-            }
+                    Missile.GetComponent<Rigidbody2D>().linearVelocity = Missile.transform.up * FlakSpeed;
+                    Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 50, Damage + 30);
+                    spawnCount = 0;
+                }
 
-            if (StatsController.BackwardsFire == true)
-            {
-                AudioManager.PlaySFX(AudioManager.FlakShot, Source);
-                playerController.playerStamina -= StaminaPerShot;
-                var Missile = Instantiate(MissilePrefab, ProjectileSpawnPoint2.position, ProjectileSpawnPoint2.rotation);
-
-                Missile.GetComponent<Rigidbody2D>().linearVelocity = Missile.transform.up * FlakSpeed;
-                Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 50, Damage + 30);
-            }
-            canFire = false;
-            if (StatsController.MultiShot)
-            {
-                StartCoroutine(FireMultiShot(ProjectileSpawnPoint1));
+                canFire = false;
+                if (StatsController.MultiShot && !SecondShot)
+                {
+                    StartCoroutine(FireMultiShot(SpawnPoint));
+                }
             }
         }
     }
@@ -125,44 +170,6 @@ public class FlakControllerPlayer : MonoBehaviour
     {
 
         yield return new WaitForSeconds(0.3f);
-        if (spawnCount == 0)
-        {
-            AudioManager.PlaySFX(AudioManager.FlakShot, Source);
-            var Missile = Instantiate(MissilePrefab, SpawnPoint.position, SpawnPoint.rotation);
-            Missile.GetComponent<Rigidbody2D>().linearVelocity = SpawnPoint.up * FlakSpeed;
-            Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 50, Damage + 30);
-            spawnCount++;
-        }
-        if (spawnCount == 1)
-        {
-            AudioManager.PlaySFX(AudioManager.FlakShot, Source);
-            var offsetRotation = SpawnPoint.rotation * Quaternion.Euler(0, 0, Spread);
-            var Missile = Instantiate(MissilePrefab, SpawnPoint.position, offsetRotation);
-
-            Missile.GetComponent<Rigidbody2D>().linearVelocity = Missile.transform.up * FlakSpeed;
-            Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 50, Damage + 30);
-            spawnCount++;
-        }
-        if (spawnCount == 2)
-        {
-            AudioManager.PlaySFX(AudioManager.FlakShot, Source);
-            var offsetRotation = SpawnPoint.rotation * Quaternion.Euler(0, 0, -Spread);
-            var Missile = Instantiate(MissilePrefab, SpawnPoint.position, offsetRotation);
-
-            Missile.GetComponent<Rigidbody2D>().linearVelocity = Missile.transform.up * FlakSpeed;
-            Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 50, Damage + 30);
-            spawnCount = 0;
-        }
-
-        if (StatsController.BackwardsFire == true)
-        {
-            AudioManager.PlaySFX(AudioManager.FlakShot, Source);
-            var Missile = Instantiate(MissilePrefab, ProjectileSpawnPoint2.position, ProjectileSpawnPoint2.rotation);
-
-            Missile.GetComponent<Rigidbody2D>().linearVelocity = Missile.transform.up * FlakSpeed;
-            Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 50, Damage + 30);
-        }
-        canFire = false;
-
+        FireMissile(true, SpawnPoint);
     }
 }

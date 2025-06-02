@@ -4,36 +4,45 @@ using UnityEngine;
 
 public class NukeControllerPlayer : MonoBehaviour
 {
-    [SerializeField] private Transform ProjectileSpawnPoint1;
-    [SerializeField] private Transform ProjectileSpawnPoint2;
-    [SerializeField] private Transform ProjectileSpawnPoint3;
-    [SerializeField] private Transform ProjectileSpawnPoint4;
+    [SerializeField] private Transform ProjectileSpawnPointLeft;
+    [SerializeField] private Transform ProjectileSpawnPointRight;
+    [SerializeField] private Transform ProjectileSpawnPointBackLeft;
+    [SerializeField] private Transform ProjectileSpawnPointBackRight;
     [SerializeField] private GameObject NukePrefab;
-    [SerializeField] private AudioManager AudioManager;
-    [SerializeField] AudioSource Source;
+    private AudioManager AudioManager;
+    AudioSource Source;
  
     [SerializeField] public float NukeSpeed = 16f;
     [SerializeField] public float fireDelay = 4f;
     [SerializeField] private float StaminaPerShot = 50f;
     [SerializeField] float Damage;
 
+    GameObject Player;
 
-
-    public Skill Skill;
-    public PlayerController playerController;
-    public SkillsController SkillsController;
-    public StatsController StatsController;
-    public StaminaRegen StaminaRegen;
+    Skill Skill;
+    PlayerController playerController;
+    SkillsController SkillsController;
+    StatsController StatsController;
+    StaminaRegen StaminaRegen;
 
     private bool firedFirstMissile;
     private float delayTimer = 0f;
     private float setDelayTimer = 0f;
     public bool canFire = true;
+    Animator anim;
     void Start()
     {
         GameObject audioManager = GameObject.FindGameObjectWithTag("AudioManager");
         AudioManager = audioManager.GetComponent<AudioManager>();
-        GetComponent<PlayerController>();
+        anim = GameObject.FindWithTag("Player").GetComponent<Animator>();
+        Source = GameObject.FindWithTag("Player").GetComponent<AudioSource>();
+        Skill = GameObject.FindGameObjectWithTag("Canvas").GetComponent<Skill>();
+
+        GameObject Player = GameObject.FindGameObjectWithTag("Player");
+        playerController = Player.GetComponent<PlayerController>();
+        SkillsController = Player.GetComponent<SkillsController>();
+        StatsController = Player.GetComponent<StatsController>();
+        StaminaRegen = Player.GetComponent<StaminaRegen>();
     }
 
     void Update()
@@ -48,9 +57,9 @@ public class NukeControllerPlayer : MonoBehaviour
             if (StatsController.DoubleShot)
             {
 
-                if (Skill.usingMainWeaponNuke == true || Skill.usingBackupWeaponNuke == true)
+                if (Skill.usingMainWeaponNuke == true)
                 {
-                    FireNuke();
+                    FireNuke(false);
                     canFire = false;
                     setDelayTimer = 0f;
                 }
@@ -60,9 +69,9 @@ public class NukeControllerPlayer : MonoBehaviour
             //Single Shot
             else
             {
-                if (Skill.usingMainWeaponNuke == true || Skill.usingBackupWeaponNuke == true)
+                if (Skill.usingMainWeaponNuke == true)
                 {
-                    FireNuke();
+                    FireNuke(false);
                     canFire = false;
                     setDelayTimer = 0f;
                 }
@@ -78,7 +87,8 @@ public class NukeControllerPlayer : MonoBehaviour
             }
         }
     }
-    private void FireNuke()
+    int FireCount = 0;
+    private void FireNuke(bool SecondShot)
     {
         if (StatsController.CurrentStamina < StaminaPerShot)
         {
@@ -91,44 +101,82 @@ public class NukeControllerPlayer : MonoBehaviour
             {
                 StatsController.CurrentStamina -= StaminaPerShot;
                 AudioManager.PlaySFX(AudioManager.NukeShot, Source);
-                var Nuke = Instantiate(NukePrefab, ProjectileSpawnPoint1.position, ProjectileSpawnPoint1.rotation);
-                Nuke.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPoint3.up * NukeSpeed;
+                var Nuke = Instantiate(NukePrefab, ProjectileSpawnPointLeft.position, ProjectileSpawnPointLeft.rotation);
+                Nuke.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointLeft.up * NukeSpeed;
                 Nuke.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 150, Damage + 100);
+                anim.SetTrigger("LeftWeaponShot");
+
 
                 StatsController.CurrentStamina -= StaminaPerShot;
                 AudioManager.PlaySFX(AudioManager.NukeShot, Source);
-                Nuke = Instantiate(NukePrefab, ProjectileSpawnPoint2.position, ProjectileSpawnPoint2.rotation);
-                Nuke.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPoint3.up * NukeSpeed;
+                Nuke = Instantiate(NukePrefab, ProjectileSpawnPointRight.position, ProjectileSpawnPointRight.rotation);
+                Nuke.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointRight.up * NukeSpeed;
                 Nuke.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 150, Damage + 100);
+                anim.SetTrigger("RightWeaponShot");
 
                 if (StatsController.BackwardsFire == true)
                 {
                     StatsController.CurrentStamina -= StaminaPerShot;
                     AudioManager.PlaySFX(AudioManager.NukeShot, Source);
-                    Nuke = Instantiate(NukePrefab, ProjectileSpawnPoint4.position, ProjectileSpawnPoint4.rotation);
-                    Nuke.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPoint4.up * NukeSpeed;
+                    Nuke = Instantiate(NukePrefab, ProjectileSpawnPointBackLeft.position, ProjectileSpawnPointBackLeft.rotation);
+                    Nuke.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointBackLeft.up * NukeSpeed;
                     Nuke.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 150, Damage + 100);
+                    anim.SetTrigger("LeftWeaponShot");
+
+                    StatsController.CurrentStamina -= StaminaPerShot;
+                    AudioManager.PlaySFX(AudioManager.NukeShot, Source);
+                    Nuke = Instantiate(NukePrefab, ProjectileSpawnPointBackRight.position, ProjectileSpawnPointBackRight.rotation);
+                    Nuke.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointBackRight.up * NukeSpeed;
+                    Nuke.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 150, Damage + 100);
+                    anim.SetTrigger("RightWeaponShot");
                 }
             }
             else
             {
-                StatsController.CurrentStamina -= StaminaPerShot;
-                AudioManager.PlaySFX(AudioManager.NukeShot, Source);
-                var Nuke = Instantiate(NukePrefab, ProjectileSpawnPoint3.position, ProjectileSpawnPoint3.rotation);
-                Nuke.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPoint3.up * NukeSpeed;
-                Nuke.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 150, Damage + 100);
 
-                if (StatsController.BackwardsFire == true)
+                if (FireCount == 0)
                 {
                     StatsController.CurrentStamina -= StaminaPerShot;
                     AudioManager.PlaySFX(AudioManager.NukeShot, Source);
-                    Nuke = Instantiate(NukePrefab, ProjectileSpawnPoint4.position, ProjectileSpawnPoint4.rotation);
-                    Nuke.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPoint4.up * NukeSpeed;
+                    var Nuke = Instantiate(NukePrefab, ProjectileSpawnPointLeft.position, ProjectileSpawnPointLeft.rotation);
+                    Nuke.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointLeft.up * NukeSpeed;
                     Nuke.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 150, Damage + 100);
+                    anim.SetTrigger("LeftWeaponShot");
+
+                    if (StatsController.BackwardsFire == true)
+                    {
+                        StatsController.CurrentStamina -= StaminaPerShot;
+                        AudioManager.PlaySFX(AudioManager.NukeShot, Source);
+                        Nuke = Instantiate(NukePrefab, ProjectileSpawnPointBackLeft.position, ProjectileSpawnPointBackLeft.rotation);
+                        Nuke.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointBackLeft.up * NukeSpeed;
+                        Nuke.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 150, Damage + 100);
+                        anim.SetTrigger("LeftWeaponShot");
+                    }
+                    FireCount++;
+                }
+                else
+                {
+                    StatsController.CurrentStamina -= StaminaPerShot;
+                    AudioManager.PlaySFX(AudioManager.NukeShot, Source);
+                    var Nuke = Instantiate(NukePrefab, ProjectileSpawnPointRight.position, ProjectileSpawnPointRight.rotation);
+                    Nuke.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointRight.up * NukeSpeed;
+                    Nuke.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 150, Damage + 100);
+                    anim.SetTrigger("RightWeaponShot");
+
+                    if (StatsController.BackwardsFire == true)
+                    {
+                        StatsController.CurrentStamina -= StaminaPerShot;
+                        AudioManager.PlaySFX(AudioManager.NukeShot, Source);
+                        Nuke = Instantiate(NukePrefab, ProjectileSpawnPointBackRight.position, ProjectileSpawnPointBackRight.rotation);
+                        Nuke.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointBackRight.up * NukeSpeed;
+                        Nuke.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 150, Damage + 100);
+                        anim.SetTrigger("RightWeaponShot");
+                    }
+                    FireCount = 0;
                 }
             }
 
-            if (StatsController.MultiShot == true)
+            if (StatsController.MultiShot && !SecondShot)
             {
                 StartCoroutine(FireMultiShot());
             }
@@ -137,40 +185,6 @@ public class NukeControllerPlayer : MonoBehaviour
     private IEnumerator FireMultiShot()
     {
         yield return new WaitForSeconds(0.3f);
-        if (StatsController.DoubleShot)
-        {
-            AudioManager.PlaySFX(AudioManager.NukeShot, Source);
-            var Nuke = Instantiate(NukePrefab, ProjectileSpawnPoint1.position, ProjectileSpawnPoint1.rotation);
-            Nuke.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPoint3.up * NukeSpeed;
-            Nuke.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 150, Damage + 100);
-
-            AudioManager.PlaySFX(AudioManager.NukeShot, Source);
-            Nuke = Instantiate(NukePrefab, ProjectileSpawnPoint2.position, ProjectileSpawnPoint2.rotation);
-            Nuke.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPoint3.up * NukeSpeed;
-            Nuke.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 150, Damage + 100);
-
-            if (StatsController.BackwardsFire == true)
-            {
-                AudioManager.PlaySFX(AudioManager.NukeShot, Source);
-                Nuke = Instantiate(NukePrefab, ProjectileSpawnPoint4.position, ProjectileSpawnPoint4.rotation);
-                Nuke.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPoint4.up * NukeSpeed;
-                Nuke.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 150, Damage + 100);
-            }
-        }
-        else
-        {
-            AudioManager.PlaySFX(AudioManager.NukeShot, Source);
-            var Nuke = Instantiate(NukePrefab, ProjectileSpawnPoint3.position, ProjectileSpawnPoint3.rotation);
-            Nuke.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPoint3.up * NukeSpeed;
-            Nuke.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 150, Damage + 100);
-
-            if (StatsController.BackwardsFire == true)
-            {
-                AudioManager.PlaySFX(AudioManager.NukeShot, Source);
-                Nuke = Instantiate(NukePrefab, ProjectileSpawnPoint4.position, ProjectileSpawnPoint4.rotation);
-                Nuke.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPoint4.up * NukeSpeed;
-                Nuke.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 150, Damage + 100);
-            }
-        }
+        FireNuke(true);
     }
 }

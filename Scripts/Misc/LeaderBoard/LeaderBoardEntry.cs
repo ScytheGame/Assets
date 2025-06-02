@@ -1,8 +1,8 @@
 [System.Serializable]
-public class LeaderboardEntry
+public class PlayerStats
 {
-    public string playerName;
-    public int timePlayed;
-    public int level;
-    public int killCount;
+    public string PlayerName;
+    public int TimePlayed;
+    public int Level;
+    public int KillCount;
 }

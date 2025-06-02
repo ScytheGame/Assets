@@ -6,11 +6,21 @@ using UnityEngine.SceneManagement;
 public class PauseMenuController : MonoBehaviour
 {
     [SerializeField] GameMenu GameMenu;
+    [SerializeField] string Scene = "GameOverPc";
+    ValueSave ValueSave;
+    private void Start()
+    {
+        ValueSave = GameObject.FindGameObjectWithTag("Value").GetComponent<ValueSave>();
+    }
     public void MainMenu()
     {
         GameObject audioManager = GameObject.FindGameObjectWithTag("AudioManager");
         Destroy(audioManager);
-        SceneManager.LoadScene("MainMenuPc");
+        if (ValueSave != null)
+        {
+            ValueSave.Save();
+        }
+        SceneManager.LoadScene(Scene);
         Time.timeScale = 1.0f;
 
     }
