@@ -1,4 +1,5 @@
 using System.Diagnostics.Contracts;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class FlakControllerEnemy : MonoBehaviour
@@ -39,7 +40,7 @@ public class FlakControllerEnemy : MonoBehaviour
         GetComponent<EnemyController>();
     }
 
-    void Update()
+    async void Update()
     {
         if (!Loaded)
         {
@@ -63,6 +64,7 @@ public class FlakControllerEnemy : MonoBehaviour
                         anim.SetTrigger("LeftWeaponShot");
                         FirstShotShot = true;
                         delayTimer = 0f;
+                        await Task.Delay(10);
                     }
                     else
                     {
@@ -71,6 +73,7 @@ public class FlakControllerEnemy : MonoBehaviour
                         anim.SetTrigger("RightWeaponShot");
                         FirstShotShot = false;
                         delayTimer = 0f;
+                        await Task.Delay(10);
                     }
                 }
             }

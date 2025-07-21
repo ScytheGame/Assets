@@ -134,7 +134,7 @@ public class MiniGunControllerPlayer : MonoBehaviour
                 AngleOfSpread = Random.Range(-spread, spread);
                 var offsetRotation = ProjectileSpawnPointLeft.rotation * Quaternion.Euler(0, 0, AngleOfSpread);
                 var Bullet = Instantiate(MiniGunPrefab, ProjectileSpawnPointLeft.position, offsetRotation);
-                Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed;
+                Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                 Bullet.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 10, Damage + 30);
                 anim.SetTrigger("LeftWeaponShot");
                 Burst++;
@@ -144,7 +144,7 @@ public class MiniGunControllerPlayer : MonoBehaviour
                 AngleOfSpread = Random.Range(-spread, spread);
                 offsetRotation = ProjectileSpawnPointRight.rotation * Quaternion.Euler(0, 0, AngleOfSpread);
                 Bullet = Instantiate(MiniGunPrefab, ProjectileSpawnPointRight.position, offsetRotation);
-                Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed;
+                Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                 Bullet.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 10, Damage + 30);
                 anim.SetTrigger("RightWeaponShot");
                 Burst++;
@@ -156,7 +156,7 @@ public class MiniGunControllerPlayer : MonoBehaviour
                     AngleOfSpread = Random.Range(-spread, spread);
                     offsetRotation = ProjectileSpawnPointBackLeft.rotation * Quaternion.Euler(0, 0, AngleOfSpread);
                     Bullet = Instantiate(MiniGunPrefab, ProjectileSpawnPointBackLeft.position, offsetRotation);
-                    Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed;
+                    Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                     Bullet.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 10, Damage + 30);
                     anim.SetTrigger("LeftWeaponShot");
 
@@ -165,7 +165,7 @@ public class MiniGunControllerPlayer : MonoBehaviour
                     AngleOfSpread = Random.Range(-spread, spread);
                     offsetRotation = ProjectileSpawnPointBackRight.rotation * Quaternion.Euler(0, 0, AngleOfSpread);
                     Bullet = Instantiate(MiniGunPrefab, ProjectileSpawnPointBackRight.position, offsetRotation);
-                    Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed;
+                    Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                     Bullet.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 10, Damage + 30);
                     anim.SetTrigger("RightWeaponShot");
                 }
@@ -179,7 +179,7 @@ public class MiniGunControllerPlayer : MonoBehaviour
                     AngleOfSpread = Random.Range(-spread, spread);
                     var offsetRotation = ProjectileSpawnPointLeft.rotation * Quaternion.Euler(0, 0, AngleOfSpread);
                     var Bullet = Instantiate(MiniGunPrefab, ProjectileSpawnPointLeft.position, offsetRotation);
-                    Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed;
+                    Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                     Bullet.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 10, Damage + 30);
                     anim.SetTrigger("LeftWeaponShot");
                     Burst++;
@@ -191,7 +191,7 @@ public class MiniGunControllerPlayer : MonoBehaviour
                         AngleOfSpread = Random.Range(-spread, spread);
                         offsetRotation = ProjectileSpawnPointBackLeft.rotation * Quaternion.Euler(0, 0, AngleOfSpread);
                         Bullet = Instantiate(MiniGunPrefab, ProjectileSpawnPointBackLeft.position, offsetRotation);
-                        Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed;
+                        Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                         Bullet.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 10, Damage + 30);
                         anim.SetTrigger("LeftWeaponShot");
                         Burst++;
@@ -205,7 +205,7 @@ public class MiniGunControllerPlayer : MonoBehaviour
                     AngleOfSpread = Random.Range(-spread, spread);
                     var offsetRotation = ProjectileSpawnPointRight.rotation * Quaternion.Euler(0, 0, AngleOfSpread);
                     var Bullet = Instantiate(MiniGunPrefab, ProjectileSpawnPointRight.position, offsetRotation);
-                    Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed;
+                    Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                     Bullet.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 10, Damage + 30);
                     anim.SetTrigger("RightWeaponShot");
                     Burst++;
@@ -217,7 +217,7 @@ public class MiniGunControllerPlayer : MonoBehaviour
                         AngleOfSpread = Random.Range(-spread, spread);
                         offsetRotation = ProjectileSpawnPointBackRight.rotation * Quaternion.Euler(0, 0, AngleOfSpread);
                         Bullet = Instantiate(MiniGunPrefab, ProjectileSpawnPointBackRight.position, offsetRotation);
-                        Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed;
+                        Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                         Bullet.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 10, Damage + 30);
                         anim.SetTrigger("RightWeaponShot");
                         Burst++;

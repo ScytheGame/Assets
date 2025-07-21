@@ -31,9 +31,9 @@ public class Upgradepoints : MonoBehaviour
             SolarPoints = PlayerPrefs.GetFloat("SolarPoints", 0);
             CelestialPoints = PlayerPrefs.GetFloat("CelestialPoints", 0);
 
-            SolarPoints += Mathf.Round(Level / 10);
-            SolarPoints += Mathf.Round(KillCount / 20);
-            SolarPoints += Mathf.Round(TimePlayed / 10);
+            SolarPoints += Mathf.Round(Level / 3);
+            SolarPoints += Mathf.Round(KillCount / 10);
+            SolarPoints += Mathf.Round(TimePlayed / 2);
 
             PlayerPrefs.SetFloat("SolarPoints", SolarPoints);
             PlayerPrefs.SetFloat("CelestialPoints", CelestialPoints);
@@ -41,10 +41,13 @@ public class Upgradepoints : MonoBehaviour
         }
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        SolarPointsText.text = ("Solar Points: " + SolarPoints);
-        CelestialPointsText.text = ("CelestialPoints: " + CelestialPoints);
+        if (InMenu)
+        {
+            SolarPointsText.text = ("Solar Points: " + SolarPoints);
+            CelestialPointsText.text = ("CelestialPoints: " + CelestialPoints);
+        }
     }
     public void Save()
     {

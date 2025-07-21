@@ -1,13 +1,12 @@
 using UnityEngine;
 using System.Collections.Generic;
+
+[System.Serializable]
 public class SkillData
 {
-    public StatsController StatsController;
     public string skillName;
     public string skillDescription;
-    public string skillDebuffDescription;
     public string skillBuff1;
-    public string skillDebuff1;
 
     // Skill Type
     public float FloatSkill;
@@ -21,7 +20,6 @@ public class SkillData
     public bool isOneTime;
     public bool isMultipleTime;
     public float MaxLevel;
-
     public SkillData(string name,
         string description,
         string Buff = null,

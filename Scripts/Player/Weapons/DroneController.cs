@@ -128,7 +128,7 @@ public class DroneControllerPlayer : MonoBehaviour
             {
                 AudioManager.PlaySFX(AudioManager.DroneShot, Source);
                 var Missile = Instantiate(MissilePrefab, SpawnPoint.position, SpawnPoint.rotation);
-                Missile.GetComponent<Rigidbody2D>().linearVelocity = SpawnPoint.up * DroneSpeed;
+                Missile.GetComponent<Rigidbody2D>().linearVelocity = SpawnPoint.up * DroneSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                 Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 15, Damage + 30);
                 spawnCount++;
                 if (StatsController.DoubleShot == false)
@@ -142,7 +142,7 @@ public class DroneControllerPlayer : MonoBehaviour
                 var offsetRotation = SpawnPoint.rotation * Quaternion.Euler(0, 0, spread);
                 var Missile = Instantiate(MissilePrefab, SpawnPoint.position, offsetRotation);
 
-                Missile.GetComponent<Rigidbody2D>().linearVelocity = Missile.transform.up * DroneSpeed;
+                Missile.GetComponent<Rigidbody2D>().linearVelocity = Missile.transform.up * DroneSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                 Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 15, Damage + 30);
                 spawnCount++;
             }
@@ -152,7 +152,7 @@ public class DroneControllerPlayer : MonoBehaviour
                 var offsetRotation = SpawnPoint.rotation * Quaternion.Euler(0, 0, -spread);
                 var Missile = Instantiate(MissilePrefab, SpawnPoint.position, offsetRotation);
 
-                Missile.GetComponent<Rigidbody2D>().linearVelocity = Missile.transform.up * DroneSpeed;
+                Missile.GetComponent<Rigidbody2D>().linearVelocity = Missile.transform.up * DroneSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                 Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 15, Damage + 30);
                 spawnCount = 0;
             }

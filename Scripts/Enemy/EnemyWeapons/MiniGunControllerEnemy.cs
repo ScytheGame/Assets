@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEngine;
 using static UnityEngine.ParticleSystem;
 
@@ -30,7 +31,7 @@ public class MiniGunControllerEnemy : MonoBehaviour
     private int DoubleShot = 0;
     private bool Loaded = false;
     Animator anim;
-    void Start()
+    async void Start()
     {
         GameObject audioManager = GameObject.FindGameObjectWithTag("AudioManager");
         AudioManager = audioManager.GetComponent<AudioManager>();
@@ -47,7 +48,7 @@ public class MiniGunControllerEnemy : MonoBehaviour
         }
     }
 
-    void Update()
+    async Task Update()
     {
 
         if (!Loaded)
@@ -74,6 +75,8 @@ public class MiniGunControllerEnemy : MonoBehaviour
                     setDelayTimer = 0;
 
                     canFire = false;
+
+                    await Task.Delay(10);
                 }
 
                 else
@@ -84,6 +87,8 @@ public class MiniGunControllerEnemy : MonoBehaviour
                         FireBullet(ProjectileSpawnPointLeft);
                         anim.SetTrigger("LeftWeaponShot");
                         firedFirstBullet = true;
+
+                        await Task.Delay(10);
                     }
 
                     else if (firedFirstBullet)
@@ -93,6 +98,8 @@ public class MiniGunControllerEnemy : MonoBehaviour
                         firedFirstBullet = false;
                         setDelayTimer = 0f;
                         canFire = false;
+
+                        await Task.Delay(10);
                     }
 
 

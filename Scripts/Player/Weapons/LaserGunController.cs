@@ -91,7 +91,7 @@ public class LaserGunControllerPlayer : MonoBehaviour
                 int AngleOfSpread = Random.Range(-Spread, Spread);
                 var offsetRotation = ProjectileSpawnPointLeft.rotation * Quaternion.Euler(0, 0, AngleOfSpread);
                 var Bullet = Instantiate(LaserPrefab, ProjectileSpawnPointLeft.position, offsetRotation);
-                Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed;
+                Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                 Bullet.GetComponent<PlayerWeaponStats>().Damage = Damage;
                 anim.SetTrigger("LeftWeaponShot");
 
@@ -100,7 +100,7 @@ public class LaserGunControllerPlayer : MonoBehaviour
                 AngleOfSpread = Random.Range(-Spread, Spread);
                 offsetRotation = ProjectileSpawnPointRight.rotation * Quaternion.Euler(0, 0, AngleOfSpread);
                 Bullet = Instantiate(LaserPrefab, ProjectileSpawnPointRight.position, offsetRotation);
-                Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed;
+                Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                 Bullet.GetComponent<PlayerWeaponStats>().Damage = Damage;
                 anim.SetTrigger("RightWeaponShot");
 
@@ -111,7 +111,7 @@ public class LaserGunControllerPlayer : MonoBehaviour
                     AngleOfSpread = Random.Range(-Spread, Spread);
                     offsetRotation = ProjectileSpawnPointBackLeft.rotation * Quaternion.Euler(0, 0, AngleOfSpread);
                     Bullet = Instantiate(LaserPrefab, ProjectileSpawnPointBackLeft.position, offsetRotation);
-                    Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed;
+                    Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                     Bullet.GetComponent<PlayerWeaponStats>().Damage = Damage;
                     anim.SetTrigger("LeftWeaponShot");
 
@@ -120,7 +120,7 @@ public class LaserGunControllerPlayer : MonoBehaviour
                     AngleOfSpread = Random.Range(-Spread, Spread);
                     offsetRotation = ProjectileSpawnPointBackRight.rotation * Quaternion.Euler(0, 0, AngleOfSpread);
                     Bullet = Instantiate(LaserPrefab, ProjectileSpawnPointBackRight.position, offsetRotation);
-                    Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed;
+                    Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                     Bullet.GetComponent<PlayerWeaponStats>().Damage = Damage;
                     anim.SetTrigger("RightWeaponShot");
                 }
@@ -134,7 +134,7 @@ public class LaserGunControllerPlayer : MonoBehaviour
                     int AngleOfSpread = Random.Range(-Spread, Spread);
                     var offsetRotation = ProjectileSpawnPointLeft.rotation * Quaternion.Euler(0, 0, AngleOfSpread);
                     var Bullet = Instantiate(LaserPrefab, ProjectileSpawnPointLeft.position, offsetRotation);
-                    Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed;
+                    Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                     Bullet.GetComponent<PlayerWeaponStats>().Damage = Damage;
                     anim.SetTrigger("LeftWeaponShot");
 
@@ -145,7 +145,7 @@ public class LaserGunControllerPlayer : MonoBehaviour
                         AngleOfSpread = Random.Range(-Spread, Spread);
                         offsetRotation = ProjectileSpawnPointBackLeft.rotation * Quaternion.Euler(0, 0, AngleOfSpread);
                         Bullet = Instantiate(LaserPrefab, ProjectileSpawnPointBackLeft.position, offsetRotation);
-                        Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed;
+                        Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                         Bullet.GetComponent<PlayerWeaponStats>().Damage = Damage;
                         anim.SetTrigger("LeftWeaponShot");
                     }
@@ -158,7 +158,7 @@ public class LaserGunControllerPlayer : MonoBehaviour
                     int AngleOfSpread = Random.Range(-Spread, Spread);
                     var offsetRotation = ProjectileSpawnPointRight.rotation * Quaternion.Euler(0, 0, AngleOfSpread);
                     var Bullet = Instantiate(LaserPrefab, ProjectileSpawnPointRight.position, offsetRotation);
-                    Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed;
+                    Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                     Bullet.GetComponent<PlayerWeaponStats>().Damage = Damage;
                     anim.SetTrigger("RightWeaponShot");
 
@@ -169,7 +169,7 @@ public class LaserGunControllerPlayer : MonoBehaviour
                         AngleOfSpread = Random.Range(-Spread, Spread);
                         offsetRotation = ProjectileSpawnPointBackRight.rotation * Quaternion.Euler(0, 0, AngleOfSpread);
                         Bullet = Instantiate(LaserPrefab, ProjectileSpawnPointBackRight.position, offsetRotation);
-                        Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed;
+                        Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * BulletSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                         Bullet.GetComponent<PlayerWeaponStats>().Damage = Damage;
                         anim.SetTrigger("RightWeaponShot");
                     }

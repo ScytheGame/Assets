@@ -62,7 +62,7 @@ public class ArrayShot : MonoBehaviour
     }
     private IEnumerator FireBullet()
     {
-        if (SkillsController.SelectedWeapon == SkillsController.BaseWeapon.Heavy)
+        if (SkillsController.SelectedWeapon == BaseWeapon.Heavy)
         {
             for (float i = 0; i < 24; i++)
             {
@@ -75,7 +75,7 @@ public class ArrayShot : MonoBehaviour
             }
             AngleOfSpread = 0;
         }
-        if (SkillsController.SelectedWeapon == SkillsController.BaseWeapon.Homing)
+        if (SkillsController.SelectedWeapon == BaseWeapon.Homing)
         {
             for (float i = 0; i < 24; i++)
             {
@@ -88,7 +88,7 @@ public class ArrayShot : MonoBehaviour
             }
             AngleOfSpread = 0;
         }
-        if (SkillsController.SelectedWeapon == SkillsController.BaseWeapon.Rapid)
+        if (SkillsController.SelectedWeapon == BaseWeapon.Rapid)
         {
             for (float i = 0; i < 24; i++)
             {

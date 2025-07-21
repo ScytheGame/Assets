@@ -131,7 +131,7 @@ public class FlakControllerPlayer : MonoBehaviour
                     AudioManager.PlaySFX(AudioManager.FlakShot, Source);
                     StatsController.CurrentStamina -= StaminaPerShot;
                     var Missile = Instantiate(MissilePrefab, SpawnPoint.position, SpawnPoint.rotation);
-                    Missile.GetComponent<Rigidbody2D>().linearVelocity = SpawnPoint.up * FlakSpeed;
+                    Missile.GetComponent<Rigidbody2D>().linearVelocity = SpawnPoint.up * FlakSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                     Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 50, Damage + 30);
                     spawnCount++;
                 }
@@ -142,7 +142,7 @@ public class FlakControllerPlayer : MonoBehaviour
                     var offsetRotation = SpawnPoint.rotation * Quaternion.Euler(0, 0, Spread);
                     var Missile = Instantiate(MissilePrefab, SpawnPoint.position, offsetRotation);
 
-                    Missile.GetComponent<Rigidbody2D>().linearVelocity = Missile.transform.up * FlakSpeed;
+                    Missile.GetComponent<Rigidbody2D>().linearVelocity = Missile.transform.up * FlakSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                     Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 50, Damage + 30);
                     spawnCount++;
                 }
@@ -153,7 +153,7 @@ public class FlakControllerPlayer : MonoBehaviour
                     var offsetRotation = SpawnPoint.rotation * Quaternion.Euler(0, 0, -Spread);
                     var Missile = Instantiate(MissilePrefab, SpawnPoint.position, offsetRotation);
 
-                    Missile.GetComponent<Rigidbody2D>().linearVelocity = Missile.transform.up * FlakSpeed;
+                    Missile.GetComponent<Rigidbody2D>().linearVelocity = Missile.transform.up * FlakSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                     Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 50, Damage + 30);
                     spawnCount = 0;
                 }

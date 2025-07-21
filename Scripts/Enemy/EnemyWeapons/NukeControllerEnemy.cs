@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class NukeControllerEnemy : MonoBehaviour
@@ -35,7 +36,7 @@ public class NukeControllerEnemy : MonoBehaviour
         GetComponent<EnemyController>();
     }
 
-    void Update()
+    async void Update()
     {
         if (!Loaded)
         {
@@ -58,6 +59,8 @@ public class NukeControllerEnemy : MonoBehaviour
                     setDelayTimer = 0f;
 
                     canFire = false;
+
+                    await Task.Delay(10);
                 }
                 else
                 {
@@ -67,6 +70,8 @@ public class NukeControllerEnemy : MonoBehaviour
                     setDelayTimer = 0f;
 
                     canFire = false;
+
+                    await Task.Delay(10);
                 }
             }
         }

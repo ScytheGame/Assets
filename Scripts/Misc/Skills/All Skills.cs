@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using static UnityEngine.Rendering.DebugUI;
+using Sirenix.OdinInspector;
 
 public class AllSkills : MonoBehaviour
 {
@@ -10,8 +11,7 @@ public class AllSkills : MonoBehaviour
     [SerializeField] Skill Skill;
     [SerializeField] float BiasFactor;
     [SerializeField] float MaxValue;
-    [SerializeField] List<SkillData> Skills = new List<SkillData>();
-    public List<SkillData> allSkills = new List<SkillData>();
+    [TableList] public List<SkillData> allSkills = new List<SkillData>();
 
 
     // Upgradeable Skills
@@ -112,7 +112,7 @@ public class AllSkills : MonoBehaviour
         if (Weapon == 0)
         {
             StatsController.Missile = true;
-            Skill.mainWeapon = Skill.WeaponCode.Missile;
+            Skill.mainWeapon = WeaponCode.Missile;
 
             //heavy 
             Nuke.prerequisites.Add(DamageBoost);
@@ -169,7 +169,7 @@ public class AllSkills : MonoBehaviour
         if (Weapon == 1)
         {
             StatsController.Minigun = true;
-            Skill.mainWeapon = Skill.WeaponCode.MiniGun;
+            Skill.mainWeapon = WeaponCode.MiniGun;
 
             //rapid
             BurstAmount.requiredLevel = 5;
@@ -223,7 +223,7 @@ public class AllSkills : MonoBehaviour
         if (Weapon == 2)
         {
             StatsController.Drone = true;
-            Skill.mainWeapon = Skill.WeaponCode.Drone;
+            Skill.mainWeapon = WeaponCode.Drone;
 
             // homing
             HomingMissile.prerequisites.Add(DoubleShot);

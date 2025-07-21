@@ -5,24 +5,29 @@ public class EnemyAI : MonoBehaviour
 {
     [SerializeField] float Speed;
     [SerializeField] GameObject Player;
+    [SerializeField] PlayerController PlayerController;
     [SerializeField] float Distance;
     [SerializeField] float MinDistance;
     [SerializeField] float TeleportDistance;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] EnemyController EnemyController;
     [SerializeField] NavMeshAgent Agent;
-    [SerializeField] Vector3 Position;
-    [SerializeField] Vector3 offset;
+    [SerializeField] Vector2 Position;
+    [SerializeField] Vector2 offset;
+    float DelayTime = 0.5f;
+    float Timer = 0;
 
     private void Start()
     {
         Agent = GetComponent<NavMeshAgent>();
         Agent.updateUpAxis = false;
         Player = GameObject.FindWithTag("Player");
+        PlayerController = Player.GetComponent<PlayerController>();
         if (Player != null)
         {
             Debug.Log("Couldn't find Player");
         }
+        DelayTime = Random.Range(0.5f, 5f);
     }
 
     void FixedUpdate()
@@ -32,13 +37,16 @@ public class EnemyAI : MonoBehaviour
 
         if (Distance >= TeleportDistance)
         {
-            Warp();
+
+            Timer += Time.deltaTime;
+            if (Timer > DelayTime)
+            {
+                Warp();
+                Timer = 0;
+            }
         }
 
-        if (Distance >= MinDistance)
-            FollowPlayer();
-        else
-            Sit();
+        FollowPlayer();
 
 
 
@@ -47,48 +55,16 @@ public class EnemyAI : MonoBehaviour
     void Warp()
     {
         offset = new Vector3(RandomValue(100), RandomValue(100), 2.5f);
-        Position = Player.transform.position + offset;
+        Position = (Vector2)Player.transform.position + offset;
         Agent.Warp(Position);
     }
 
     void FollowPlayer()
     {
-        offset = new Vector3(RandomValue(10), RandomValue(10), RandomValue(10));
-        Position = Player.transform.position + offset;
+        offset = new Vector2(RandomValue(10), RandomValue(10));
+        Position = (Vector2)Player.transform.position;
+        Position += (PlayerController.GetPlayerVelocity() * offset);
         Agent.SetDestination(Position);
-    }
-    void Sit()
-    {
-        Position = FindClosestEnemy().position;
-        Agent.SetDestination(Position);
-    }
-
-    Transform FindClosestEnemy()
-    {
-        float distanceToClosestEnemy = Mathf.Infinity;
-        GameObject closestEnemy = null;
-
-        GameObject[] allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
-
-        foreach (GameObject currentEnemy in allEnemies)
-        {
-            float distanceToEnemy = (currentEnemy.transform.position - transform.position).sqrMagnitude;
-
-            if (distanceToEnemy < distanceToClosestEnemy)
-            {
-                distanceToClosestEnemy = distanceToEnemy;
-                closestEnemy = currentEnemy;
-            }
-        }
-
-        if (closestEnemy != null)
-        {
-            return closestEnemy.transform;
-        }
-        else
-        {
-            return null;
-        }
     }
     float RandomValue(float Value)
     {

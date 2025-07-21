@@ -23,6 +23,7 @@ public class MainMenuLeaderBoard : MonoBehaviour
     void Start()
     {
         leaderboardFilePath = Path.Combine(Application.persistentDataPath, "leaderboard.json");
+        LoadLeaderboard();
     }
 
     public void Show()

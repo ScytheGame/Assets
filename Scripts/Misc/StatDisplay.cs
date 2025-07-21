@@ -72,49 +72,49 @@ public class StatDisplay : MonoBehaviour
         EnemyCount.text = "Enemy Count " + enemyCount;
         killCount.text = "Kill Count " + KillCount;
 
-        if (Skill.mainWeapon == Skill.WeaponCode.None)
+        if (Skill.mainWeapon == WeaponCode.None)
         {
             MainDamage1.SetActive(false);
             MainAttackSpeed1.SetActive(false);
             MainProjectileSpeed1.SetActive(false);
         }
-        if (Skill.mainWeapon == Skill.WeaponCode.Missile)
+        if (Skill.mainWeapon == WeaponCode.Missile)
         {
             MainWeaponDisplay(StatsController.MissileDamage, StatsController.MissileFireDelay, StatsController.MissileSpeed);
         }
-        if (Skill.mainWeapon == Skill.WeaponCode.Nuke)
+        if (Skill.mainWeapon == WeaponCode.Nuke)
         {
             MainWeaponDisplay(StatsController.NukeDamage, StatsController.NukeFireDelay, StatsController.NukeSpeed);
         }
-        if (Skill.mainWeapon == Skill.WeaponCode.MiniGun)
+        if (Skill.mainWeapon == WeaponCode.MiniGun)
         {
             MainWeaponDisplay(StatsController.MinigunDamage, StatsController.MinigunFireDelay, StatsController.MinigunSpeed);
         }
-        if (Skill.mainWeapon == Skill.WeaponCode.HomingMissile)
+        if (Skill.mainWeapon == WeaponCode.HomingMissile)
         {
             MainWeaponDisplay(StatsController.HomingMissileDamage, StatsController.HomingMissileFireDelay, StatsController.HomingMissileSpeed);
         }
-        if (Skill.mainWeapon == Skill.WeaponCode.Flak)
+        if (Skill.mainWeapon == WeaponCode.Flak)
         {
             MainWeaponDisplay(StatsController.FlakDamage, StatsController.FlakFireDelay, StatsController.FlakSpeed);
         }
-        if (Skill.mainWeapon == Skill.WeaponCode.Drone)
+        if (Skill.mainWeapon == WeaponCode.Drone)
         {
             MainWeaponDisplay(StatsController.DroneDamage, StatsController.DroneFireDelay, StatsController.DroneSpeed);
         }
-        if (Skill.mainWeapon == Skill.WeaponCode.Laser)
+        if (Skill.mainWeapon == WeaponCode.Laser)
         {
             MainWeaponDisplay(StatsController.LaserDamage, StatsController.LaserFireDelay, StatsController.LaserSpeed);
         }
-        if (Skill.mainWeapon == Skill.WeaponCode.MineHeavy)
+        if (Skill.mainWeapon == WeaponCode.MineHeavy)
         {
             MainWeaponDisplay(StatsController.MineHeavyDamage, StatsController.MineHeavyFireDelay, StatsController.MineHeavySpeed);
         }
-        if (Skill.mainWeapon == Skill.WeaponCode.MineRapid)
+        if (Skill.mainWeapon == WeaponCode.MineRapid)
         {
             MainWeaponDisplay(StatsController.MineRapidDamage, StatsController.MineRapidFireDelay, StatsController.MineRapidSpeed);
         }
-        if (Skill.mainWeapon == Skill.WeaponCode.MineHoming)
+        if (Skill.mainWeapon == WeaponCode.MineHoming)
         {
             MainWeaponDisplay(StatsController.MineHomingDamage, StatsController.MineHomingFireDelay, StatsController.MineHomingSpeed);
         }

@@ -1,3 +1,4 @@
+using System.IO;
 using TMPro;
 using UnityEngine;
 
@@ -19,8 +20,7 @@ public class WeaponSelector : MonoBehaviour
             SkillsController = Player.GetComponent<SkillsController>();
             AllSkills = Player.GetComponent<AllSkills>();
         }
-        RapidClass = (PlayerPrefs.GetInt("RapidClass") != 0);
-        HomingClass = (PlayerPrefs.GetInt("HomingClass") != 0);
+        CheckForClasses();
 
         if (Class.Equals("Rapid") && !RapidClass)
         {
@@ -40,7 +40,7 @@ public class WeaponSelector : MonoBehaviour
     {
         Time.timeScale = 1;
         SkillsController.SkillPanel.SetActive(false);
-        SkillsController.SelectedWeapon = SkillsController.BaseWeapon.Heavy;
+        SkillsController.SelectedWeapon = BaseWeapon.Heavy;
         SkillsController.WeaponSelected = true;
         AllSkills.SelectedWeapon(0);
     }
@@ -50,7 +50,7 @@ public class WeaponSelector : MonoBehaviour
         {
             Time.timeScale = 1;
             SkillsController.SkillPanel.SetActive(false);
-            SkillsController.SelectedWeapon = SkillsController.BaseWeapon.Rapid;
+            SkillsController.SelectedWeapon = BaseWeapon.Rapid;
             SkillsController.WeaponSelected = true;
             AllSkills.SelectedWeapon(1);
         }
@@ -61,9 +61,23 @@ public class WeaponSelector : MonoBehaviour
         {
             Time.timeScale = 1;
             SkillsController.SkillPanel.SetActive(false);
-            SkillsController.SelectedWeapon = SkillsController.BaseWeapon.Homing;
+            SkillsController.SelectedWeapon = BaseWeapon.Homing;
             SkillsController.WeaponSelected = true;
             AllSkills.SelectedWeapon(2);
         }
+    }
+
+    void CheckForClasses()
+    {
+        string FilePath = Path.Combine(Application.persistentDataPath, "SkillTreeData.json");
+        var SkillTree = new SkillTreeData();
+        if (File.Exists(FilePath))
+        {
+            string json = File.ReadAllText(FilePath);
+            SkillTree = JsonUtility.FromJson<SkillTreeData>(json);
+        }
+        RapidClass = SkillTree.RapidClass;
+        HomingClass = SkillTree.HomingClass;
+
     }
 }

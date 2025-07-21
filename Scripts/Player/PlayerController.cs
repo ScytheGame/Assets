@@ -1,22 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DG.Tweening;
+using System.Threading.Tasks;
 
 public class PlayerController : MonoBehaviour
 {
 
     Rigidbody2D rb;
     [Header("References")]
-    public string Scene = "GameOverPc";
-    public bool Mobile;
-    Vector2 turnInput = new Vector2(0, 0);
-    InputAction MoveAction;
-    InputAction TurnAction;
+    [SerializeField] string Scene = "GameOverPc";
+    [SerializeField] CameraShake CameraShake;
     [SerializeField] Animator anim;
     [SerializeField] Weapons Weapons;
     [SerializeField] GameMenu GameMenu;
@@ -56,23 +51,9 @@ public class PlayerController : MonoBehaviour
     int timeInterval = 10;
     float percentIncrease = 0.1f;
     float Bonus = 1;
-    private void OnEnable()
-    {
-        MoveAction = InputSystem.actions.FindAction("Move", throwIfNotFound: true);
-        TurnAction = InputSystem.actions.FindAction("look", throwIfNotFound: true);
-        MoveAction.Enable();
-        TurnAction.Enable();
-    }
-    private void OnDisable()
-    {
-        MoveAction.Disable();
-        TurnAction.Disable();   
-    }
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
-        MoveAction = InputSystem.actions.FindAction("Move", throwIfNotFound: true);
-        TurnAction = InputSystem.actions.FindAction("look", throwIfNotFound: true);
         ValueSave = GameObject.FindGameObjectWithTag("Value").GetComponent<ValueSave>();
 
     }
@@ -167,55 +148,65 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
 
-        if (!Mobile)
+        inputHorizontal = Input.GetAxis("Horizontal");
+        inputVertical = Input.GetAxis("Vertical");
+
+        if (inputHorizontal != 0 || inputVertical != 0)
         {
-            inputHorizontal = Input.GetAxis("Horizontal");
-            inputVertical = Input.GetAxis("Vertical");
-
-            if (inputHorizontal != 0 || inputVertical != 0)
-            {
-                rb.AddForce(new Vector2(inputHorizontal * moveSpeed, inputVertical * moveSpeed));
-            }
-
-
-            Vector3 mousePosition = Input.mousePosition;
-            mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-            Vector2 direction = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y);
-            transform.up = direction;
+            rb.AddForce(new Vector2(inputHorizontal * moveSpeed, inputVertical * moveSpeed));
         }
-        else
-        {
 
-            Vector2 moveInput = MoveAction.ReadValue<Vector2>();
-            rb.AddForce(moveInput * moveSpeed);
-
-            if (rb.linearVelocity.sqrMagnitude > 0.01f)
-            {
-                transform.up = rb.linearVelocity.normalized;
-            }
-
-        }
+        Vector3 mousePosition = Input.mousePosition;
+        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        Vector2 direction = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y);
+        transform.up = direction;
     }
+    public Vector2 GetPlayerVelocity()
+    {
+        return rb.linearVelocity;
+    }
+    public Vector2 GetPlayerForwardVelocity()
+    {
+        Vector2 Velocity = rb.linearVelocity;
+        Vector3 ForwardDirection = transform.up;
+        float speedInFacingDirection = Vector2.Dot(Velocity, ForwardDirection);
+        Vector2 forwardVelocity = ForwardDirection * speedInFacingDirection;
+        if (CheckIfReletiveDirection(forwardVelocity))
+            return Vector2.zero;
+        else
+            return forwardVelocity;
+    }
+    bool CheckIfReletiveDirection(Vector2 Direction)
+    {
+        Direction.Normalize();
+        Vector2 NegativePlayerDirection = -transform.up;
+        NegativePlayerDirection.Normalize();
 
+        float dot = Vector2.Dot(NegativePlayerDirection, Direction);
+
+        float angle = Mathf.Acos(dot) * Mathf.Rad2Deg;
+
+        return angle <= 15;
+    }
     public void SkillsAfterLevelUp()
     {
         StatsController.CurrentHealth = StatsController.MaxHealth;
         StatsController.CurrentStamina = StatsController.MaxStamina;
     }
 
-    void OnCollisionEnter2D(Collision2D col)
+    private async void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.tag == "enemy")
         {
+            CameraShake.Shake(0.3f, 0.1f);
             float Damage = col.gameObject.GetComponent<EnemyWeaponStats>().Damage;
             string ID = col.gameObject.GetComponent<EnemyWeaponStats>().ID;
             StatsController.CurrentHealth -= Damage;
         }
-    }
-    private void OnTriggerEnter2D(Collider2D col)
-    {
         if (col.gameObject.tag == "ExperincePoint")
         {
+            col.gameObject.transform.DOMove(this.transform.position, 0.1f, false);
+            await Task.Delay(100);
             StatsController.currentXP += col.GetComponent<ExperincePointStat>().Experince;
             var Particle = Instantiate(StarParticle, col.gameObject.transform.position, Quaternion.identity);
             Destroy(col.gameObject);

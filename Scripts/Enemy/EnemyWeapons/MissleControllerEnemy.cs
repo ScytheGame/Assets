@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEngine;
 using static Unity.VisualScripting.Member;
 
@@ -46,7 +47,7 @@ public class MissileControllerEnemy : MonoBehaviour
         }
     }
 
-    void Update()
+    async void Update()
     {
         if (!Loaded)
         {
@@ -72,6 +73,8 @@ public class MissileControllerEnemy : MonoBehaviour
                     SpawnPoint = ProjectileSpawnPointRight;
                     anim.SetTrigger("RightWeaponShot");
                     delayTimer = 0f;
+
+                    await Task.Delay(10);
                 }
                 else
                 {
@@ -82,6 +85,8 @@ public class MissileControllerEnemy : MonoBehaviour
                         anim.SetTrigger("LeftWeaponShot");
                         firedFirstMissile = true;
                         delayTimer = 0f;
+
+                        await Task.Delay(10);
                     }
                     else if (firedFirstMissile)
                     {
@@ -95,6 +100,8 @@ public class MissileControllerEnemy : MonoBehaviour
                             firedFirstMissile = false;
                             setDelayTimer = 0f;
                             canFire = false;
+                            
+                            await Task.Delay(10);
                         }
                     }
                 }

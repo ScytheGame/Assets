@@ -106,14 +106,14 @@ public class MissleControllerPlayer : MonoBehaviour
                 AudioManager.PlaySFX(AudioManager.MissileShot, Source);
                 StatsController.CurrentStamina -= StaminaPerShot;
                 var Missile = Instantiate(MissilePrefab, ProjectileSpawnPointLeft.position, ProjectileSpawnPointLeft.rotation);
-                Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointLeft.up * missileSpeed;
+                Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointLeft.up * missileSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                 Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 50, Damage + 30);
                 anim.SetTrigger("LeftWeaponShot");
 
                 AudioManager.PlaySFX(AudioManager.MissileShot, Source);
                 StatsController.CurrentStamina -= StaminaPerShot;
                 Missile = Instantiate(MissilePrefab, ProjectileSpawnPointRight.position, ProjectileSpawnPointRight.rotation);
-                Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointRight.up * missileSpeed;
+                Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointRight.up * missileSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                 Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 50, Damage + 30);
                 anim.SetTrigger("RightWeaponShot");
 
@@ -122,13 +122,13 @@ public class MissleControllerPlayer : MonoBehaviour
                     AudioManager.PlaySFX(AudioManager.MissileShot, Source);
                     StatsController.CurrentStamina -= StaminaPerShot;
                     Missile = Instantiate(MissilePrefab, ProjectileSpawnPointBackLeft.position, ProjectileSpawnPointBackLeft.rotation);
-                    Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointBackLeft.up * missileSpeed;
+                    Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointBackLeft.up * missileSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                     Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 50, Damage + 30); AudioManager.PlaySFX(AudioManager.MissileShot, Source);
                     anim.SetTrigger("LeftWeaponShot");
 
                     StatsController.CurrentStamina -= StaminaPerShot;
                     Missile = Instantiate(MissilePrefab, ProjectileSpawnPointBackRight.position, ProjectileSpawnPointBackRight.rotation);
-                    Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointBackRight.up * missileSpeed;
+                    Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointBackRight.up * missileSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                     Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 50, Damage + 30);
                     anim.SetTrigger("RightWeaponShot");
                 }
@@ -140,7 +140,7 @@ public class MissleControllerPlayer : MonoBehaviour
                     AudioManager.PlaySFX(AudioManager.MissileShot, Source);
                     StatsController.CurrentStamina -= StaminaPerShot;
                     var Missile = Instantiate(MissilePrefab, ProjectileSpawnPointLeft.position, ProjectileSpawnPointLeft.rotation);
-                    Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointLeft.up * missileSpeed;
+                    Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointLeft.up * missileSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                     Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 50, Damage + 30);
                     anim.SetTrigger("LeftWeaponShot");
 
@@ -149,7 +149,7 @@ public class MissleControllerPlayer : MonoBehaviour
                         AudioManager.PlaySFX(AudioManager.MissileShot, Source);
                         StatsController.CurrentStamina -= StaminaPerShot;
                         Missile = Instantiate(MissilePrefab, ProjectileSpawnPointBackLeft.position, ProjectileSpawnPointBackLeft.rotation);
-                        Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointBackLeft.up * missileSpeed;
+                        Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointBackLeft.up * missileSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                         Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 50, Damage + 30);
                         anim.SetTrigger("LeftWeaponShot");
                     }
@@ -161,7 +161,7 @@ public class MissleControllerPlayer : MonoBehaviour
                     AudioManager.PlaySFX(AudioManager.MissileShot, Source);
                     StatsController.CurrentStamina -= StaminaPerShot;
                     var Missile = Instantiate(MissilePrefab, ProjectileSpawnPointRight.position, ProjectileSpawnPointRight.rotation);
-                    Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointRight.up * missileSpeed;
+                    Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointRight.up * missileSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                     Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 50, Damage + 30);
                     anim.SetTrigger("RightWeaponShot");
 
@@ -170,7 +170,7 @@ public class MissleControllerPlayer : MonoBehaviour
                         AudioManager.PlaySFX(AudioManager.MissileShot, Source);
                         StatsController.CurrentStamina -= StaminaPerShot;
                         Missile = Instantiate(MissilePrefab, ProjectileSpawnPointBackRight.position, ProjectileSpawnPointBackRight.rotation);
-                        Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointBackRight.up * missileSpeed;
+                        Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointBackRight.up * missileSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                         Missile.GetComponent<PlayerWeaponStats>().Damage = Random.Range(Damage - 50, Damage + 30);
                         anim.SetTrigger("RightWeaponShot");
                     }

@@ -106,7 +106,7 @@ public class MineControllerWeaponHeavy : MonoBehaviour
                 AudioManager.PlaySFX(AudioManager.MissileShot, Source);
                 StatsController.CurrentStamina -= StaminaPerShot;
                 var Missile = Instantiate(MinePrefab, ProjectileSpawnPointLeft.position, ProjectileSpawnPointLeft.rotation);
-                Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointLeft.up * MineSpeed;
+                Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointLeft.up * MineSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                 Missile.GetComponent<MineController>().Damage = Random.Range(Damage - 50, Damage + 30);
                 Missile.GetComponent<MineController>().Size = ExplosionRadius;
                 anim.SetTrigger("LeftWeaponShot");
@@ -114,7 +114,7 @@ public class MineControllerWeaponHeavy : MonoBehaviour
                 AudioManager.PlaySFX(AudioManager.MissileShot, Source);
                 StatsController.CurrentStamina -= StaminaPerShot;
                 Missile = Instantiate(MinePrefab, ProjectileSpawnPointRight.position, ProjectileSpawnPointRight.rotation);
-                Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointRight.up * MineSpeed;
+                Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointRight.up * MineSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                 Missile.GetComponent<MineController>().Damage = Random.Range(Damage - 50, Damage + 30);
                 Missile.GetComponent<MineController>().Size = ExplosionRadius;
                 anim.SetTrigger("RightWeaponShot");
@@ -124,7 +124,7 @@ public class MineControllerWeaponHeavy : MonoBehaviour
                     AudioManager.PlaySFX(AudioManager.MissileShot, Source);
                     StatsController.CurrentStamina -= StaminaPerShot;
                     Missile = Instantiate(MinePrefab, ProjectileSpawnPointBackLeft.position, ProjectileSpawnPointBackLeft.rotation);
-                    Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointBackLeft.up * MineSpeed;
+                    Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointBackLeft.up * MineSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                     Missile.GetComponent<MineController>().Damage = Random.Range(Damage - 50, Damage + 30);
                     Missile.GetComponent<MineController>().Size = ExplosionRadius;
                     anim.SetTrigger("LeftWeaponShot");
@@ -132,7 +132,7 @@ public class MineControllerWeaponHeavy : MonoBehaviour
                     AudioManager.PlaySFX(AudioManager.MissileShot, Source);
                     StatsController.CurrentStamina -= StaminaPerShot;
                     Missile = Instantiate(MinePrefab, ProjectileSpawnPointBackRight.position, ProjectileSpawnPointBackRight.rotation);
-                    Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointBackRight.up * MineSpeed;
+                    Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointBackRight.up * MineSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                     Missile.GetComponent<MineController>().Damage = Random.Range(Damage - 50, Damage + 30);
                     Missile.GetComponent<MineController>().Size = ExplosionRadius;
                     anim.SetTrigger("RightWeaponShot");
@@ -145,7 +145,7 @@ public class MineControllerWeaponHeavy : MonoBehaviour
                     AudioManager.PlaySFX(AudioManager.MissileShot, Source);
                     StatsController.CurrentStamina -= StaminaPerShot;
                     var Missile = Instantiate(MinePrefab, ProjectileSpawnPointLeft.position, ProjectileSpawnPointLeft.rotation);
-                    Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointLeft.up * MineSpeed;
+                    Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointLeft.up * MineSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                     Missile.GetComponent<MineController>().Damage = Random.Range(Damage - 50, Damage + 30);
                     Missile.GetComponent<MineController>().Size = ExplosionRadius;
                     anim.SetTrigger("LeftWeaponShot");
@@ -155,7 +155,7 @@ public class MineControllerWeaponHeavy : MonoBehaviour
                         AudioManager.PlaySFX(AudioManager.MissileShot, Source);
                         StatsController.CurrentStamina -= StaminaPerShot;
                         Missile = Instantiate(MinePrefab, ProjectileSpawnPointBackLeft.position, ProjectileSpawnPointBackLeft.rotation);
-                        Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointBackLeft.up * MineSpeed;
+                        Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointBackLeft.up * MineSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                         Missile.GetComponent<MineController>().Damage = Random.Range(Damage - 50, Damage + 30);
                         Missile.GetComponent<MineController>().Size = ExplosionRadius;
                         anim.SetTrigger("LeftWeaponShot");
@@ -167,7 +167,7 @@ public class MineControllerWeaponHeavy : MonoBehaviour
                     AudioManager.PlaySFX(AudioManager.MissileShot, Source);
                     StatsController.CurrentStamina -= StaminaPerShot;
                     var Missile = Instantiate(MinePrefab, ProjectileSpawnPointRight.position, ProjectileSpawnPointRight.rotation);
-                    Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointRight.up * MineSpeed;
+                    Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointRight.up * MineSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                     Missile.GetComponent<MineController>().Damage = Random.Range(Damage - 50, Damage + 30);
                     Missile.GetComponent<MineController>().Size = ExplosionRadius;
                     anim.SetTrigger("RightWeaponShot");
@@ -177,7 +177,7 @@ public class MineControllerWeaponHeavy : MonoBehaviour
                         AudioManager.PlaySFX(AudioManager.MissileShot, Source);
                         StatsController.CurrentStamina -= StaminaPerShot;
                         Missile = Instantiate(MinePrefab, ProjectileSpawnPointBackRight.position, ProjectileSpawnPointBackRight.rotation);
-                        Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointBackRight.up * MineSpeed;
+                        Missile.GetComponent<Rigidbody2D>().linearVelocity = ProjectileSpawnPointBackRight.up * MineSpeed + (Vector3)playerController.GetPlayerForwardVelocity();
                         Missile.GetComponent<MineController>().Damage = Random.Range(Damage - 50, Damage + 30);
                         Missile.GetComponent<MineController>().Size = ExplosionRadius;
                         anim.SetTrigger("RightWeaponShot");

@@ -4,8 +4,6 @@ using UnityEngine.UI;
 
 public class Skill : MonoBehaviour
 {
-    public enum WeaponCode { None = 0, Missile = 1, Nuke = 2, MiniGun = 3, HomingMissile = 4, Flak = 5, Drone = 6, Laser = 7, MineHeavy = 8, MineRapid = 9, MineHoming =10 }
-
     public WeaponCode mainWeapon = WeaponCode.None;
 
     public bool usingMainWeaponMissile = false;

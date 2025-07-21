@@ -1,46 +1,88 @@
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class SystemSpawner : MonoBehaviour
 {
     [SerializeField] private List<GameObject> solarSystems;
-    public float radius;
-    public float radius2;
+    [DictionaryDrawerSettings(KeyLabel = "Position", ValueLabel = "Solar System Object")]
+    Dictionary<Vector2, GameObject> SpawnedSystems = new Dictionary<Vector2, GameObject>();
+    public float SizeX = 28000;
+    public float SizeY = 28000;
     public float spawnDelay = 0f;
     public float SystemCount;
     public float MaxSystemCount;
-    private void Update()
+    public float MinimumDistanceToOtherSystem = 1500;
+    private void Start()
     {
-        spawner();
+        Spawn();
         spawnDelay -= Time.deltaTime;
     }
 
-    void spawner()
+    void Spawn()
     {
-        for (int i = 0; i < solarSystems.Count; i++)
+        for (int i = 0;  i < MaxSystemCount; i++)
         {
-            if (SystemCount <= MaxSystemCount)
+            if (SystemCount < MaxSystemCount)
             {
-                SpawnSphereWithDelay(solarSystems[i]);
-                spawnDelay = 1f;
+                SpawnSystem();
                 SystemCount++;
             }
-
         }
     }
 
-
-    void SpawnSphereWithDelay(GameObject solarSystem)
+    void SpawnSystem()
     {
         long Time = System.DateTime.Now.Ticks;
         int seed = (int)(Time % int.MaxValue);
         UnityEngine.Random.InitState(seed);
+        int RandomSystem = UnityEngine.Random.Range(0, solarSystems.Count);
+        Debug.Log($"Random System Choice {RandomSystem}");
+        Vector2 Position = Vector2.zero;
+        bool ValidPosition = false;
+        int TryCount = 20;
+        int CurrentTry = 0;
+        while (!ValidPosition)
+        {
+            CurrentTry++;
+            Position = new Vector2(UnityEngine.Random.Range(-SizeX, SizeX), UnityEngine.Random.Range(-SizeY, SizeY));
+            if (CheckForValidPosition(Position))
+                ValidPosition = true;
+            else
+                ValidPosition = false;
 
-        radius = UnityEngine.Random.Range(-1800, 1800);
-        radius2 = UnityEngine.Random.Range(-1800, 1800);
-        Vector3 pos = new Vector3(radius, radius2, 0);
-        GameObject go = Instantiate(solarSystem, pos, Quaternion.identity);
-        go.transform.position = pos;
+            if (CurrentTry >= TryCount)
+            {
+                Debug.Log("Couldn't find a valid Solar system position");
+                return;
+            }
+        }
+        Quaternion Rotation = Quaternion.Euler(0, 0, UnityEngine.Random.Range(0, 360));
+        var system = Instantiate(solarSystems[RandomSystem], Position, Rotation, transform);
+        SpawnedSystems.Add(Position, system);
+    }
+    bool CheckForValidPosition(Vector2 Position)
+    {
+        if (SpawnedSystems.Count > 0)
+        {
+            foreach (var system in SpawnedSystems)
+            {
+                Vector2 OtherSystemPosition = system.Key;
+
+                float Distance = Vector2.Distance(OtherSystemPosition, Position);
+
+                if (Distance < MinimumDistanceToOtherSystem)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        else
+        {
+            return true;
+        }
     }
 }

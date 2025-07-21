@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class HomingMissleControllerEnemy : MonoBehaviour
@@ -35,7 +36,7 @@ public class HomingMissleControllerEnemy : MonoBehaviour
         GetComponent<EnemyController>();
     }
 
-    void Update()
+    async void Update()
     {
 
         if (!Loaded)
@@ -59,6 +60,7 @@ public class HomingMissleControllerEnemy : MonoBehaviour
                     setDelayTimer = 0f;
                     FirstShotShot = true;
                     canFire = false;
+                    await Task.Delay(10);
                 }
                 else
                 {
@@ -68,6 +70,7 @@ public class HomingMissleControllerEnemy : MonoBehaviour
                     setDelayTimer = 0f;
                     FirstShotShot = false;
                     canFire = false;
+                    await Task.Delay(10);
                 }
             }
         }

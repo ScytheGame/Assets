@@ -1,9 +1,11 @@
 
-using UnityEngine;
-using UnityEngine.UI;
-using System.Collections.Generic;
-using UnityEngine.Rendering;
+using Sirenix.OdinInspector;
 using Sirenix.Utilities;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 public class SkillsController : MonoBehaviour
 {
@@ -22,7 +24,6 @@ public class SkillsController : MonoBehaviour
     [Space(10)]
     [Header("Base Weapon")]
     [SerializeField] GameObject WeaponCardPrefabHeavy, WeaponCardPrefabHoming, WeaponCardPrefabRapid;
-    [SerializeField] public enum BaseWeapon { None = 0, Heavy = 1, Homing = 2, Rapid = 3 };
     [SerializeField] public BaseWeapon SelectedWeapon;
     [SerializeField] Skill Skill;
     [SerializeField] public bool WeaponSelected = false;
@@ -33,8 +34,8 @@ public class SkillsController : MonoBehaviour
 
     bool weaponClassSelected = false;
     public float playerLevel;
-    public List<SkillData> unlockedSkills = new List<SkillData>();
-    public Dictionary<string, int> skillSelectionCounts = new Dictionary<string, int>();
+
+    [TableList] public List<SkillData> unlockedSkills = new List<SkillData>();
 
 
     private void Start()

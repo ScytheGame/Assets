@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6888146948207907662}
   - component: {fileID: 2981285816900311199}
-  - component: {fileID: 5286406095104698835}
+  - component: {fileID: 7605918121368896289}
   - component: {fileID: 8525583803369567645}
   m_Layer: 0
   m_Name: Experince Point
@@ -59,8 +59,8 @@ MonoBehaviour:
   MediumExperincePointWithStars: {fileID: 5853487479301674288}
   LargeExperincePoint: {fileID: 6064721136545100022}
   LargeExperincePointWithStars: {fileID: 7609398157255027394}
---- !u!61 &5286406095104698835
-BoxCollider2D:
+--- !u!58 &7605918121368896289
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -93,18 +93,8 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.013556719, y: -0.015251517}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 0.41705084, y: 0.40688348}
-  m_EdgeRadius: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 2
 --- !u!114 &8525583803369567645
 MonoBehaviour:
   m_ObjectHideFlags: 0

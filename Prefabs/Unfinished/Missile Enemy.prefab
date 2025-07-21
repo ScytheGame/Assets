@@ -179,7 +179,6 @@ GameObject:
   - component: {fileID: 4772256572851440600}
   - component: {fileID: 3404019707623646117}
   - component: {fileID: 1787162008410740010}
-  - component: {fileID: 8688826026100762240}
   - component: {fileID: 3669051310142310856}
   - component: {fileID: 8985835243468124987}
   - component: {fileID: 7759415619195471696}
@@ -211,7 +210,7 @@ Transform:
   - {fileID: 4051892185134509115}
   - {fileID: 8234905130813868251}
   - {fileID: 9155058086248916728}
-  - {fileID: 3420243890222557129}
+  - {fileID: 332345319059723285}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &536927581739907267
@@ -329,7 +328,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4, y: 8}
+    oldSize: {x: 4, y: 5}
     newSize: {x: 0.58, y: 0.75}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -376,15 +375,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbb96448940220042bb348fa1076b5b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  followRange: 400
-  distanceToPlayer: 0
-  strafeSpeed: 7
-  followSpeed: 12
-  minDistanceMin: 10
-  minDistanceMax: 50
-  fleePenaltyThreshold: -10
-  chaseRewardThreshold: 10
-  survivalThresholdTime: 3
+  Speed: 0
+  Player: {fileID: 0}
+  Distance: 0
+  MinDistance: 0
+  TeleportDistance: 0
+  rb: {fileID: 0}
+  EnemyController: {fileID: 0}
+  Agent: {fileID: 0}
+  Position: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 0, z: 0}
 --- !u!114 &1787162008410740010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403,12 +403,12 @@ MonoBehaviour:
   HealthSlider: {fileID: 0}
   GameSettings: {fileID: 0}
   ExplosionPrefab: {fileID: 751535010802423446, guid: 82f5abb2ae57f724aaea03e9b8706bd4, type: 3}
+  ExperincePrefab: {fileID: 0}
   enemyStamina: 100
   maxStamina: 100
   enemyHealth: 50
   maxHealth: 50
   Level: 0
-  speed: 3
   range: 10
   rotationSpeed: 15
   Enemy: {fileID: 8968914635367266796}
@@ -422,6 +422,9 @@ MonoBehaviour:
   HealthReturn: 0
   buffAmount: 0
   ShotDelay: 0
+  AttackChance: 100
+  EnemyAttackRateMultiplier: 0.6
+  EnemyProjectileSpeedMultiplier: 1
   IsBossEnemy: 0
   MissileDamage: 20
   NukeDamage: 60
@@ -430,19 +433,6 @@ MonoBehaviour:
   FlakDamage: 20
   DroneDamage: 5
   LaserDamage: 10
---- !u!114 &8688826026100762240
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3006275771453234339}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7adc4b96ced9d4f429381aa6331b5999, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EnemyType: 1
 --- !u!114 &3669051310142310856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -455,8 +445,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d02c888512c078240818fdde13789f9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ProjectileSpawnPoint1: {fileID: 0}
-  ProjectileSpawnPoint2: {fileID: 8234905130813868251}
+  ProjectileSpawnPointLeft: {fileID: 0}
+  ProjectileSpawnPointRight: {fileID: 0}
+  Parent: {fileID: 0}
   EnemyController: {fileID: 1787162008410740010}
   MissilePrefab: {fileID: 8754750093954670881, guid: f5ad357a48a9c3d4ca9d06961b05fd86, type: 3}
   AudioManager: {fileID: 0}
@@ -466,6 +457,8 @@ MonoBehaviour:
   fireDelay: 1.2
   StaminaPerShot: 5
   Damage: 0
+  AttackRateMultiplier: 0
+  ProjectileSpeedMultiplier: 0
   delayTimer: 0
   canFire: 1
 --- !u!114 &8985835243468124987
@@ -481,12 +474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reloadTime: 2
-  EnemyController: {fileID: 1787162008410740010}
-  WeaponController: {fileID: 3669051310142310856}
-  MiniGunController: {fileID: 0}
-  HomingMissileController: {fileID: 0}
-  NukeController: {fileID: 0}
-  FlakControllerEnemy: {fileID: 0}
+  Weapon: {fileID: 0}
 --- !u!114 &7759415619195471696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -650,12 +638,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsTrail: 0
   IsParticles: 0
+  IsRendered: 0
   Trails:
   - {fileID: 0}
   - {fileID: 4094237619243130461}
   Particles:
-  - {fileID: 127414001003984689}
   - {fileID: 0}
+  - {fileID: 0}
+  Rendered: []
   IsExplosion: 0
   Sprite: []
 --- !u!1 &4094237619243130461
@@ -1062,13 +1052,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8480844f953b37043a47a932378e056c, type: 3}
---- !u!1 &127414001003984689 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6286417565378951034, guid: 8480844f953b37043a47a932378e056c, type: 3}
-  m_PrefabInstance: {fileID: 6267177949421682763}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &3420243890222557129 stripped
+--- !u!4 &332345319059723285 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 8759035708072175490, guid: 8480844f953b37043a47a932378e056c, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5937370956168254558, guid: 8480844f953b37043a47a932378e056c, type: 3}
   m_PrefabInstance: {fileID: 6267177949421682763}
   m_PrefabAsset: {fileID: 0}

@@ -13,7 +13,6 @@ public class EnemyController : MonoBehaviour
     [SerializeField] GameObject TextPrefab;
     [SerializeField] GameObject PoisonEffect;
     [SerializeField] Slider HealthSlider;
-    [SerializeField] GameSettings GameSettings;
     [SerializeField] GameObject ExplosionPrefab;
     [SerializeField] GameObject ExperincePrefab;
     public float enemyStamina = 100;
@@ -89,11 +88,6 @@ public class EnemyController : MonoBehaviour
             {
                 //Debug.LogError("LevelsManager component not found on the UI GameObject!");
             }
-            GameSettings = level.GetComponent<GameSettings>();
-            if (GameSettings == null)
-            {
-                //Debug.LogError("GameSettings component not found on the UI GameObject!");
-            }
         }
         if (EnemyGenerator != null)
         {
@@ -123,17 +117,19 @@ public class EnemyController : MonoBehaviour
         {
             for (int i = 0; i < Level; i++)
             {
-                int random = Random.Range(0, 2);
+                int random = Random.Range(0, 3);
 
                 if (random == 0)
                 {
                     maxHealth /= 0.9f;
                     enemyHealth = maxHealth;
+                    //Debug.Log($"Boosted Health: {maxHealth}");
                 }
                 if (random == 1)
                 {
                     maxStamina /= 0.9f;
                     enemyStamina = maxStamina;
+                    //Debug.Log($"Boosted Stamina: {maxStamina}");
 
                 }
                 if (random == 2)
@@ -145,6 +141,7 @@ public class EnemyController : MonoBehaviour
                     FlakDamage /= 0.9f;
                     DroneDamage /= 0.9f;
                     LaserDamage /= 0.9f;
+                    //Debug.Log($"Boosted Damage: {MissileDamage} MD, {NukeDamage} ND, {MinigunDamage} MiD, {HomingMissileDamage} HMD, {FlakDamage} FD, {DroneDamage} DD, {LaserDamage} LD");
                 }
             }
         }
@@ -152,17 +149,19 @@ public class EnemyController : MonoBehaviour
         {
             for (int i = 0; i > Level; i--)
             {
-                int random = Random.Range(1, 4);
+                int random = Random.Range(0, 5);
 
                 if (random == 0)
                 {
                     maxHealth *= 0.9f;
                     enemyHealth = maxHealth;
+                    //Debug.Log($"Reduced Health: {maxHealth}");
                 }
                 if (random == 1)
                 {
                     maxStamina *= 0.9f;
                     enemyStamina = maxStamina;
+                    //Debug.Log($"Reduced Health: {maxStamina}");
                 }
                 if (random == 2)
                 {
@@ -173,17 +172,21 @@ public class EnemyController : MonoBehaviour
                     FlakDamage *= 0.9f;
                     DroneDamage *= 0.9f;
                     LaserDamage *= 0.9f;
+                    //Debug.Log($"Reduced Damage: {MissileDamage} MD, {NukeDamage} ND, {MinigunDamage} MiD, {HomingMissileDamage} HMD, {FlakDamage} FD, {DroneDamage} DD, {LaserDamage} LD");
                 }
                 if (random == 3)
                 {
                     EnemyAttackRateMultiplier += 0.1f;
+                    //Debug.Log($"Changed Attack Rate: {EnemyAttackRateMultiplier}");
                 }
                 if (random == 4)
                 {
                     EnemyProjectileSpeedMultiplier += 0.1f;
+                    //Debug.Log($"Changed Projectile Speed: {EnemyProjectileSpeedMultiplier}");
                 }
             }
         }
+        Debug.Log($"Enemy Level {Level}");
         anim.enabled = (PlayerPrefs.GetInt("AnimationsActive") != 0);
         if (IsBossEnemy)
         {
@@ -275,22 +278,6 @@ public class EnemyController : MonoBehaviour
 
         }
 
-
-        if (ApplyOnce == false)
-        {
-            if (IsBossEnemy == true && GameSettings.EnemyHealthFloat >= 1)
-            {
-                maxHealth = GameSettings.EnemyHealthFloat * 5;
-            }
-            else if (GameSettings.EnemyHealthFloat >= 1)
-            {
-                maxHealth = GameSettings.EnemyHealthFloat;
-            }
-            
-            // ApplyBuff();
-            ApplyOnce = true;
-
-        }
     }
 
     public float MissileDamage = 200;

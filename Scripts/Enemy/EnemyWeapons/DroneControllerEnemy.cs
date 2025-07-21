@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class DroneControllerEnemy : MonoBehaviour
@@ -36,7 +37,7 @@ public class DroneControllerEnemy : MonoBehaviour
 
     }
 
-    void Update()
+    async void Update()
     {
         if (!Loaded)
         {
@@ -60,6 +61,8 @@ public class DroneControllerEnemy : MonoBehaviour
                         SpawnPoint = ProjectileSpawnPointLeft;
                         anim.SetTrigger("LeftWeaponShot");
                         FirstShotShot = true;
+
+                        await Task.Delay(10);
                     }
                     else
                     {
@@ -68,6 +71,8 @@ public class DroneControllerEnemy : MonoBehaviour
                         SpawnPoint = ProjectileSpawnPointRight;
                         anim.SetTrigger("RightWeaponShot");
                         FirstShotShot = false;
+
+                        await Task.Delay(10);
                     }
                 }
                 delayTimer = 0f;
