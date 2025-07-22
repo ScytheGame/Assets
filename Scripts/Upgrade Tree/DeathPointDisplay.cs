@@ -5,6 +5,7 @@ public class DeathPointDisplay : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI SolarPointGain;
     [SerializeField] TextMeshProUGUI CelestialPointGain;
+    [SerializeField] TextMeshProUGUI StatsText;
     int Level;
     int KillCount;
     int TimePlayed;
@@ -15,14 +16,7 @@ public class DeathPointDisplay : MonoBehaviour
     public float SolarPoints;
     public float CelestialPoints;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
     {
         SolarPoints = 0;
         SolarPointsLevel = 0;
@@ -35,10 +29,11 @@ public class DeathPointDisplay : MonoBehaviour
         SolarPoints = PlayerPrefs.GetFloat("SolarPoints", 0);
         CelestialPoints = PlayerPrefs.GetFloat("CelestialPoints", 0);
 
-        SolarPointsLevel += Mathf.Round(Level / 10);
-        SolarPointsKills += Mathf.Round(KillCount / 20);
-        SolarPointsTimePlayed += Mathf.Round(TimePlayed / 10);
+        SolarPointsLevel += Mathf.Round(Level / 3);
+        SolarPointsKills += Mathf.Round(KillCount / 10);
+        SolarPointsTimePlayed += Mathf.Round(TimePlayed / 2);
         SolarPoints = SolarPointsLevel + SolarPointsTimePlayed + SolarPointsKills;
-        SolarPointGain.text = ("Gained " + SolarPoints + " Solar Points:  \n " + SolarPointsLevel + " From Player Level \n " + SolarPointsKills + " From Kills \n " + SolarPointsTimePlayed + " From time Played");
+        StatsText.text = ($"Stats This Run \n Player Level: {Level} \n Kill Count: {KillCount} \n Time Played: {TimePlayed}");
+        SolarPointGain.text = ($"Gained {SolarPoints} Solar Points:  \n {SolarPointsLevel} From Player Level \n {SolarPointsKills} From Kills \n {SolarPointsTimePlayed} From time Played");
     }
 }

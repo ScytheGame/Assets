@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 2478398524395134798}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.00006450057, y: 0.000030267467, z: 223.6}
+  m_LocalPosition: {x: 0.00016095606, y: 0.000075530945, z: 223.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -57,53 +57,53 @@ MonoBehaviour:
   OrbitData:
     GravConst: 0.009999999776482582
     Position:
-      x: 0.0010836096999469191
-      y: 0.0005084934606287561
-      z: 3756.479980525218
-    AttractorDistance: 3756.47998046894
+      x: 0.0027040615677833557
+      y: 0.0012689197901636362
+      z: 3756.47998046875
+    AttractorDistance: 3756.4799804699373
     AttractorMass: 1000
     Velocity:
-      x: -0.43853348493576066
-      y: -0.20578771829605108
-      z: -0.02026367187302518
+      x: -0.43849417567253113
+      y: -0.20577538013458252
+      z: -0.020263671875
     MG: 9.999999776482582
-    SemiMinorAxis: 3796.4367248236435
-    SemiMajorAxis: 43.526198201045695
-    FocalParameter: 331132.3387128125
-    Eccentricity: 87.22760975613842
+    SemiMinorAxis: 3796.4434930248617
+    SemiMajorAxis: 43.533692971808215
+    FocalParameter: 331076.5113601654
+    Eccentricity: 87.21275006449625
     Period: Infinity
-    TrueAnomaly: -0.04228610847177539
-    MeanAnomaly: -3.606791284778568
-    EccentricAnomaly: -0.04181639940055026
-    MeanMotion: 0.011012194975401342
+    TrueAnomaly: -0.04229023247477125
+    MeanAnomaly: -3.6065147838988847
+    EccentricAnomaly: -0.041820398275867345
+    MeanMotion: 0.011009351304708571
     Periapsis:
-      x: -143.62999179619516
-      y: -67.40029965353179
-      z: 3749.805042362915
-    PeriapsisDistance: 3753.1600326481025
+      x: -143.64157837294346
+      y: -67.40773777177209
+      z: 3749.803823179115
+    PeriapsisDistance: 3753.1593915630187
     Apoapsis:
       x: Infinity
       y: Infinity
       z: Infinity
     ApoapsisDistance: Infinity
     CenterPoint:
-      x: -145.29569947616446
-      y: -68.18195531862732
-      z: 3793.292332025331
-    OrbitCompressionRatio: 7607.655903769175
+      x: -145.3077075506519
+      y: -68.18961443991391
+      z: 3793.2985942005
+    OrbitCompressionRatio: 7605.0637738122905
     OrbitNormal:
-      x: 0.42481489079099605
-      y: -0.9052802375851547
-      z: -0.0000000000011860838369198644
+      x: 0.42482522548734286
+      y: -0.9052753878183303
+      z: -0.000000000008441443757678639
     SemiMinorAxisBasis:
-      x: 0.9044709978042847
-      y: 0.4244351441723123
-      z: 0.042273189167013794
+      x: 0.9044660127951569
+      y: 0.4244454041294366
+      z: 0.042276833039272745
     SemiMajorAxisBasis:
-      x: -0.03826908273209302
-      y: -0.01795828024044486
-      z: 0.9991060892005663
-    OrbitNormalDotEclipticNormal: -0.0000000000011860838369198644
+      x: -0.0382721764217755
+      y: -0.01796026513643479
+      z: 0.9991059350179888
+    OrbitNormalDotEclipticNormal: -0.000000000008441443757678639
   LockOrbitEditing: 0
 --- !u!114 &9021135966682446499
 MonoBehaviour:
@@ -266,8 +266,8 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.531
-  m_Color: {r: 1, g: 0.6509804, b: 0.6509804, a: 1}
-  m_Intensity: 1
+  m_Color: {r: 0.9056604, g: 0.49127805, b: 0.49127805, a: 1}
+  m_Intensity: 2
   m_LightVolumeIntensity: 0.1
   m_LightVolumeEnabled: 0
   m_ApplyToSortingLayers: 00000000
@@ -291,7 +291,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 20000
+  m_PointLightOuterRadius: 10000
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
@@ -363,6 +363,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2809043677661990204}
+  - component: {fileID: 5145320245826112055}
   m_Layer: 0
   m_Name: Blank Star
   m_TagString: CelestialObject
@@ -386,6 +387,20 @@ Transform:
   - {fileID: 1836361779495128305}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5145320245826112055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6208713135997136951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4b87f9411fed2c4dac236beb112ed25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpriteRenderer: {fileID: 6920936322267881371}
+  KeplerOrbitMover: {fileID: 0}
 --- !u!1 &8204559346059012213
 GameObject:
   m_ObjectHideFlags: 0
@@ -411,7 +426,7 @@ Transform:
   m_GameObject: {fileID: 8204559346059012213}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.026103182, y: -0.012249269, z: -0.0012054443}
+  m_LocalPosition: {x: -0.026100846, y: -0.012248535, z: -0.0012054443}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

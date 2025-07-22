@@ -14,8 +14,6 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] NavMeshAgent Agent;
     [SerializeField] Vector2 Position;
     [SerializeField] Vector2 offset;
-    float DelayTime = 0.5f;
-    float Timer = 0;
 
     private void Start()
     {
@@ -27,7 +25,6 @@ public class EnemyAI : MonoBehaviour
         {
             Debug.Log("Couldn't find Player");
         }
-        DelayTime = Random.Range(0.5f, 5f);
     }
 
     void FixedUpdate()
@@ -37,13 +34,7 @@ public class EnemyAI : MonoBehaviour
 
         if (Distance >= TeleportDistance)
         {
-
-            Timer += Time.deltaTime;
-            if (Timer > DelayTime)
-            {
-                Warp();
-                Timer = 0;
-            }
+            GoToNearestWormhole();
         }
 
         FollowPlayer();
@@ -52,11 +43,37 @@ public class EnemyAI : MonoBehaviour
 
     }
 
-    void Warp()
+    void GoToNearestWormhole()
     {
-        offset = new Vector3(RandomValue(100), RandomValue(100), 2.5f);
-        Position = (Vector2)Player.transform.position + offset;
-        Agent.Warp(Position);
+        Position = FindClosestCelestialObject().position;
+        Agent.SetDestination(Position);
+    }
+    Transform FindClosestCelestialObject()
+    {
+        float distanceToClosestCelestialObject = Mathf.Infinity;
+        GameObject closestCelestialObject = null;
+
+        GameObject[] AllCelestialObject = GameObject.FindGameObjectsWithTag("CelestialObject");
+
+        foreach (GameObject CurrentCelestialObject in AllCelestialObject)
+        {
+            float distanceToCelestialObject = (CurrentCelestialObject.transform.position - transform.position).sqrMagnitude;
+
+            if (distanceToCelestialObject < distanceToClosestCelestialObject)
+            {
+                distanceToClosestCelestialObject = distanceToCelestialObject;
+                closestCelestialObject = CurrentCelestialObject;
+            }
+        }
+
+        if (closestCelestialObject != null)
+        {
+            return closestCelestialObject.transform;
+        }
+        else
+        {
+            return null;
+        }
     }
 
     void FollowPlayer()

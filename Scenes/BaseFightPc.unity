@@ -1999,13 +1999,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   solarSystems:
   - {fileID: 6508224105101734044, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
-  - {fileID: 6508224105101734044, guid: c4edfffdbd6cac1498cade6c29c372ee, type: 3}
-  - {fileID: 6508224105101734044, guid: 83875a3dd57bb7148be05766834a93f8, type: 3}
   SizeX: 20000
   SizeY: 20000
   spawnDelay: 0
   SystemCount: 0
-  MaxSystemCount: 45
+  MaxSystemCount: 30
   MinimumDistanceToOtherSystem: 4500
 --- !u!1 &60647602
 GameObject:
@@ -3098,6 +3096,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 115292516}
   m_CullTransparentMesh: 1
+--- !u!1001 &122094568
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 403190682850938957, guid: e4637ae52df2fbd49b6bb768fd1923eb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2924.6807
+      objectReference: {fileID: 0}
+    - target: {fileID: 403190682850938957, guid: e4637ae52df2fbd49b6bb768fd1923eb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2171.0522
+      objectReference: {fileID: 0}
+    - target: {fileID: 403190682850938957, guid: e4637ae52df2fbd49b6bb768fd1923eb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -208.58427
+      objectReference: {fileID: 0}
+    - target: {fileID: 403190682850938957, guid: e4637ae52df2fbd49b6bb768fd1923eb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 403190682850938957, guid: e4637ae52df2fbd49b6bb768fd1923eb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 403190682850938957, guid: e4637ae52df2fbd49b6bb768fd1923eb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 403190682850938957, guid: e4637ae52df2fbd49b6bb768fd1923eb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 403190682850938957, guid: e4637ae52df2fbd49b6bb768fd1923eb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 403190682850938957, guid: e4637ae52df2fbd49b6bb768fd1923eb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 403190682850938957, guid: e4637ae52df2fbd49b6bb768fd1923eb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3766795245467999370, guid: e4637ae52df2fbd49b6bb768fd1923eb, type: 3}
+      propertyPath: m_Name
+      value: Solar System Data Setter
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e4637ae52df2fbd49b6bb768fd1923eb, type: 3}
 --- !u!1 &127711380
 GameObject:
   m_ObjectHideFlags: 0
@@ -3903,8 +3958,8 @@ MonoBehaviour:
   maxY: 30000
   minSpawnDistanceFromCenter: 0
   gameTime: 0
-  SpawnInterval: 120
-  SpawnIntervalIncreaseAmount: 120
+  SpawnInterval: 60
+  SpawnIntervalIncreaseAmount: 60
 --- !u!1 &184414689 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7820288149544933202, guid: e4f7040d28a95a4499001255815d69b3, type: 3}
@@ -16222,7 +16277,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'FPS: 1.98 (504.00 ms)'
+  m_text: 'FPS: .47 (2139.60 ms)'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b03b992b2252dab4c9668a1b0eba5b93, type: 2}
   m_sharedMaterial: {fileID: -5243488613788892683, guid: b03b992b2252dab4c9668a1b0eba5b93, type: 2}
@@ -38955,3 +39010,4 @@ SceneRoots:
   - {fileID: 51529937}
   - {fileID: 2097450312}
   - {fileID: 760140738}
+  - {fileID: 122094568}

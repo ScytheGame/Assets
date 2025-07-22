@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class SystemSpawner : MonoBehaviour
 {
@@ -18,10 +19,9 @@ public class SystemSpawner : MonoBehaviour
     private void Start()
     {
         Spawn();
-        spawnDelay -= Time.deltaTime;
     }
 
-    void Spawn()
+    async void Spawn()
     {
         for (int i = 0;  i < MaxSystemCount; i++)
         {
@@ -29,6 +29,7 @@ public class SystemSpawner : MonoBehaviour
             {
                 SpawnSystem();
                 SystemCount++;
+                await Task.Delay(10);
             }
         }
     }
@@ -38,12 +39,14 @@ public class SystemSpawner : MonoBehaviour
         long Time = System.DateTime.Now.Ticks;
         int seed = (int)(Time % int.MaxValue);
         UnityEngine.Random.InitState(seed);
+
         int RandomSystem = UnityEngine.Random.Range(0, solarSystems.Count);
-        Debug.Log($"Random System Choice {RandomSystem}");
+
         Vector2 Position = Vector2.zero;
         bool ValidPosition = false;
         int TryCount = 20;
         int CurrentTry = 0;
+
         while (!ValidPosition)
         {
             CurrentTry++;
@@ -60,7 +63,9 @@ public class SystemSpawner : MonoBehaviour
             }
         }
         Quaternion Rotation = Quaternion.Euler(0, 0, UnityEngine.Random.Range(0, 360));
+
         var system = Instantiate(solarSystems[RandomSystem], Position, Rotation, transform);
+
         SpawnedSystems.Add(Position, system);
     }
     bool CheckForValidPosition(Vector2 Position)

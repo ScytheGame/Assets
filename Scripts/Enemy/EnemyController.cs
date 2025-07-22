@@ -53,7 +53,8 @@ public class EnemyController : MonoBehaviour
     float EnemyBonusLevel = 0;
     bool ApplyOnce;
 
-
+    float TimeUntilDespawn = 30f;
+    float Timer = 0;
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -194,11 +195,26 @@ public class EnemyController : MonoBehaviour
             EnemyBossHealthBar.ShowHealthBar();
         }
     }
-
     void Update()
     {
+        
         GameTime = RandomEnemySpawn.gameTime;
         minutes = Mathf.FloorToInt(GameTime / 60);
+
+        if (!IsBossEnemy)
+        {
+            Timer += Time.deltaTime;
+            if (Timer > TimeUntilDespawn)
+            {
+                RandomEnemySpawn.enemyCount -= 1;
+
+                var Explosion = Instantiate(ExplosionPrefab, this.transform.position, this.transform.rotation);
+
+                Destroy(gameObject);
+
+            }
+        }
+
         if (enemyHealth <= 0)
         {
             RandomEnemySpawn.KillCount += 1;
@@ -277,7 +293,6 @@ public class EnemyController : MonoBehaviour
             }
 
         }
-
     }
 
     public float MissileDamage = 200;
@@ -326,6 +341,7 @@ public class EnemyController : MonoBehaviour
     {
         if (col.gameObject.tag == "player")
         {
+            Timer = 0;
             float Damage = col.gameObject.GetComponent<PlayerWeaponStats>().Damage;
             string ID = col.gameObject.GetComponent<PlayerWeaponStats>().ID;
             enemyHealth -= Damage;

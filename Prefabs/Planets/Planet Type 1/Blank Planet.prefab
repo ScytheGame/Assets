@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 1050108993431033954}
   - component: {fileID: 2721309401995400599}
   - component: {fileID: 1616359595957041681}
+  - component: {fileID: 4955839420642627011}
   m_Layer: 0
   m_Name: Blank Planet
   m_TagString: CelestialObject
@@ -159,6 +160,20 @@ MonoBehaviour:
   ShowAxisGizmosInEditor: 0
   GizmosAlphaMain: 1
   GizmosAlphaSecondary: 0.3
+--- !u!114 &4955839420642627011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4616936631514905659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4b87f9411fed2c4dac236beb112ed25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpriteRenderer: {fileID: 2175982400308392235}
+  KeplerOrbitMover: {fileID: 2721309401995400599}
 --- !u!1 &5895927990920409915
 GameObject:
   m_ObjectHideFlags: 0
