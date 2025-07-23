@@ -4,6 +4,7 @@ using TMPro;
 public class RandomEnemySpawn : MonoBehaviour
 {
     [Header("References")]
+    [SerializeField] Transform Player;
     [SerializeField] GameObject[] Enemy;
     [SerializeField] GameObject[] Bosses;
     [SerializeField] TextMeshProUGUI RunLength;
@@ -129,7 +130,7 @@ public class RandomEnemySpawn : MonoBehaviour
                     // Only pick from unlocked enemies
                     RandomEnemy = Random.Range(0, unlockedEnemies);
                 }
-                Instantiate(Enemy[RandomEnemy], groupCenter, Quaternion.identity);
+                Instantiate(Enemy[RandomEnemy], groupCenter + Player.position, Quaternion.identity);
                 enemyCount++;
                 //Debug.Log("enemy count is " + enemyCount);
             }

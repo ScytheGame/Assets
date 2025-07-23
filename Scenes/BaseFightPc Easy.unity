@@ -42,7 +42,8 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 12
+  serializedVersion: 13
+  m_BakeOnSceneLoad: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -3145,7 +3146,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3766795245467999370, guid: e4637ae52df2fbd49b6bb768fd1923eb, type: 3}
       propertyPath: m_Name
-      value: Solar System Data Setter
+      value: Data Setter
+      objectReference: {fileID: 0}
+    - target: {fileID: 8188605569023565921, guid: e4637ae52df2fbd49b6bb768fd1923eb, type: 3}
+      propertyPath: NegativeLevelRange
+      value: -6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -16276,7 +16281,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'FPS: .50 (1986.92 ms)'
+  m_text: 'FPS: 2.71 (369.26 ms)'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b03b992b2252dab4c9668a1b0eba5b93, type: 2}
   m_sharedMaterial: {fileID: -5243488613788892683, guid: b03b992b2252dab4c9668a1b0eba5b93, type: 2}

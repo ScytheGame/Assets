@@ -13,6 +13,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] EnemyController EnemyController;
     [SerializeField] NavMeshAgent Agent;
     [SerializeField] Vector2 Position;
+    [SerializeField] Vector2 LastValidPosition;
     [SerializeField] Vector2 offset;
 
     private void Start()
@@ -32,9 +33,13 @@ public class EnemyAI : MonoBehaviour
         Agent.speed = Speed;
         Distance = Vector3.Distance(transform.position, Player.transform.position);
 
-        if (Distance >= TeleportDistance)
+        if (Distance <= TeleportDistance)
         {
-            GoToNearestWormhole();
+            LastValidPosition = Position;
+        }
+        else
+        {
+            FollowLastKnownPlayerLocation();
         }
 
         FollowPlayer();
@@ -43,37 +48,9 @@ public class EnemyAI : MonoBehaviour
 
     }
 
-    void GoToNearestWormhole()
+    void FollowLastKnownPlayerLocation()
     {
-        Position = FindClosestCelestialObject().position;
-        Agent.SetDestination(Position);
-    }
-    Transform FindClosestCelestialObject()
-    {
-        float distanceToClosestCelestialObject = Mathf.Infinity;
-        GameObject closestCelestialObject = null;
-
-        GameObject[] AllCelestialObject = GameObject.FindGameObjectsWithTag("CelestialObject");
-
-        foreach (GameObject CurrentCelestialObject in AllCelestialObject)
-        {
-            float distanceToCelestialObject = (CurrentCelestialObject.transform.position - transform.position).sqrMagnitude;
-
-            if (distanceToCelestialObject < distanceToClosestCelestialObject)
-            {
-                distanceToClosestCelestialObject = distanceToCelestialObject;
-                closestCelestialObject = CurrentCelestialObject;
-            }
-        }
-
-        if (closestCelestialObject != null)
-        {
-            return closestCelestialObject.transform;
-        }
-        else
-        {
-            return null;
-        }
+        Agent.SetDestination(LastValidPosition);
     }
 
     void FollowPlayer()

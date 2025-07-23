@@ -68,5 +68,4 @@ public enum WeaponCode
     MineHeavy = 8,
     MineRapid = 9,
     MineHoming = 10 
-};
-
+}

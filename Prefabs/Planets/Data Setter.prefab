@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 403190682850938957}
   - component: {fileID: 3607808048853613770}
+  - component: {fileID: 8188605569023565921}
   m_Layer: 0
-  m_Name: Solar System Data Setter
+  m_Name: Data Setter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,3 +49,17 @@ MonoBehaviour:
   - {fileID: 4616936631514905659, guid: f77ad2b88f19a864884c37a231ae735a, type: 3}
   - {fileID: 655896186159625937, guid: b83ad930e8b06f44fad86256350f7b60, type: 3}
   - {fileID: 655896186159625937, guid: f3a718e3067015142bc01a7372233912, type: 3}
+--- !u!114 &8188605569023565921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3766795245467999370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: effa7981b3e4c9b4593dc7c24276d317, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NegativeLevelRange: -3
+  PositiveLevelRange: 2

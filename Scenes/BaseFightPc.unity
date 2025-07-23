@@ -3146,13 +3146,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3766795245467999370, guid: e4637ae52df2fbd49b6bb768fd1923eb, type: 3}
       propertyPath: m_Name
-      value: Solar System Data Setter
+      value: Data Setter
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3766795245467999370, guid: e4637ae52df2fbd49b6bb768fd1923eb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 122094570}
   m_SourcePrefab: {fileID: 100100000, guid: e4637ae52df2fbd49b6bb768fd1923eb, type: 3}
+--- !u!1 &122094569 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3766795245467999370, guid: e4637ae52df2fbd49b6bb768fd1923eb, type: 3}
+  m_PrefabInstance: {fileID: 122094568}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &122094570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 122094569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: effa7981b3e4c9b4593dc7c24276d317, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NegativeLevelRange: -3
+  PositiveLevelRange: 2
 --- !u!1 &127711380
 GameObject:
   m_ObjectHideFlags: 0
@@ -16277,7 +16299,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'FPS: .47 (2139.60 ms)'
+  m_text: 'FPS: .12 (8628.53 ms)'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b03b992b2252dab4c9668a1b0eba5b93, type: 2}
   m_sharedMaterial: {fileID: -5243488613788892683, guid: b03b992b2252dab4c9668a1b0eba5b93, type: 2}

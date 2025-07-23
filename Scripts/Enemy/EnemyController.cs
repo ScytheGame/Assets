@@ -48,13 +48,13 @@ public class EnemyController : MonoBehaviour
     public float EnemyProjectileSpeedMultiplier = 1;
     public bool IsBossEnemy = false;
     EnemyBossHealthBar EnemyBossHealthBar;
-    float expTimeBuff = 0;
-    float poisondamagelength = 1f;
     float EnemyBonusLevel = 0;
-    bool ApplyOnce;
+    int NegativeLevelRange { get { return DifficultyGameData.NegativeLevelRange; } }
+    int PositiveLevelRange { get { return DifficultyGameData.PositiveLevelRange; } }
 
     float TimeUntilDespawn = 30f;
     float Timer = 0;
+
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -109,8 +109,7 @@ public class EnemyController : MonoBehaviour
         }
         GameTime = RandomEnemySpawn.gameTime;
         minutes = RandomEnemySpawn.minutes;
-        float LevelRange = EnemyBonusLevel + 5;
-        Level = Random.Range(StatsController.currentLevel + EnemyBonusLevel - 5, StatsController.currentLevel + EnemyBonusLevel + LevelRange);
+        Level = Random.Range(StatsController.currentLevel - (EnemyBonusLevel + NegativeLevelRange), StatsController.currentLevel + (EnemyBonusLevel + PositiveLevelRange));
 
 
 
