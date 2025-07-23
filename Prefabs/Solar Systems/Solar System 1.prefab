@@ -46,17 +46,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8c66c606d653054ba8009e6df96542a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlanetTypes:
-  - {fileID: 4616936631514905659, guid: f77ad2b88f19a864884c37a231ae735a, type: 3}
-  - {fileID: 655896186159625937, guid: b83ad930e8b06f44fad86256350f7b60, type: 3}
-  - {fileID: 655896186159625937, guid: f3a718e3067015142bc01a7372233912, type: 3}
   Star: {fileID: 2349593411163900445}
   MinNumberOfPlanets: 2
   MaxNumberOfPlanets: 6
   MinimumDistanceToOtherPlanet: 600
   SizeX: 1200
   SizeY: 1200
-  SizeZ: 0
   MinimumPlanetSize: 10
   MaximumPlanetSize: 25
 --- !u!1 &9219168769917201812

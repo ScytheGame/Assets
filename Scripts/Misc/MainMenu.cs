@@ -5,8 +5,7 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     public bool destroy = false;
-    public string Scene = "BaseFightPc";
-    public void playGame()
+    public void playGame(string Scene)
     {
         destroy = true;
         SceneManager.LoadScene(Scene);
