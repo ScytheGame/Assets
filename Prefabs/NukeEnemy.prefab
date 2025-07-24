@@ -252,7 +252,6 @@ GameObject:
   - component: {fileID: 1979931144116751244}
   - component: {fileID: 661536364730461558}
   - component: {fileID: 6013558518466298325}
-  - component: {fileID: 8727191670672919645}
   m_Layer: 6
   m_Name: Trail
   m_TagString: Untagged
@@ -446,25 +445,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.74672925, y: 1.0363414}
   m_EdgeRadius: 0
---- !u!114 &8727191670672919645
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8983324327723015804}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cfb17feb59b897488da97fcdab4f175, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ExplosionPrefab: {fileID: 751535010802423446, guid: 6a03f973fbdbdfd44987f34ff6981407, type: 3}
-  ExplosionSpawnPoint: {fileID: 0}
-  lifetime: 7
-  resistance: 20
-  damage: 0
-  AudioManager: {fileID: 0}
-  Source: {fileID: 0}
 --- !u!1001 &5266583030385448254
 PrefabInstance:
   m_ObjectHideFlags: 0

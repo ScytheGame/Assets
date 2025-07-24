@@ -3149,12 +3149,16 @@ PrefabInstance:
       value: Data Setter
       objectReference: {fileID: 0}
     - target: {fileID: 8188605569023565921, guid: e4637ae52df2fbd49b6bb768fd1923eb, type: 3}
+      propertyPath: HealthMultiplier
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8188605569023565921, guid: e4637ae52df2fbd49b6bb768fd1923eb, type: 3}
       propertyPath: NegativeLevelRange
       value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 8188605569023565921, guid: e4637ae52df2fbd49b6bb768fd1923eb, type: 3}
       propertyPath: PositiveLevelRange
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -16285,7 +16289,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'FPS: .38 (2630.93 ms)'
+  m_text: 'FPS: .70 (1433.29 ms)'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b03b992b2252dab4c9668a1b0eba5b93, type: 2}
   m_sharedMaterial: {fileID: -5243488613788892683, guid: b03b992b2252dab4c9668a1b0eba5b93, type: 2}

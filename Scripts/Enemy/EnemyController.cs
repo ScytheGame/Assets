@@ -51,6 +51,7 @@ public class EnemyController : MonoBehaviour
     float EnemyBonusLevel = 0;
     int NegativeLevelRange { get { return DifficultyGameData.NegativeLevelRange; } }
     int PositiveLevelRange { get { return DifficultyGameData.PositiveLevelRange; } }
+    float HealthMultiplier { get { return DifficultyGameData.HealthMultiplier;  } }
 
     float TimeUntilDespawn = 30f;
     float Timer = 0;
@@ -186,7 +187,10 @@ public class EnemyController : MonoBehaviour
                 }
             }
         }
-        Debug.Log($"Enemy Level {Level}");
+
+        maxHealth *= HealthMultiplier;
+        enemyHealth = maxHealth;
+
         anim.enabled = (PlayerPrefs.GetInt("AnimationsActive") != 0);
         if (IsBossEnemy)
         {
