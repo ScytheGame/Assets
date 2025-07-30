@@ -1,19 +1,39 @@
-using SimpleKeplerOrbits;
-using System.Threading.Tasks;
+using Sirenix.OdinInspector;
+using System.Collections;
+using System.Collections.Generic;
+using System;
 using UnityEngine;
+using System.Threading.Tasks;
+using SimpleKeplerOrbits;
+using UnityEngine.Rendering.Universal;
 
 public class CelestialObjectColourController : MonoBehaviour
 {
+    [SerializeField] Color Colour;
     [SerializeField] SpriteRenderer SpriteRenderer;
-    [SerializeField] KeplerOrbitMover KeplerOrbitMover;
-
-    public void SetColour(Color colour, Transform Atractor = null)
+    [SerializeField] Light2D Light2D;
+    [SerializeField] bool IsStar;
+    [SerializeField] bool IsMoon;
+    public void SetColour()
     {
-        SpriteRenderer.color = colour;
-        if (KeplerOrbitMover != null)
+        long Time = System.DateTime.Now.Ticks;
+        int seed = (int)(Time % int.MaxValue);
+        UnityEngine.Random.InitState(seed);
+
+        if (IsMoon)
+            return;
+
+        if (IsStar)
         {
-            KeplerOrbitMover.AttractorSettings.AttractorObject = Atractor;
-            KeplerOrbitMover.SetAutoCircleOrbit();
+            Colour = SolarSystemData.StarColours[UnityEngine.Random.Range(0, SolarSystemData.StarColours.Length)];
+            SpriteRenderer.color = Colour;
+            Light2D.color = Colour;
+            Debug.Log($"Choosen Colour: {Colour} ");
+        }
+        else
+        {
+            Colour = new Color(UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f));
+            SpriteRenderer.color = Colour;
         }
     }
 }

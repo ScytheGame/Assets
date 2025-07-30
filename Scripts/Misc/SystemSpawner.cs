@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using System.Threading.Tasks;
+using SimpleKeplerOrbits;
 
 public class SystemSpawner : MonoBehaviour
 {
     [SerializeField] private List<GameObject> solarSystems;
+    [SerializeField] GameObject BlackHole;
     [DictionaryDrawerSettings(KeyLabel = "Position", ValueLabel = "Solar System Object")]
     Dictionary<Vector2, GameObject> SpawnedSystems = new Dictionary<Vector2, GameObject>();
-    public float SizeX = 28000;
     public float SizeY = 28000;
     public float spawnDelay = 0f;
     public float SystemCount;
@@ -50,7 +51,7 @@ public class SystemSpawner : MonoBehaviour
         while (!ValidPosition)
         {
             CurrentTry++;
-            Position = new Vector2(UnityEngine.Random.Range(-SizeX, SizeX), UnityEngine.Random.Range(-SizeY, SizeY));
+            Position = new Vector2(0, UnityEngine.Random.Range(-SizeY, SizeY));
             if (CheckForValidPosition(Position))
                 ValidPosition = true;
             else
@@ -65,6 +66,9 @@ public class SystemSpawner : MonoBehaviour
         Quaternion Rotation = Quaternion.Euler(0, 0, UnityEngine.Random.Range(0, 360));
 
         var system = Instantiate(solarSystems[RandomSystem], Position, Rotation, transform);
+
+        system.GetComponent<Planet>().SetAttractor(BlackHole.transform, 100000);
+        system.GetComponent<KeplerOrbitMover>().TimeScale = UnityEngine.Random.Range(1, 3);
 
         SpawnedSystems.Add(Position, system);
     }

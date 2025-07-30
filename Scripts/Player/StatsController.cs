@@ -23,6 +23,24 @@ public class StatsController : MonoBehaviour
     public float ExpGain = 20;
 
     [Space(10)]
+    [TabGroup("Speed Boost Stats")]
+    public float ShipSpeed = 20;
+    [TabGroup("Speed Boost Stats")]
+    public float BoostSpeed = 20;
+    [TabGroup("Speed Boost Stats")]
+    public float Damping = 1;
+    [TabGroup("Speed Boost Stats")]
+    public float ShipDamping = 1;
+    [TabGroup("Speed Boost Stats")]
+    public float BoostDamping = 0.1f;
+    [TabGroup("Speed Boost Stats")]
+    public float Mass = 1;
+    [TabGroup("Speed Boost Stats")]
+    public float ShipMass = 1;
+    [TabGroup("Speed Boost Stats")]
+    public float BoostMass = 0.1f;
+
+    [Space(10)]
     [TabGroup("Weapon Damage")]
     public float MissileDamage = 300;
     [TabGroup("Weapon Damage")]
@@ -262,6 +280,19 @@ public class StatsController : MonoBehaviour
         {
             targetXpIncrease += LevelIncreaseCost / 10;
             LevelIncreaseCost += 10;
+        }
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            ShipSpeed = MoveSpeed + BoostSpeed;
+            ShipDamping = BoostDamping;
+            ShipMass = BoostMass;
+        }
+        else
+        {
+            ShipSpeed = MoveSpeed;
+            ShipDamping = Damping;
+            ShipMass = Mass;
         }
     }
     void DamageDebuff(float Value)

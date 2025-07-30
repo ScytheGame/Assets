@@ -1,3 +1,4 @@
+using SimpleKeplerOrbits;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ public class SolarSystemGenerator : MonoBehaviour
 {
 
     [SerializeField] GameObject Star;
+    [SerializeField] KeplerOrbitMover StarOrbitData;
     [DictionaryDrawerSettings(KeyLabel = "Position", ValueLabel = "Solar System"), ShowInInspector]
     Dictionary<Vector3, GameObject> SpawnPlanets = new Dictionary<Vector3, GameObject>();
     [SerializeField] int MinNumberOfPlanets;
@@ -25,8 +27,7 @@ public class SolarSystemGenerator : MonoBehaviour
 
     void StarColour()
     {
-        Color randomStarColor = SolarSystemData.StarColours[Random.Range(0, SolarSystemData.StarColours.Length)];
-        Star.GetComponent<CelestialObjectColourController>().SetColour(randomStarColor);
+        Star.GetComponent<CelestialObjectColourController>().SetColour();
         float Scale = UnityEngine.Random.Range(MinimumPlanetSize / 2, MaximumPlanetSize / 2);
         Star.transform.localScale = new Vector3(Scale, Scale, Scale);
     }
@@ -81,8 +82,9 @@ public class SolarSystemGenerator : MonoBehaviour
 
         var Planet = Instantiate(SolarSystemData.PlanetTypes[RandomPlanet], Position, Rotation, transform);
 
-        Color RandomColour = new Color(Random.value, Random.value, Random.value);
-        Planet.GetComponent<CelestialObjectColourController>().SetColour(RandomColour, Star.transform);
+        Planet.GetComponent<CelestialObjectColourController>().SetColour();
+
+        Planet.GetComponent<Planet>().SetAttractor(Star.transform, StarOrbitData.AttractorSettings.AttractorMass);
 
         float Scale = UnityEngine.Random.Range(MinimumPlanetSize, MaximumPlanetSize);
         Planet.transform.localScale = new Vector3(Scale, Scale, Scale);

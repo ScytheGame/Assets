@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
 using System.Threading.Tasks;
+using UnityEngine.Rendering;
 
 public class PlayerController : MonoBehaviour
 {
@@ -42,6 +43,7 @@ public class PlayerController : MonoBehaviour
     public float playerHealth = 100;
     public float maxHealth = 100;
     public bool canReload = false;
+    public bool RealisticMovement = false;
     [SerializeField] public float moveSpeed = 20;
     [SerializeField] public bool Dead = false;
     float inputHorizontal;
@@ -55,6 +57,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         ValueSave = GameObject.FindGameObjectWithTag("Value").GetComponent<ValueSave>();
+        RealisticMovement = DifficultyGameData.RealisticMovement;
 
     }
 
@@ -66,7 +69,9 @@ public class PlayerController : MonoBehaviour
         maxHealth = StatsController.MaxHealth;
         playerStamina = StatsController.CurrentStamina;
         maxStamina = StatsController.MaxStamina;
-        moveSpeed = StatsController.MoveSpeed;
+        moveSpeed = StatsController.ShipSpeed;
+        rb.mass = StatsController.ShipMass;
+        rb.linearDamping= StatsController.ShipDamping;
         minutes = RandomEnemySpawn.minutes;
         
 
@@ -147,19 +152,28 @@ public class PlayerController : MonoBehaviour
     }
     void FixedUpdate()
     {
-
-        inputHorizontal = Input.GetAxis("Horizontal");
-        inputVertical = Input.GetAxis("Vertical");
-
-        if (inputHorizontal != 0 || inputVertical != 0)
+        if (!RealisticMovement)
         {
-            rb.AddForce(new Vector2(inputHorizontal * moveSpeed, inputVertical * moveSpeed));
+            inputHorizontal = Input.GetAxis("Horizontal");
+            inputVertical = Input.GetAxis("Vertical");
+
+            if (inputHorizontal != 0 || inputVertical != 0)
+            {
+                rb.AddForce(new Vector2(inputHorizontal * moveSpeed, inputVertical * moveSpeed));
+            }
         }
+        else
+        {
+            rb.AddForce(transform.up *  Input.GetAxis("SpaceMovement") * moveSpeed);
+        }
+
 
         Vector3 mousePosition = Input.mousePosition;
         mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
         Vector2 direction = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y);
+
         transform.up = direction;
+
     }
     public Vector2 GetPlayerVelocity()
     {

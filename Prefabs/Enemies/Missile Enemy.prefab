@@ -280,8 +280,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 1
-  m_AngularDamping: 1
+  m_LinearDamping: 0.75
+  m_AngularDamping: 0.75
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -292,7 +292,7 @@ Rigidbody2D:
     m_Bits: 384
   m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
   m_Constraints: 0
 --- !u!195 &-4876502494699972695
 NavMeshAgent:
@@ -328,7 +328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbb96448940220042bb348fa1076b5b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 40
+  Speed: 45
   Player: {fileID: 0}
   PlayerController: {fileID: 0}
   Distance: 0
@@ -338,6 +338,7 @@ MonoBehaviour:
   EnemyController: {fileID: 6133515741674267296}
   Agent: {fileID: -4876502494699972695}
   Position: {x: 0, y: 0}
+  LastValidPosition: {x: 0, y: 0}
   offset: {x: 0, y: 0}
 --- !u!114 &6133515741674267296
 MonoBehaviour:

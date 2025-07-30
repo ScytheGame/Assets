@@ -5,9 +5,14 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     public bool destroy = false;
-    public void playGame(string Scene)
+    public string Scene;
+    public void playGame(int Difficulty)
     {
         destroy = true;
+
+        PlayerPrefs.SetInt("Difficulty", Difficulty);
+
+
         SceneManager.LoadScene(Scene);
     }
     public void QuitGame()

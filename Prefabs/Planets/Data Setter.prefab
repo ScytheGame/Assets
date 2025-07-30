@@ -61,5 +61,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: effa7981b3e4c9b4593dc7c24276d317, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NegativeLevelRange: -3
-  PositiveLevelRange: 2
+  RandomEnemySpawn: {fileID: 0}
+  maxCount:
+  - 10
+  - 40
+  - 60
+  spawnDelay:
+  - 6
+  - 5
+  - 4
+  NegativeLevelRange: fbfffffffdffffffffffffff
+  PositiveLevelRange: 010000000400000009000000
+  HealthMultiplier:
+  - 0.8
+  - 1.4
+  - 3.5
