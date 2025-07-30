@@ -6,7 +6,6 @@ using UnityEngine.UIElements;
 public class Planet : MonoBehaviour
 {
     [SerializeField] KeplerOrbitMover KeplerOrbitMover;
-    [SerializeField] GameObject Ring;
     [SerializeField] GameObject Moon;
     [SerializeField] float Mass;
     public bool IsSystem = false;
@@ -21,12 +20,6 @@ public class Planet : MonoBehaviour
 
         if (!IsMoon && !IsSystem)
         {
-            int RingChance = Random.Range(0, 4);
-
-            if (RingChance >= 3)
-            {
-                Instantiate(Ring, transform.position, transform.rotation, transform);
-            }
             int MoonChance = Random.Range(0, 4);
 
             if (MoonChance >= 3)
