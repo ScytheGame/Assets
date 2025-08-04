@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using DG.Tweening;
 using System.Threading.Tasks;
 using UnityEngine.Rendering;
 
@@ -219,7 +218,6 @@ public class PlayerController : MonoBehaviour
         }
         if (col.gameObject.tag == "ExperincePoint")
         {
-            col.gameObject.transform.DOMove(this.transform.position, 0.1f, false);
             await Task.Delay(100);
             StatsController.currentXP += col.GetComponent<ExperincePointStat>().Experince;
             var Particle = Instantiate(StarParticle, col.gameObject.transform.position, Quaternion.identity);

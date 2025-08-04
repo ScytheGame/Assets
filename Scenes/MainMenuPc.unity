@@ -29102,6 +29102,174 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 736473494102070703, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.Period
+      value: 42.94934499729282
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.Apoapsis.x
+      value: 0.00037112771835940046
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.Apoapsis.y
+      value: 0.00027242341339501184
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.Apoapsis.z
+      value: 715.5200232710972
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.MeanMotion
+      value: 0.14629292501610075
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.Position.x
+      value: 0.00020599365234375
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.Position.y
+      value: 0.00019493103900458664
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.Position.z
+      value: 715.52001953125
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.Velocity.x
+      value: -0.08352966606616974
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.Velocity.y
+      value: -0.03919792175292969
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.Velocity.z
+      value: -0.0037841796875
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.MeanAnomaly
+      value: 3.1418512456121688
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.Periapsis.x
+      value: -0.0000000011534741580399195
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.Periapsis.y
+      value: -0.0000000008466987288971006
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.Periapsis.z
+      value: -0.002223853987629809
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.TrueAnomaly
+      value: 3.1415928815227674
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.Eccentricity
+      value: 0.9999937839696905
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.CenterPoint.x
+      value: 0.0001855632824426212
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.CenterPoint.y
+      value: 0.0001362112833481415
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.CenterPoint.z
+      value: 357.7588997085548
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.OrbitNormal.x
+      value: 0.4248193792279979
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.OrbitNormal.y
+      value: -0.9052781313123183
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.OrbitNormal.z
+      value: 0.00000012432455945752303
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.SemiMajorAxis
+      value: 357.76112356261643
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.SemiMinorAxis
+      value: 1.2614325415889875
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.FocalParameter
+      value: 0.004447694151712808
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.ApoapsisDistance
+      value: 715.5200232712453
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.EccentricAnomaly
+      value: 3.1417219500030162
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.AttractorDistance
+      value: 715.5200195313062
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.PeriapsisDistance
+      value: 0.0022238539876302693
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.SemiMajorAxisBasis.x
+      value: -0.0000005186825054352257
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.SemiMajorAxisBasis.y
+      value: -0.00000038073485651671184
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.SemiMajorAxisBasis.z
+      value: -0.999999999999793
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.SemiMinorAxisBasis.x
+      value: -0.9052781313121782
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.SemiMinorAxisBasis.y
+      value: -0.4248193792278454
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.SemiMinorAxisBasis.z
+      value: 0.0000006312954746606827
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.OrbitCompressionRatio
+      value: 0.000012432021979980057
+      objectReference: {fileID: 0}
+    - target: {fileID: 939028633606059537, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.OrbitNormalDotEclipticNormal
+      value: 0.00000012432455945752303
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025934411545810564, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025934411545810564, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025934411545810564, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 1025934411545810564, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -29142,13 +29310,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4518028727891842959, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: OrbitData.Velocity.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6508224105101734044, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
       propertyPath: m_Name
       value: Solar System 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7844138808445906825, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
-      propertyPath: SizeZ
-      value: 20
+    - target: {fileID: 7966546327135661642, guid: e816b0c972537e74ab8fed7eb6b67ca2, type: 3}
+      propertyPath: SingleSystem
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -62523,6 +62695,10 @@ PrefabInstance:
     - target: {fileID: 2711014320025219601, guid: 19b5cace33728b54d9037484a999680b, type: 3}
       propertyPath: InitialModule.startSpeed.minMaxState
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3468107544181270465, guid: 19b5cace33728b54d9037484a999680b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4490303625491787401, guid: 19b5cace33728b54d9037484a999680b, type: 3}
       propertyPath: m_LocalScale.x
