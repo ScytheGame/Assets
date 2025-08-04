@@ -9,10 +9,13 @@ public class Planet : MonoBehaviour
     [SerializeField] GameObject Moon;
     [SerializeField] float Mass;
     public bool IsSystem = false;
+    public bool SingleSystem = false;
     public bool IsMoon = false;
     bool Done = false;
     public void SetAttractor (Transform Attractor, float AttractorMass)
     {
+        if (SingleSystem)
+            return;
 
         KeplerOrbitMover.AttractorSettings.AttractorObject = Attractor;
         KeplerOrbitMover.AttractorSettings.AttractorMass = AttractorMass;
@@ -35,6 +38,9 @@ public class Planet : MonoBehaviour
     }
     void Update()
     {
+        if (SingleSystem)
+            return;
+
         if (Done)
         {
             KeplerOrbitMover.enabled = true;

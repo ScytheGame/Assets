@@ -102,10 +102,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   KeplerOrbitMover: {fileID: 4518028727891842959}
-  Ring: {fileID: 0}
   Moon: {fileID: 0}
   Mass: 0
   IsSystem: 1
+  SingleSystem: 0
   IsMoon: 0
 --- !u!114 &4518028727891842959
 MonoBehaviour:
@@ -483,6 +483,10 @@ PrefabInstance:
     - target: {fileID: 9055341954404587018, guid: e1079019160b06f408afa3fc04c37130, type: 3}
       propertyPath: m_LightVolumeEnabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9055341954404587018, guid: e1079019160b06f408afa3fc04c37130, type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 100000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
