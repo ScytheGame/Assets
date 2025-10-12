@@ -1,11 +1,12 @@
-using UnityEngine;
 using Sirenix.OdinInspector;
+using System.Linq;
+using UnityEngine;
+using System.Collections.Generic;
 
 public class StatsController : MonoBehaviour
 {
+
     [SerializeField] SkillsController SkillsController;
-    [SerializeField] RandomEnemySpawn RandomEnemySpawn;
-    [SerializeField] GameSettings GameSettings;
     [Space(10)]
     [TabGroup("Player Stats")]
     public float MaxHealth = 2500;
@@ -14,9 +15,9 @@ public class StatsController : MonoBehaviour
     [TabGroup("Player Stats")]
     public float ExtraLives = 0;
     [TabGroup("Player Stats")]
-    public float MaxStamina = 100;
+    public float MaxAmmo = 100;
     [TabGroup("Player Stats")]
-    public float CurrentStamina = 100;
+    public float CurrentAmmo = 100;
     [TabGroup("Player Stats")]
     public float MoveSpeed = 20;
     [TabGroup("Player Stats")]
@@ -40,159 +41,25 @@ public class StatsController : MonoBehaviour
     [TabGroup("Speed Boost Stats")]
     public float BoostMass = 0.1f;
 
-    [Space(10)]
-    [TabGroup("Weapon Damage")]
-    public float MissileDamage = 300;
-    [TabGroup("Weapon Damage")]
-    public float NukeDamage = 700;
-    [TabGroup("Weapon Damage")]
-    public float MinigunDamage = 120;
-    [TabGroup("Weapon Damage")]
-    public float HomingMissileDamage = 500;
-    [TabGroup("Weapon Damage")]
-    public float FlakDamage = 350;
-    [TabGroup("Weapon Damage")]
-    public float DroneDamage = 280;
-    [TabGroup("Weapon Damage")]
-    public float LaserDamage = 150;
-    [TabGroup("Weapon Damage")]
-    public float MineHeavyDamage = 350;
-    [TabGroup("Weapon Damage")]
-    public float MineHomingDamage = 350;
-    [TabGroup("Weapon Damage")]
-    public float MineRapidDamage = 350;
-    [TabGroup("Weapon Damage")]
-    public float DamageBonus = 1;
-    [Space(10)]
-    [TabGroup("Weapon Stats")]
-    public float MissileSpeed = 20;
-    [TabGroup("Weapon Stats")]
-    public float MissileFireDelay = 1;
-    [TabGroup("Weapon Stats")]
-    public float NukeSpeed = 60;
-    [TabGroup("Weapon Stats")]
-    public float NukeFireDelay = 5;
-    [TabGroup("Weapon Stats")]
-    public float MinigunSpeed = 30;
-    [TabGroup("Weapon Stats")]
-    public float MinigunFireDelay = 0.001f;
-    [TabGroup("Weapon Stats")]
-    public float HomingMissileSpeed = 5;
-    [TabGroup("Weapon Stats")]
-    public float HomingMissileFireDelay = 1.5f;
-    [TabGroup("Weapon Stats")]
-    public float FlakSpeed = 20;
-    [TabGroup("Weapon Stats")]
-    public float FlakFireDelay = 1.5f;
-    [TabGroup("Weapon Stats")]
-    public float DroneSpeed = 5;
-    [TabGroup("Weapon Stats")]
-    public float DroneFireDelay = 1.5f;
-    [TabGroup("Weapon Stats")]
-    public float LaserSpeed = 50;
-    [TabGroup("Weapon Stats")]
-    public float LaserFireDelay = 0.01f;
-    [TabGroup("Weapon Stats")]
-    public float ArrayShotSpeed = 30;
-    [TabGroup("Weapon Stats")]
-    public float MineHeavySpeed = 5;
-    [TabGroup("Weapon Stats")]
-    public float MineRapidSpeed = 15;
-    [TabGroup("Weapon Stats")]
-    public float MineHomingSpeed = 10;
-    [TabGroup("Weapon Stats")]
-    public float MineHeavyFireDelay = 2.5f;
-    [TabGroup("Weapon Stats")]
-    public float MineRapidFireDelay = 0.9f;
-    [TabGroup("Weapon Stats")]
-    public float MineHomingFireDelay = 1.5f;
-    [TabGroup("Weapon Stats")]
-    public float MissileAmmoCost = 5f;
-    [TabGroup("Weapon Stats")]
-    public float NukeAmmoCost = 50f;
-    [TabGroup("Weapon Stats")]
-    public float FlakAmmoCost = 5f;
-    [TabGroup("Weapon Stats")]
-    public float MinigunAmmoCost = 5f;
-    [TabGroup("Weapon Stats")]
-    public float LaserAmmoCost = 10f;
-    [TabGroup("Weapon Stats")]
-    public float DroneAmmoCost = 1.5f;
-    [TabGroup("Weapon Stats")]
-    public float HomingMissileAmmoCost = 15f;
-    [TabGroup("Weapon Stats")]
-    public float MineHeavyAmmoCost = 20f;
-    [TabGroup("Weapon Stats")]
-    public float MineRapidAmmoCost = 5f;
-    [TabGroup("Weapon Stats")]
-    public float MineHomingAmmoCost = 10f;
-    [TabGroup("Weapon Stats")]
-    public float MineHeavyExplosionRadius = 20f;
-    [TabGroup("Weapon Stats")]
-    public float MineRapidExplosionRadius = 5f;
-    [TabGroup("Weapon Stats")]
-    public float MineHomingExplosionRadius = 10f;
-
-    public float lifeSteal = 0;
 
 
     [Space(10)]
     [TabGroup("Level Stats")]
-    public float targetXP = 100;
+    public float TargetXP = 100;
     [TabGroup("Level Stats")]
-    public float targetXpIncrease = 15;
+    public float TargetXpIncrease = 15;
     [TabGroup("Level Stats")]
-    public bool leveledUp = false;
+    public bool LeveledUp = false;
     [TabGroup("Level Stats")]
-    public int currentLevel;
+    public int CurrentLevel;
     [TabGroup("Level Stats")]
-    public float currentXP = 0;
+    public float CurrentXP = 0;
 
-    [Space(10)]
-    [TabGroup("Class Specific Skills")]
-    public float BurstAmount = 10;
-    [TabGroup("Class Specific Skills")]
-    public float BurstDelay = 1;
+    [DictionaryDrawerSettings(KeyLabel = ("Weapon Name"), ValueLabel = ("Weapon")), ShowInInspector, BoxGroup("Weapons")]
+    Dictionary<string, Weapon> WeaponList = new Dictionary<string, Weapon>();
+    [SerializeField, BoxGroup("Weapons")] public Weapon ActiveWeapon;
 
 
-    [Space(10)]
-    [TabGroup("Idle Skills")]
-    public float ArrayDelay = 10;
-    [TabGroup("Idle Skills")]
-    public bool ArrayDoubleShot = false;
-
-
-    [Space(10)]
-    [TabGroup("Bool Skills")]
-    public bool DoubleShot;
-    [TabGroup("Bool Skills")]
-    public bool BackwardsFire;
-    [TabGroup("Bool Skills")]
-    public bool MultiShot;
-    [TabGroup("Bool Skills")]
-    public bool Missile;
-    [TabGroup("Bool Skills")]
-    public bool Nuke;
-    [TabGroup("Bool Skills")]
-    public bool Flak;
-    [TabGroup("Bool Skills")]
-    public bool Drone;
-    [TabGroup("Bool Skills")]
-    public bool Laser;
-    [TabGroup("Bool Skills")]
-    public bool Minigun;
-    [TabGroup("Bool Skills")]
-    public bool HomingMissile;
-    [TabGroup("Bool Skills")]
-    public bool RapidFire;
-    [TabGroup("Bool Skills")]
-    public bool ArrayShot;
-    [TabGroup("Bool Skills")]
-    public bool MineHeavy;
-    [TabGroup("Bool Skills")]
-    public bool MineRapid;
-    [TabGroup("Bool Skills")]
-    public bool MineHoming;
 
     int skillCheck = 0;
     float buffAmount;
@@ -201,15 +68,22 @@ public class StatsController : MonoBehaviour
     float expTime;
     float expTimeBuffCost = 1;
     float expTimeCost;
-    float expGain = 20;
+    float ExperienceGain = 20;
     int timeinterval = 5;
 
-    private void Start()
+    public void Start()
     {
+        Weapon[] TempWeaponList = Resources.LoadAll<Weapon>("Scriptable Objects/Weapons");
+
+        foreach (Weapon Weapon in TempWeaponList)
+        {
+            WeaponList.Add(Weapon.WeaponName, Weapon);
+        }
+
         SkillTreeData skillData = SkillTreeData.Load();
 
         MaxHealth = PlayerPrefs.GetFloat("PlayerHealth", 2500);
-        MaxStamina = PlayerPrefs.GetFloat("PlayerAmmo", 100);
+        MaxAmmo = PlayerPrefs.GetFloat("PlayerAmmo", 100);
 
         // Skill tree upgrades
 
@@ -217,58 +91,31 @@ public class StatsController : MonoBehaviour
 
         MaxHealth += skillData.HealthBoost;
 
-        MaxStamina += skillData.AmmoBoost;
+        MaxAmmo += skillData.AmmoBoost;
 
-        expGain = skillData.ExperienceBoost;
+        ExperienceGain = skillData.ExperienceBoost;
 
-        // Damage 
-        MissileDamage *= skillData.DamageBoostMissile;
-        NukeDamage *= skillData.DamageBoostNuke;
-        MinigunDamage *= skillData.DamageBoostMinigun;
-        HomingMissileDamage *= skillData.DamageBoostHomingMissile;
-        FlakDamage *= skillData.DamageBoostFlak;
-        DroneDamage *= skillData.DamageBoostDrone;
-        LaserDamage *= skillData.DamageBoostLaser;
 
-        // Attack Speed
-        MissileFireDelay /= skillData.AttackSpeedMissile;
-        NukeFireDelay /= skillData.AttackSpeedNuke;
-        MinigunFireDelay /= skillData.AttackSpeedMinigun;
-        HomingMissileFireDelay /= skillData.AttackSpeedHomingMissile;
-        FlakFireDelay /= skillData.AttackSpeedFlak;
-        DroneFireDelay /= skillData.AttackSpeedDrone;
-        LaserFireDelay /= skillData.AttackSpeedLaser;
+        foreach(Weapon weaponType in TempWeaponList)
+        {
+            weaponType.DamageRange.y *= skillData.DamageBoost;
+            weaponType.AttackSpeed /= skillData.AttackSpeed;
+            weaponType.ProjectileSpeed *= skillData.ProjectileSpeed;
+        }
 
-        // Projectile Speed
-        MissileSpeed *= skillData.ProjectileSpeedMissile;
-        NukeSpeed *= skillData.ProjectileSpeedNuke;
-        MinigunSpeed *= skillData.ProjectileSpeedMinigun;
-        HomingMissileSpeed *= skillData.ProjectileSpeedHomingMissile;
-        FlakSpeed *= skillData.ProjectileSpeedFlak;
-        DroneSpeed *= skillData.ProjectileSpeedDrone;
-        LaserSpeed *= skillData.ProjectileSpeedLaser;
-        // other
-        DamageBonus += PlayerPrefs.GetFloat("PlayerDamageBonus", 1);
-        MissileDamage *= DamageBonus;
-        NukeDamage *= DamageBonus;
-        MinigunDamage *= DamageBonus;
-        HomingMissileDamage *= DamageBonus;
-        FlakDamage *= DamageBonus;
-        DroneDamage *= DamageBonus;
-        LaserDamage *= DamageBonus;
+
 
         ExpGain = PlayerPrefs.GetFloat("PlayerXPGain", 20);
-        targetXpIncrease = PlayerPrefs.GetFloat("PlayerXPIncreaseCost", 15);
+        TargetXpIncrease = PlayerPrefs.GetFloat("PlayerXPIncreaseCost", 15);
         expTimeBuffCost = PlayerPrefs.GetFloat("PlayerXPTimeCost", 1);
-        ExpGain += expGain;
+        ExpGain += ExperienceGain;
         CurrentHealth = MaxHealth;
-        CurrentStamina = MaxStamina;
+        CurrentAmmo = MaxAmmo;
     }
     float LevelIncreaseCost = 10;
-    void Update()
+    public void Update()
     {
-        minutes = RandomEnemySpawn.minutes;
-        SkillsController.playerLevel = currentLevel;
+        SkillsController.PlayerLevel = CurrentLevel;
 
         if (minutes >= timeinterval)
         {
@@ -276,9 +123,9 @@ public class StatsController : MonoBehaviour
             expTimeCost += expTimeBuffCost;
             timeinterval += 2;
         }
-        if (currentLevel >= LevelIncreaseCost)
+        if (CurrentLevel >= LevelIncreaseCost)
         {
-            targetXpIncrease += LevelIncreaseCost / 10;
+            TargetXpIncrease += LevelIncreaseCost / 10;
             LevelIncreaseCost += 10;
         }
 
@@ -295,148 +142,67 @@ public class StatsController : MonoBehaviour
             ShipMass = Mass;
         }
     }
-    void DamageDebuff(float Value)
+    void DamageDebuff(float Value, Weapon Weapon)
     {
-        MissileDamage = MissileDamage / Value;
-        NukeDamage = NukeDamage / Value;
-        HomingMissileDamage = HomingMissileDamage / Value;
-        MinigunDamage = MinigunDamage / Value;
-        FlakDamage = FlakDamage / Value;
-        DroneDamage = DroneDamage / Value;
-        LaserDamage = LaserDamage / Value;
+        Weapon.DamageRange.y = Weapon.DamageRange.y / Value;
     }
-    void StatDebuff(float Value)
+    void StatDebuff(float Value, Weapon Weapon)
     {
-        MissileDamage = MissileDamage / Value;
-        NukeDamage = NukeDamage / Value;
-        HomingMissileDamage = HomingMissileDamage / Value;
-        MinigunDamage = MinigunDamage / Value;
-        FlakDamage = FlakDamage / Value;
-        DroneDamage = DroneDamage / Value;
-        LaserDamage = LaserDamage / Value;
-        MissileFireDelay = MissileFireDelay * Value;
-        NukeFireDelay = NukeFireDelay * Value;
-        HomingMissileFireDelay = HomingMissileFireDelay * Value;
-        MinigunFireDelay = MinigunFireDelay * Value;
-        FlakFireDelay = FlakFireDelay * Value;
-        DroneFireDelay = DroneFireDelay * Value;
-        LaserFireDelay = LaserFireDelay * Value;
-        MissileSpeed = MissileSpeed / Value;
-        NukeSpeed = NukeSpeed / Value;
-        HomingMissileSpeed = HomingMissileSpeed / Value;
-        MinigunSpeed = MinigunSpeed / Value;
-        FlakSpeed = FlakSpeed / Value;
-        DroneSpeed = DroneSpeed / Value;
-        LaserSpeed = LaserSpeed / Value;
+        Weapon.DamageRange.y = Weapon.DamageRange.y / Value;
+        Weapon.AttackSpeed = Weapon.AttackSpeed * Value;
+        Weapon.ProjectileSpeed = Weapon.ProjectileSpeed / Value;
     }
-    public void SkillController(string SkillName, float Value = 0, bool Bool = false)
+    public void SkillController(BaseSkillType SkillType, Weapon Weapon, float Value = 0, bool Bool = false)
     {
-        // float values
-        if (SkillName == "Damage Boost")
-            DamageBoost(Value);
+        switch (SkillType)
+        {
+            case BaseSkillType.None:
+                break;
 
-        if (SkillName == "Speed Boost")
-            SpeedBoost(Value);
+            case BaseSkillType.Damage: 
+                DamageBoost(Value, Weapon); break;
 
-        if (SkillName == "Larger Ammo Capacity")
-            AmmoIncrease(Value);
+            case BaseSkillType.Speed: 
+                SpeedBoost(Value); break;
 
-        if (SkillName == "Life Steal")
-            LifeSteal(Value);
+            case BaseSkillType.AmmoCapacity:
+                AmmoIncrease(Value); break;
 
-        if (SkillName == "Health Boost")
-            HealthBoost(Value);
-
-        if (SkillName == "Attack Speed")
-            AttackSpeed(Value);
-
-        if (SkillName == "XP Buff")
-            XPBuff(Value);
-
-        if (SkillName == "Extra Life")
-            ExtraLife(Value);
-
-        if (SkillName == "Projectile Speed")
-            ProjectileSpeed(Value);
-
-        if (SkillName == "Bullet Spread")
-            Spread(Value);
-
-        if (SkillName == "increased burst amount")
-            _BurstAmount(Value);
-
-        if (SkillName == "decreased burst delay")
-            _BurstDelay(Value);
-
-        if (SkillName == "Array Delay")
-            _ArrayDelay(Value);
-
-        // booleans
-        if (SkillName == "Double Shot")
-            _DoubleShot(Bool);
-
-        if (SkillName == "Backwards Fire")
-            _BackwardsFire(Bool);
-
-        if (SkillName == "Multishot")
-            _MultiShot(Bool);
-
-        if (SkillName == "Nuke")
-            _Nuke(Bool);
-
-        if (SkillName == "Flak")
-            _Flak(Bool);
-        
-        if (SkillName == "Drone")
-            _Drone(Bool);
-
-        if (SkillName == "Homing Missile")
-            _HomingMissile(Bool);
-
-        if (SkillName == "Minigun")
-            _MiniGun(Bool);
-
-        if (SkillName == "Laser")
-            _LaserGun(Bool);
-
-        if (SkillName == "Heavy Mine")
-            _MineHeavy(Bool);
-
-        if (SkillName == "Rapid Mine")
-            _MineRapid(Bool);
-
-        if (SkillName == "Homing Mine")
-            _MineHoming(Bool);
-
-        if (SkillName == "Rapid Fire")
-            _RapidFire(Bool);
-
-        if (SkillName == "Array Shot")
-            _ArrayShot(Bool);
-
-        if (SkillName == "Array Double Shot")
-            _ArrayDoubleShot(Bool);
-
+            case BaseSkillType.Health:
+                HealthBoost(Value); break;
+                
+            case BaseSkillType.AttackSpeed:
+                AttackSpeed(Value, Weapon); break;
+                
+            case BaseSkillType.Experience:
+                ExperienceBuff(Value); break;
+                
+            case BaseSkillType.ExtraLife:
+                ExtraLife(Value); break;
+                
+            case BaseSkillType.ProjectileSpeed:
+                ProjectileSpeed(Value, Weapon); break;
+                
+            case BaseSkillType.DoubleShot:
+                _DoubleShot(Bool, Weapon); break;
+                
+            case BaseSkillType.BackwardsFire:
+                _BackwardsFire(Bool, Weapon); break;
+                
+            case BaseSkillType.MultiShot:
+                _MultiShot(Bool, Weapon); break;
+        }
 
         // extra
-        CurrentStamina = MaxStamina;
+        CurrentAmmo = MaxAmmo;
         CurrentHealth = MaxHealth;
     }
 
     // Upgradeable Skills
 
-    void DamageBoost(float Value)
+    void DamageBoost(float Value, Weapon Weapon)
     {
-        MissileDamage *= Value;
-        NukeDamage *= Value;
-        MinigunDamage *= Value;
-        HomingMissileDamage *= Value;
-        FlakDamage *= Value;
-        DroneDamage *= Value;
-        LaserDamage *= Value;
-        MineHeavyDamage *= Value;
-        MineRapidDamage *= Value;
-        MineHomingDamage *= Value;
+        Weapon.DamageRange.y *= Value;
     }
     void SpeedBoost(float Value)
     {
@@ -444,30 +210,17 @@ public class StatsController : MonoBehaviour
     }
     void AmmoIncrease(float Value)
     {
-        MaxStamina *= Value;
-    }
-    void LifeSteal(float Value)
-    {
-        lifeSteal += Value - 1;
+        MaxAmmo *= Value;
     }
     void HealthBoost(float Value)
     {
         MaxHealth *= Value;
     }
-    void AttackSpeed(float Value)
+    void AttackSpeed(float Value, Weapon Weapon)
     {
-        MissileFireDelay /= Value;
-        NukeFireDelay /= Value;
-        MinigunFireDelay /= Value;
-        HomingMissileFireDelay /= Value;
-        FlakFireDelay /= Value; 
-        DroneFireDelay /= Value;
-        LaserFireDelay /= Value;
-        MineHeavyFireDelay /= Value;
-        MineRapidFireDelay /= Value;
-        MineHomingFireDelay /= Value;
+         Weapon.AttackSpeed /= Value;
     }
-    void XPBuff(float Value)
+    void ExperienceBuff(float Value)
     {
         ExpGain += Value;
     }
@@ -475,119 +228,26 @@ public class StatsController : MonoBehaviour
     {
         ExtraLives++;
     }
-    void ProjectileSpeed(float Value)
+    void ProjectileSpeed(float Value, Weapon Weapon)
     {
-        MissileSpeed *= Value;
-        NukeSpeed *= Value;
-        MinigunSpeed *= Value;
-        HomingMissileSpeed *= Value;
-        FlakSpeed *= Value;
-        DroneSpeed *= Value;
-        LaserSpeed *= Value;
-        ArrayShotSpeed *= Value;
-        MineHeavySpeed *= Value;
-        MineRapidSpeed *= Value;
-        MineHomingSpeed *= Value;
-
-    }
-    void Spread(float Value)
-    {
-        // n/a
+         Weapon.ProjectileSpeed *= Value;
     }
     
     // Boolean Skills
 
-    void _DoubleShot(bool Value)
+    void _DoubleShot(bool Value, Weapon Weapon)
     {
-        DoubleShot = Value;
-        DamageDebuff(1.4f);
+        Weapon.DoubleShot = Value;
+        DamageDebuff(1.4f, Weapon);
     }
-    void _BackwardsFire(bool Value)
+    void _BackwardsFire(bool Value, Weapon Weapon)
     {
-        BackwardsFire = Value;
-        DamageDebuff(1.2f);
+        Weapon.BackwardsFire = Value;
+        DamageDebuff(1.2f, Weapon);
     }
-    void _MultiShot(bool Value)
+    void _MultiShot(bool Value, Weapon Weapon)
     {
-        MultiShot = Value;
-        DamageDebuff(1.4f);
-    }
-    void _Nuke(bool Value)
-    {
-        Nuke = Value;
-        StatDebuff(1.5f);
-    }    
-    void _Flak(bool Value)
-    {
-        Flak = Value;
-        StatDebuff(1.5f);
-    }
-    void _Drone(bool Value)
-    {
-        Drone = Value;
-        StatDebuff(1.5f);
-    }
-    void _HomingMissile(bool Value)
-    {
-        HomingMissile = Value;
-        StatDebuff(1.5f);
-    }
-    void _MiniGun(bool Value)
-    {
-        Minigun = Value;
-        StatDebuff(1.5f);
-    }
-    void _LaserGun(bool Value)
-    {
-        Laser = Value;
-        StatDebuff(1.5f);
-    }
-    void _MineHeavy(bool Value)
-    {
-        MineHeavy = Value;
-        StatDebuff(1.5f);
-    }
-    void _MineRapid(bool Value)
-    {
-        MineRapid = Value;
-        StatDebuff(1.5f);
-    }
-    void _MineHoming(bool Value)
-    {
-        MineHoming = Value;
-        StatDebuff(1.5f);
-    }
-
-    // Class Specific Skills
-
-    // Rapid Fire
-    void _BurstAmount(float Value)
-    {
-        BurstAmount = Value;
-    }
-    void _BurstDelay(float Value)
-    {
-        BurstDelay /= Value;
-    }
-    void _RapidFire(bool Value)
-    {
-        RapidFire = Value;
-    }
-    
-
-    // Idle Skills
-    void _ArrayShot(bool Value)
-    {
-        ArrayShot = Value;
-        DamageDebuff(1.4f);
-    }
-    void _ArrayDelay(float Value)
-    {
-        ArrayDelay /= Value;
-    }
-    void _ArrayDoubleShot(bool Value)
-    {
-        ArrayDoubleShot = Value;
-        DamageDebuff(1.5f);
+        Weapon.MultiShot = Value;
+        DamageDebuff(1.4f, Weapon);
     }
 }

@@ -59,7 +59,6 @@ public class SystemSpawner : MonoBehaviour
 
             if (CurrentTry >= TryCount)
             {
-                Debug.Log("Couldn't find a valid Solar system position");
                 return;
             }
         }

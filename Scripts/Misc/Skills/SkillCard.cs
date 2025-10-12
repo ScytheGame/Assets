@@ -9,7 +9,6 @@ public class SkillCard : MonoBehaviour
     public TextMeshProUGUI skillDescriptionText;
     public TextMeshProUGUI skillDebuffDescriptionText;
     public TextMeshProUGUI BuffText;
-    public TextMeshProUGUI DebuffText;
     public GameObject BuffArrow;
     public GameObject DebuffArrow;
     public Button skillButton;
@@ -24,15 +23,15 @@ public class SkillCard : MonoBehaviour
         GameObject playerobject = GameObject.FindGameObjectWithTag("Player");
         Player = playerobject.GetComponent<PlayerController>();
 
-        skillNameText.text = skillData.skillName;
-        skillDescriptionText.text = skillData.skillDescription;
+        skillNameText.text = skillData.SkillName;
+        skillDescriptionText.text = skillData.SkillDescription;
         skillButton.onClick.AddListener(OnSkillSelected);
-        BuffText.text = skillData.skillBuff1;
+        BuffText.text = skillData.SkillBuff;
     }
     private void OnSkillSelected()
     {
         SkillsController.ApplySkill(skillData);
         SkillsController.CloseSkillPanel();
-        Player.SkillsAfterLevelUp();
+        Player.SkillAfterLevelUp();
     }
 }

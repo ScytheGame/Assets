@@ -10,8 +10,8 @@ public class HealthBar : MonoBehaviour
     {
         if (playerController != null)
         {
-            healthSlider.maxValue = playerController.maxHealth;
-            healthSlider.value = playerController.playerHealth;
+            healthSlider.maxValue = playerController.MaxHealth;
+            healthSlider.value = playerController.PlayerHealth;
         }
     }
 
@@ -19,8 +19,8 @@ public class HealthBar : MonoBehaviour
     {
         if (playerController != null)
         {
-            healthSlider.value = playerController.playerHealth;
-            healthSlider.maxValue = playerController.maxHealth;
+            healthSlider.value = playerController.PlayerHealth;
+            healthSlider.maxValue = playerController.MaxHealth;
         }
     }
 }

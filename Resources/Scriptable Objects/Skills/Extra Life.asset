@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 086202d15b52ef8468bfaee1883fb5ef, type: 3}
+  m_Name: Extra Life
+  m_EditorClassIdentifier: 
+  SkillName: Extra Life
+  InspectorSkillDescription: Gives the player one extra life
+  SkillDescription: Buffs player Speed
+  DescriptionSymbol: 
+  SkillBuff: Extra Life
+  SkillType: 7
+  SkillValue: 1
+  Prerequisites:
+  - RequiredSkillLevel: 5
+    PrerequisiteSkill: {fileID: 11400000, guid: 4b61fab9f91de7e4b801092f9689fc8c, type: 2}
+  SkillCurrentLevel: 0
+  SkillMaxLevel: 0
+  RequiredPlayerLevel: 15
+  IsOneTime: 0
+  UseRandomValues: 0
+  IsMultipleTime: 1
+  IncrementalValue: 0
+  SkillValueIncrement: 0
+  Weapon: {fileID: 0}
+  Class: {fileID: 0}

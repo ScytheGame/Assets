@@ -8,7 +8,6 @@ public class TargetIndicator : MonoBehaviour
     public Transform Player;
     public RectTransform arrowUI;
     public TextMeshProUGUI DistanceText;
-    public TextMeshProUGUI ObjectText;
     float MinDistanceForEnemies = 50;
     void Update()
     {
@@ -42,51 +41,21 @@ public class TargetIndicator : MonoBehaviour
         {
             if (Mathf.RoundToInt(Mathf.Sqrt(distanceToClosestEnemy)) > MinDistanceForEnemies)
             {
-                ObjectText.text = ("Enemy Detected");
                 DistanceText.text = "Distance: " + Mathf.RoundToInt(Mathf.Sqrt(distanceToClosestEnemy)) + "km";
                 return closestEnemy.transform;
             }
             else
             {
-               return FindClosestCelestialObject();
+               return null;
             }
 
-        }
-        else
-        {
-            return FindClosestCelestialObject();
-        }
-    }
-
-    Transform FindClosestCelestialObject()
-    {
-        float distanceToClosestCelestialObject = Mathf.Infinity;
-        GameObject closestCelestialObject = null;
-
-        GameObject[] AllCelestialObject = GameObject.FindGameObjectsWithTag("CelestialObject");
-
-        foreach (GameObject CurrentCelestialObject in AllCelestialObject)
-        {
-            float distanceToCelestialObject = (CurrentCelestialObject.transform.position - Player.position).sqrMagnitude;
-
-            if (distanceToCelestialObject < distanceToClosestCelestialObject)
-            {
-                distanceToClosestCelestialObject = distanceToCelestialObject;
-                closestCelestialObject = CurrentCelestialObject;
-            }
-        }
-
-        if (closestCelestialObject != null)
-        {
-            ObjectText.text = ("Celestial Object Detected");
-            DistanceText.text = "Distance: " + Mathf.RoundToInt(Mathf.Sqrt(distanceToClosestCelestialObject)) + "km";
-            return closestCelestialObject.transform;
         }
         else
         {
             return null;
         }
     }
+
     void PointArrowToEnemy(Transform enemy)
     {
         Vector3 directionToEnemy = enemy.position - Player.position;

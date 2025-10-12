@@ -10,16 +10,16 @@ public class StaminaBar : MonoBehaviour
     {
         if (playerController != null)
         {
-            StaminaSlider.maxValue = playerController.maxStamina;
-            StaminaSlider.value = playerController.playerStamina;
+            StaminaSlider.maxValue = playerController.MaxStamina;
+            StaminaSlider.value = playerController.PlayerStamina;
         }
     }
     void Update()
     {
         if (playerController != null)
         {
-            StaminaSlider.value = playerController.playerStamina;
-            StaminaSlider.maxValue = playerController.maxStamina;
+            StaminaSlider.value = playerController.PlayerStamina;
+            StaminaSlider.maxValue = playerController.MaxStamina;
         }
     }
 }

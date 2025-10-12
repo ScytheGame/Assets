@@ -142,269 +142,370 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Stardust_0
+      name: Fire_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 128
-        width: 65
-        height: 125
+        x: 8
+        y: 24
+        width: 8
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: fc3b49dfcf17a9b60800000000000000
-      internalID: 7753635039871808463
+      spriteID: 56a676f3c27cec44ebef72c4f02b35f9
+      internalID: 1155252900
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stardust_1
+      name: Fire_1
       rect:
         serializedVersion: 2
-        x: 66
-        y: 70
-        width: 63
-        height: 186
+        x: 24
+        y: 24
+        width: 8
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 9d49c825a270b7fa0800000000000000
-      internalID: -5802035816581786407
+      spriteID: 4206b41c3f18cd149a98b2a871906f4f
+      internalID: 1359410621
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stardust_2
+      name: Fire_2
       rect:
         serializedVersion: 2
-        x: 135
-        y: 199
-        width: 41
-        height: 57
+        x: 0
+        y: 16
+        width: 8
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 345d278db647e78d0800000000000000
-      internalID: -2846709907909847741
+      spriteID: f5282b6255c0e3641a87512818aa1efc
+      internalID: -157564382
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stardust_3
+      name: Fire_3
       rect:
         serializedVersion: 2
-        x: 198
-        y: 189
-        width: 54
-        height: 64
+        x: 8
+        y: 16
+        width: 8
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 45d7914bb13fec280800000000000000
-      internalID: -9021005703265288876
+      spriteID: de10b9471cc7ee5448c0c95b07c4d6dc
+      internalID: 446433100
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stardust_4
+      name: Fire_4
       rect:
         serializedVersion: 2
-        x: 129
-        y: 126
-        width: 62
-        height: 68
+        x: 16
+        y: 16
+        width: 8
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 7f8f61df3dbdb74e0800000000000000
-      internalID: -1982749507395847945
+      spriteID: a72cebaaa07a3ac4a9a3a1687dcabe29
+      internalID: 906796685
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stardust_5
+      name: Fire_5
       rect:
         serializedVersion: 2
-        x: 194
-        y: 64
-        width: 62
-        height: 126
+        x: 24
+        y: 16
+        width: 8
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 52f76b0e8598c48b0800000000000000
-      internalID: -5166603657680617691
+      spriteID: 498f919389d771c438d433d4ea4acec0
+      internalID: 1704526861
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stardust_6
+      name: Fire_6
       rect:
         serializedVersion: 2
-        x: 3
-        y: 71
-        width: 61
-        height: 54
+        x: 8
+        y: 8
+        width: 8
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: f92e806cc801dc310800000000000000
-      internalID: 1426814853750252191
+      spriteID: 420f5986a3a8cf7438011ae47aff2275
+      internalID: 833435318
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stardust_7
+      name: Fire_7
       rect:
         serializedVersion: 2
-        x: 127
-        y: 69
-        width: 66
-        height: 48
+        x: 0
+        y: 24
+        width: 8
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 9cda85f13d5074e30800000000000000
-      internalID: 4487561958020132297
+      spriteID: 7816f4861424c4a438d31e6110c1febd
+      internalID: -821402340
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stardust_8
+      name: Fire_8
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 24
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3ebb94fef392e3488027b4cf647ba29
+      internalID: -653572744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_9
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 8
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49c8210e7ea45ec45a1cadbd34ccd28e
+      internalID: 1054017017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_10
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 61
-        height: 55
+        width: 8
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 3c62679353a6c6c00800000000000000
-      internalID: 895207202769741507
+      spriteID: 8021fc85d6c7a9a479f4ede3ff31c3b5
+      internalID: 260898977
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stardust_9
+      name: Fire_11
       rect:
         serializedVersion: 2
-        x: 66
+        x: 0
+        y: 8
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b900079115e3cde4bb6772759493631d
+      internalID: 725767264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_12
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 8
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eef0d55d3d2a30d409c6e83cb691475a
+      internalID: 1676245046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_13
+      rect:
+        serializedVersion: 2
+        x: 8
         y: 0
-        width: 62
-        height: 61
+        width: 8
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: a7b3e2a5566237650800000000000000
-      internalID: 6229364926330059642
+      spriteID: 12ff1c80c5f628e4c8097ad00ff8d324
+      internalID: -474351219
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stardust_10
+      name: Fire_14
       rect:
         serializedVersion: 2
-        x: 134
+        x: 16
         y: 0
-        width: 57
-        height: 66
+        width: 8
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 9776f5693ab625e80800000000000000
-      internalID: -8191366421886834823
+      spriteID: c31c00a1b2b0e1f4383106674b43cc5f
+      internalID: -594868692
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stardust_11
+      name: Fire_15
       rect:
         serializedVersion: 2
-        x: 193
-        y: 2
-        width: 60
-        height: 61
+        x: 24
+        y: 0
+        width: 8
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 9bb608a2f6d464410800000000000000
-      internalID: 1460940268978072505
+      spriteID: e1c229b73474cce498d5ef62749f6e27
+      internalID: 1380974127
       vertices: []
       indices: 
       edges: []
@@ -413,7 +514,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: c6b0bb9b1b963ec468fff47865628087
     internalID: 0
     vertices: []
     indices: 
@@ -423,6 +524,22 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
+      Fire_0: 1155252900
+      Fire_1: 1359410621
+      Fire_10: 260898977
+      Fire_11: 725767264
+      Fire_12: 1676245046
+      Fire_13: -474351219
+      Fire_14: -594868692
+      Fire_15: 1380974127
+      Fire_2: -157564382
+      Fire_3: 446433100
+      Fire_4: 906796685
+      Fire_5: 1704526861
+      Fire_6: 833435318
+      Fire_7: -821402340
+      Fire_8: -653572744
+      Fire_9: 1054017017
       Stardust_0: 7753635039871808463
       Stardust_1: -5802035816581786407
       Stardust_10: -8191366421886834823

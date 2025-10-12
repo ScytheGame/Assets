@@ -143,7 +143,7 @@ TextureImporter:
         width: 64
         height: 80
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -165,7 +165,7 @@ TextureImporter:
         width: 64
         height: 80
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -187,7 +187,7 @@ TextureImporter:
         width: 64
         height: 80
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -201,35 +201,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SpaceShip Carboard colour-export_3
+      name: SpaceShip Sprites_0
       rect:
         serializedVersion: 2
-        x: 128
-        y: 80
-        width: 64
-        height: 80
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b949d798a845b35b0800000000000000
-      internalID: -5387619575229737829
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SpaceShip Carboard colour-export_4
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 80
-        width: 64
-        height: 80
+        x: 0
+        y: 0
+        width: 128
+        height: 160
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -238,8 +216,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e1d993664eb331a408c25469678076b7
-      internalID: 1411590212
+      spriteID: de8f0325a9e30ef46b948f5de9ee7167
+      internalID: -1229318957
       vertices: []
       indices: 
       edges: []
@@ -263,6 +241,7 @@ TextureImporter:
       SpaceShip Carboard colour-export_2: 8616375048322172316
       SpaceShip Carboard colour-export_3: -5387619575229737829
       SpaceShip Carboard colour-export_4: 1411590212
+      SpaceShip Sprites_0: -1229318957
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

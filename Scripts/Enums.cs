@@ -1,70 +1,22 @@
+public enum BaseSkillType
+{
+    // Base
+    None,
+    Damage,
+    Speed,
+    AmmoCapacity,
+    Health,
+    AttackSpeed,
+    Experience,
+    ExtraLife,
+    ProjectileSpeed,
 
-public enum BaseWeapon 
-{ 
-    None,
-    Heavy,
-    Homing,
-    Rapid
-};
-public enum Weapon 
-{ 
-    None,
-    Missile,
-    Nuke,
-    Minigun ,
-    Homing_Missile,
-    Flak,
-    Drone,
-    Laser,
-    Heavy,
-    Rapid,
-    Homing,
-    Start,
-    Heavy_Mine,
-    Rapid_Mine,
-    Homing_Mine
-};
-public enum ID 
-{ 
-    None,
-    DB,
-    SB,
-    AS,
-    PS,
-    HB,
-    AB,
-    EB,
-    SVB,
-    SCB,
-    MS,
-    DS,
-    BF,
-    ArrS,
-    ArrSB,
-    RF,
-    Heavy,
-    Rapid,
-    Homing,
-    Nuke,
-    Flak,
-    Laser,
-    HomingMissile,
-    Start,
-    MineH,
-    MineR,
-    MineHO
-};
-public enum WeaponCode 
-{ 
-    None,
-    Missile,
-    Nuke,
-    MiniGun,
-    HomingMissile,
-    Flak,
-    Drone,
-    Laser,
-    MineHeavy,
-    MineRapid,
-    MineHoming
+    // Bool
+    DoubleShot,
+    BackwardsFire,
+    MultiShot,
+
+    // Skill Tree Extras
+    SkillValueBoost,
+    SkillChanceBias,
 }

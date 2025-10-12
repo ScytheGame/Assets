@@ -6,68 +6,60 @@ using UnityEngine.AI;
 public class LevelsManager : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] TextMeshProUGUI currentLevelText;
+    [SerializeField] TextMeshProUGUI CurrentLevelText;
     [SerializeField] TextMeshProUGUI xpText;
     SkillsController SkillsController;
     StatsController StatsController;
-    public Slider xpBar;
+    public Slider XPBar;
 
-    [Space(10)]
-    [Header("Settings")]
-    [SerializeField] public float targetXP;
-    [SerializeField] float targetXpIncrease;
-    public bool leveledUp = false;
 
-    public float currentLevel;
-    public float currentXP;
-    private List<Button> skillButtons;
+    public float TargetXP { get => StatsController.TargetXP; set => StatsController.TargetXP = value; }
+    float TargetXpIncrease { get => StatsController.TargetXpIncrease; set => StatsController.TargetXpIncrease = value; }
+    public bool LeveledUp { get => StatsController.LeveledUp; set => StatsController.LeveledUp = value; }
+
+    public int CurrentLevel { get => StatsController.CurrentLevel; set => StatsController.CurrentLevel = value; }
+    public float CurrentXP { get => StatsController.CurrentXP; set => StatsController.CurrentXP = value; }
 
 
     private void Start()
     {
         SkillsController = GameObject.FindWithTag("Player").GetComponent<SkillsController>();
         StatsController = GameObject.FindWithTag("Player").GetComponent<StatsController>();
-        StatsController.currentLevel = 1;
+        CurrentLevel = 1;
         UpdateHUD();
     }
 
 
-    public void Update()
+    public void FixedUpdate()
     {
         CheckForLevelUp();
         UpdateHUD();
-        currentLevel = StatsController.currentLevel;
-        currentXP = StatsController.currentXP;
-        leveledUp = StatsController.leveledUp;
-        targetXP = StatsController.targetXP;
-        targetXpIncrease = StatsController.targetXpIncrease;
-        
     }
 
     private void CheckForLevelUp()
     {
 
-        if (StatsController.currentXP >= StatsController.targetXP)
+        if (CurrentXP >= TargetXP)
         {
-            StatsController.currentLevel++;
-            StatsController.currentXP = 0;
-            StatsController.targetXP += StatsController.targetXpIncrease;
-            StatsController.leveledUp = true;
-            leveledUp = true;
+            CurrentLevel++;
+            CurrentXP = 0;
+            TargetXP += TargetXpIncrease;
+            LeveledUp = true;
+            LeveledUp = true;
         }
 
-        if (leveledUp == true)
+        if (LeveledUp == true)
         {
             SkillsController.DisplaySkillPanel();
         }
-        StatsController.leveledUp = false;
+        LeveledUp = false;
     }
 
     private void UpdateHUD()
     {
-        currentLevelText.text = "Level " + StatsController.currentLevel;
-        xpText.text = StatsController.currentXP + "/" + StatsController.targetXP;
-        xpBar.maxValue = StatsController.targetXP;
-        xpBar.value = StatsController.currentXP;
+        CurrentLevelText.text = "Level " + CurrentLevel;
+        xpText.text = CurrentXP + "/" + TargetXP;
+        XPBar.maxValue = TargetXP;
+        XPBar.value = CurrentXP;
     }
 }

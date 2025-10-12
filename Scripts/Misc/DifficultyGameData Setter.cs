@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class DifficultyGameDataSetter : MonoBehaviour
 {
-    [SerializeField] RandomEnemySpawn RandomEnemySpawn;
+     // [SerializeField] RandomEnemySpawn RandomEnemySpawn;
 
     [SerializeField] float[] maxCount = { 10, 40, 60 };
     [SerializeField] float[] spawnDelay = { 6, 5, 4};
@@ -16,11 +16,12 @@ public class DifficultyGameDataSetter : MonoBehaviour
     void Awake()
     {
         int DifficultyInt = PlayerPrefs.GetInt("difficulty", 0);
-        if (RandomEnemySpawn != null)
-        {
-            RandomEnemySpawn.maxCount = maxCount[DifficultyInt];
-            RandomEnemySpawn.spawnDelay = spawnDelay[DifficultyInt];
-        }
+
+        //if (RandomEnemySpawn != null)
+        //{
+        //    RandomEnemySpawn.maxCount = maxCount[DifficultyInt];
+        //    RandomEnemySpawn.spawnDelay = spawnDelay[DifficultyInt];
+        //}
 
         DifficultyGameData.NegativeLevelRange = NegativeLevelRange[DifficultyInt];
         DifficultyGameData.PositiveLevelRange = PositiveLevelRange[DifficultyInt];

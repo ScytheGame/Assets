@@ -24,11 +24,11 @@ public class SkillInterface : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         SkillPopupObject = GameObject.FindWithTag("Popup");
         SkillPopup = SkillPopupObject.GetComponent<SkillPopup>();
 
-        SkillNameText = SkillPrefabController.SkillNameText;
-        skillDescriptionText = SkillPrefabController.skillDescriptionText;
-        CelestialCostText = SkillPrefabController.CelestialCostText;
-        SolarCostText = SkillPrefabController.SolarCostText;
-        UpgradeLevelText = SkillPrefabController.UpgradeLevelText;
+        SkillNameText = SkillPrefabController.SkillTree.SkillNameText;
+        skillDescriptionText = SkillPrefabController.SkillTree.skillDescriptionText;
+        CelestialCostText = SkillPrefabController.SkillTree.CelestialCostText;
+        SolarCostText = SkillPrefabController.SkillTree.SolarCostText;
+        UpgradeLevelText = SkillPrefabController.SkillTree.UpgradeLevelText;
         IsOwned = SkillPrefabController.IsOwned;
         IsLocked = SkillPrefabController.IsLocked;
         SkillPrefabController.IsMouseOver = IsMouseOver;

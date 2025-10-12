@@ -12,64 +12,41 @@ public class SkillsController : MonoBehaviour
     [Space(10)]
     [Header("Skill Panel")]
     [SerializeField] public GameObject SkillPanel;
-    [SerializeField] Transform skillContainer;
-    [SerializeField] GameObject skillCardPrefab;
+    [SerializeField] Transform SkillContainer;
+    [SerializeField] GameObject SkillCardPrefab;
     [SerializeField] StatsController StatsController;
 
     [Space(10)]
     [Header("Skills List")]
-    public List<SkillData> allSkills = new List<SkillData>();
-    private List<Button> skillButtons;
-
-    [Space(10)]
-    [Header("Base Weapon")]
-    [SerializeField] GameObject WeaponCardPrefabHeavy, WeaponCardPrefabHoming, WeaponCardPrefabRapid;
-    [SerializeField] public BaseWeapon SelectedWeapon;
-    [SerializeField] Skill Skill;
-    [SerializeField] public bool WeaponSelected = false;
+    public List<SkillData> SkillsList = new List<SkillData>();
+    private List<Button> SkillButtons;
 
     [Space(10)]
     [Header("Skills Controller")]
     [SerializeField] AllSkills AllSkills;
+    public float PlayerLevel;
 
-    bool weaponClassSelected = false;
-    public float playerLevel;
-
-    [TableList] public List<SkillData> unlockedSkills = new List<SkillData>();
+    [TableList] public List<SkillData> UnlockedSkills = new List<SkillData>();
 
 
     private void Start()
     {
         SkillPanel.SetActive(false);
 
-        skillButtons = new List<Button>();
-        WeaponSelector();
+        SkillButtons = new List<Button>();
         
     }
 
     public void AddSkills(List<SkillData> skills)
     {
-        allSkills.Clear();
-        allSkills = skills;
-        Debug.Log("Number of skills: " + allSkills.Count);
-        foreach (SkillData skillData in allSkills)
+        SkillsList.Clear();
+        SkillsList = skills;
+        Debug.Log("Number of skills: " + SkillsList.Count);
+        foreach (SkillData skillData in SkillsList)
         {
-            Debug.Log("Skill Name: " + skillData.skillName);
+            Debug.Log("Skill Name: " + skillData.SkillName);
         }
     }
-    void WeaponSelector()
-    {
-        Time.timeScale = 0;
-        SkillPanel.SetActive(true);
-        if (weaponClassSelected == false)
-        {
-            Instantiate(WeaponCardPrefabHeavy, skillContainer);
-            Instantiate(WeaponCardPrefabRapid, skillContainer);
-            Instantiate(WeaponCardPrefabHoming, skillContainer);
-            weaponClassSelected = true;
-        }
-    }
-
     public void DisplaySkillPanel()
     {
         Time.timeScale = 0;
@@ -81,71 +58,71 @@ public class SkillsController : MonoBehaviour
     private void PopulateSkillChoices()
     {
         AllSkills.UpdateSkills();
-        Debug.Log("skillContainer: " + skillContainer);
-        Debug.Log("skillCardPrefab: " + skillCardPrefab);
-        Debug.Log("skillButtons: " + skillButtons.Count);
-        foreach (SkillData skillData in allSkills)
+        Debug.Log("skillContainer: " + SkillContainer);
+        Debug.Log("skillCardPrefab: " + SkillCardPrefab);
+        Debug.Log("skillButtons: " + SkillButtons.Count);
+        foreach (SkillData SkillData in SkillsList)
         {
-            Debug.Log("Skill Name" + skillData.skillName);
+            Debug.Log("Skill Name" + SkillData.SkillName);
         }
 
-        foreach (Transform child in skillContainer)
+        foreach (Transform Child in SkillContainer)
         {
-            Destroy(child.gameObject);
+            Destroy(Child.gameObject);
         }
 
 
-        int count = 3;
+        int Count = 3;
 
 
-        List<SkillData> selectableSkills = new List<SkillData>();
+        List<SkillData> SelectableSkills = new List<SkillData>();
 
 
-        foreach (SkillData skill in allSkills)
+        foreach (SkillData Skill in SkillsList)
         {
-            Debug.Log("Skill Name: " + skill.skillName);
-            Debug.Log("player level " + playerLevel + " : " + skill.requiredLevel);
-            Debug.Log("is unlocked skill " + unlockedSkills.Contains(skill));
-            Debug.Log("is not skill one time " + !skill.isOneTime);
-            Debug.Log("are prerequisites met " + ArePrerequisitesMet(skill));
-            Debug.Log("is skill not multiple time " + !skill.isMultipleTime);
-            if (skill.isMultipleTime)
+            Debug.Log("Skill Name: " + Skill.SkillName);
+            Debug.Log("player level " + PlayerLevel + " : " + Skill.RequiredPlayerLevel);
+            Debug.Log("is unlocked skill " + UnlockedSkills.Contains(Skill));
+            Debug.Log("is not skill one time " + !Skill.IsOneTime);
+            Debug.Log("are prerequisites met " + ArePrerequisitesMet(Skill));
+            Debug.Log("is skill not multiple time " + !Skill.IsMultipleTime);
+            if (Skill.IsMultipleTime)
             {
-                Debug.Log("skill Current level " + skill.currentLevel + " : " + skill.MaxLevel);
+                Debug.Log("skill Current level " + Skill.SkillCurrentLevel + " : " + Skill.SkillMaxLevel);
             }
-            if (playerLevel >= skill.requiredLevel && (!unlockedSkills.Contains(skill)) && ArePrerequisitesMet(skill) && !skill.isMultipleTime)
+            if (PlayerLevel >= Skill.RequiredPlayerLevel && (!UnlockedSkills.Contains(Skill)) && ArePrerequisitesMet(Skill) && !Skill.IsMultipleTime)
             {
-                selectableSkills.Add(skill);
+                SelectableSkills.Add(Skill);
             }
-            else if (playerLevel >= skill.requiredLevel && (!unlockedSkills.Contains(skill)) && ArePrerequisitesMet(skill) && skill.isMultipleTime)
+            else if (PlayerLevel >= Skill.RequiredPlayerLevel && (!UnlockedSkills.Contains(Skill)) && ArePrerequisitesMet(Skill) && Skill.IsMultipleTime)
             {
-                if (skill.MaxLevel < skill.currentLevel)
+                if (Skill.SkillCurrentLevel < Skill.SkillMaxLevel || Skill.SkillMaxLevel == 0)
                 {
-                    selectableSkills.Add(skill);
+                    SelectableSkills.Add(Skill);
                 }
             }
         }
 
 
-        Shuffle(selectableSkills);
+        Shuffle(SelectableSkills);
 
 
-        for (int i = 0; i < Mathf.Min(count, selectableSkills.Count); i++)
+        for (int i = 0; i < Mathf.Min(Count, SelectableSkills.Count); i++)
         {
-            SkillData selectedSkill = selectableSkills[i];
-            GameObject skillCardInstance = Instantiate(skillCardPrefab, skillContainer);
+            SkillData selectedSkill = SelectableSkills[i];
+            GameObject skillCardInstance = Instantiate(SkillCardPrefab, SkillContainer);
             SkillCard skillCard = skillCardInstance.GetComponent<SkillCard>();
             skillCard.Initialize(selectedSkill, this);
-            Debug.Log("Selectable Skill List :" + selectableSkills);
+            Debug.Log("Selectable Skill List :" + SelectableSkills);
         }
     }
     private bool ArePrerequisitesMet(SkillData skill)
     {
-        foreach (SkillData prerequisite in skill.prerequisites)
+        foreach (PrerequisiteSkillData SkillPrerequisite in skill.Prerequisites)
         {
-            if (!unlockedSkills.Contains(prerequisite) || prerequisite.currentLevel < skill.requiredSkillLevel)
+            if (!UnlockedSkills.Contains(SkillPrerequisite.PrerequisiteSkill) || SkillPrerequisite.PrerequisiteSkill.SkillCurrentLevel <  SkillPrerequisite.RequiredSkillLevel)
             {
-                Debug.Log("Prerequisite not met for skill: " + skill.skillName + ". Requires: " + prerequisite.skillName + " at level " + skill.requiredSkillLevel);
+                Debug.Log("Prerequisite not met for skill: " + skill.SkillName + ". Requires: " + SkillPrerequisite.PrerequisiteSkill.SkillName + " at level " + SkillPrerequisite.RequiredSkillLevel);
                 return false;
             }
         }
@@ -164,27 +141,32 @@ public class SkillsController : MonoBehaviour
 
     public void ApplySkill(SkillData SelectedSkill)
     {
-        if (SelectedSkill.isOneTime && unlockedSkills.Contains(SelectedSkill))
+        if (SelectedSkill.IsOneTime && UnlockedSkills.Contains(SelectedSkill))
         {
-            Debug.LogError("Skill Already Unlocked: " + SelectedSkill.skillName);
+            Debug.LogError("Skill Already Unlocked: " + SelectedSkill.SkillName);
             return;
         }
 
-        if (!SelectedSkill.isOneTime || !unlockedSkills.Contains(SelectedSkill))
+        if (!SelectedSkill.IsOneTime || !UnlockedSkills.Contains(SelectedSkill))
         {
-            if (!unlockedSkills.Contains(SelectedSkill) && SelectedSkill.isOneTime)
+            if (!UnlockedSkills.Contains(SelectedSkill) && SelectedSkill.IsOneTime)
             {
-                unlockedSkills.Add(SelectedSkill);
+                UnlockedSkills.Add(SelectedSkill);
             }
-            if (SelectedSkill.BoolSkill == false)
+
+            if (!SelectedSkill.IsOneTime)
             {
-                StatsController.SkillController(SelectedSkill.skillName, SelectedSkill.FloatSkill + 1);
+                StatsController.SkillController(SelectedSkill.SkillType, SelectedSkill.Weapon, SelectedSkill.SkillValue + 1);
             }
-            if (SelectedSkill.BoolSkill == true)
+
+            if (SelectedSkill.IsOneTime)
             {
-                StatsController.SkillController(SelectedSkill.skillName, Bool: SelectedSkill.BoolSkill);
+                StatsController.SkillController(SelectedSkill.SkillType, SelectedSkill.Weapon, Bool: true);
+
+                if (SelectedSkill.IncrementalValue)
+                    SelectedSkill.SkillValueUpdate();
             }
-            SelectedSkill.currentLevel++;
+            SelectedSkill.SkillCurrentLevel++;
 
         }
     }
