@@ -11332,7 +11332,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'FPS: .29 (3473.88 ms)'
+  m_text: 'FPS: 1.19 (839.03 ms)'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b03b992b2252dab4c9668a1b0eba5b93, type: 2}
   m_sharedMaterial: {fileID: -5243488613788892683, guid: b03b992b2252dab4c9668a1b0eba5b93, type: 2}

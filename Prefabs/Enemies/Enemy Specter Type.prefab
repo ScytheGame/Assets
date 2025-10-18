@@ -706,7 +706,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RotationSpeed: 10
-  RotationOffset: 180
+  RotationOffset: -90
 --- !u!60 &3903694888681569546
 PolygonCollider2D:
   m_ObjectHideFlags: 0
