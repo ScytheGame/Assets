@@ -2,6 +2,7 @@ public enum BaseSkillType
 {
     // Base
     None,
+    Weapon,
     Damage,
     Speed,
     AmmoCapacity,

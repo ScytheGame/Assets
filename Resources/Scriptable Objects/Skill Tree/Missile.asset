@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc042278d9370634f9839d17d804baca, type: 3}
-  m_Name: Start
+  m_Name: Missile
   m_EditorClassIdentifier: 
-  SkillNameText: Early Beginnings
-  skillDescriptionText: 'This is the start of it all '
-  SkillIcon: {fileID: 21300000, guid: 6f8ec99ab20af434f9a044998a906465, type: 3}
+  SkillNameText: Missile
+  skillDescriptionText: Unlocks Missile from the heavy class
+  SkillIcon: {fileID: 21300000, guid: dc1aa5d31ff548e44b9eda3effab0e4a, type: 3}
   CelestialCostText: 
   SolarCostText: 
   UpgradeLevelText: 
-  BaseSkillType: 0
+  BaseSkillType: 1
+  Weapon: {fileID: 11400000, guid: b3392d68ac992ee4b8cb391a7e412391, type: 2}
   CelestialCost: 0
   SolarCost: 0
   CelestialCostIncreasePerLevel: 0

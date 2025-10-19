@@ -162,8 +162,10 @@ public class SkillPrefabController : MonoBehaviour
                 if (SkillTree.UpgradeLevel < SkillTree.MaxUpgradeLevel)
                 {
                     SkillTree.UpgradeLevel++;
-                    Stats.CelestialPoints -= SkillTree.CelestialCost;
-                    Stats.SolarPoints -= SkillTree.SolarCost;
+                    
+                    Stats.RemoveCelestialPoints((int)SkillTree.CelestialCost);
+                    Stats.RemoveSolarPoints((int)SkillTree.SolarCost);
+
                     if (SkillTree.UpgradeLevel >= SkillTree.MaxUpgradeLevel)
                         IsOwned = true;
 
@@ -171,7 +173,7 @@ public class SkillPrefabController : MonoBehaviour
                     SkillTree.SolarCost += SkillTree.SolarCostIncreasePerLevel;
                     
                     SkillTreeData skillData = SkillTreeData.Load();
-                    skillData.Apply(SkillTree.BaseSkillType, SkillTree.SkillValue);
+                    skillData.Apply(SkillTree.BaseSkillType, SkillTree.SkillValue, SkillTree.Weapon);
 
                     //Skill.Upgrade(SkillID, SkillWeaponFloat, SkillValue); // SkillId, Float Weapon, Float Value
                     Save();

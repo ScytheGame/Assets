@@ -3674,13 +3674,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 304979864}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89c1a0115a4d6304fa1a5dfbc0ff1a15, type: 3}
+  m_Script: {fileID: 11500000, guid: 44e12b29c4674dd41b672122084b33e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Level: 0
-  KillCount: 0
-  TimePlayed: 0
-  StatsController: {fileID: 1924233984648576667}
+  SolarPoints: 0
+  CelestialPoints: 0
+  InMenu: 0
+  SolarPointsText: {fileID: 0}
+  CelestialPointsText: {fileID: 0}
 --- !u!1 &335185661
 GameObject:
   m_ObjectHideFlags: 0
@@ -11332,7 +11333,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'FPS: 1.19 (839.03 ms)'
+  m_text: 'FPS: .28 (3555.12 ms)'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b03b992b2252dab4c9668a1b0eba5b93, type: 2}
   m_sharedMaterial: {fileID: -5243488613788892683, guid: b03b992b2252dab4c9668a1b0eba5b93, type: 2}
@@ -16239,7 +16240,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9034891345860357337}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TrailEffectsController, Assembly-CSharp
         m_MethodName: DropDownTrail
         m_Mode: 0
@@ -20205,7 +20206,7 @@ PrefabInstance:
     - target: {fileID: 3927446146229312631, guid: e4f7040d28a95a4499001255815d69b3, type: 3}
       propertyPath: ActiveWeapon
       value: 
-      objectReference: {fileID: 11400000, guid: 733f8e3add25e0144ad50c97538bf247, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 3927446146229312631, guid: e4f7040d28a95a4499001255815d69b3, type: 3}
       propertyPath: GameSettings
       value: 
@@ -22326,7 +22327,6 @@ GameObject:
   - component: {fileID: 9034891345860357333}
   - component: {fileID: 9034891345860357334}
   - component: {fileID: 9034891345860357336}
-  - component: {fileID: 9034891345860357337}
   - component: {fileID: 9034891345860357338}
   - component: {fileID: 9034891345860357339}
   m_Layer: 5
@@ -22732,18 +22732,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WorldBrightnessSlider: {fileID: 262974541}
   Light2D: {fileID: 1554484992}
---- !u!114 &9034891345860357337
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8228461439249933088}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b76244487edbd8e4ea13d28466654093, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &9034891345860357338
 MonoBehaviour:
   m_ObjectHideFlags: 0

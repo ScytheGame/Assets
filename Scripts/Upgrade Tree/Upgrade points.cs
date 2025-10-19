@@ -1,44 +1,24 @@
 using TMPro;
 using UnityEngine;
-
+using System.IO;
 public class Upgradepoints : MonoBehaviour
 {
-    int Level;
-    int KillCount;
-    int TimePlayed;
-
-    public float SolarPoints;
-    public float CelestialPoints;
+    public int SolarPoints;
+    public int CelestialPoints;
 
     [SerializeField] bool InMenu;
 
     [SerializeField] TextMeshProUGUI SolarPointsText;
     [SerializeField] TextMeshProUGUI CelestialPointsText;
 
+    string FilePath = Path.Combine(Application.dataPath, "UpgradePoints.json");
+
     void OnEnable()
     {
-        if (InMenu)
-        {
-            SolarPoints = PlayerPrefs.GetFloat("SolarPoints", 0);
-            CelestialPoints = PlayerPrefs.GetFloat("CelestialPoints", 0);
-        }
-        else
-        {
-            Level = PlayerPrefs.GetInt("Level", 0);
-            KillCount = PlayerPrefs.GetInt("KillCount", 0);
-            TimePlayed = PlayerPrefs.GetInt("TimePlayed", 0);
+        Load();
 
-            SolarPoints = PlayerPrefs.GetFloat("SolarPoints", 0);
-            CelestialPoints = PlayerPrefs.GetFloat("CelestialPoints", 0);
-
-            SolarPoints += Mathf.Round(Level / 3);
-            SolarPoints += Mathf.Round(KillCount / 10);
-            SolarPoints += Mathf.Round(TimePlayed / 2);
-
-            PlayerPrefs.SetFloat("SolarPoints", SolarPoints);
-            PlayerPrefs.SetFloat("CelestialPoints", CelestialPoints);
+        if (!InMenu)
             Save();
-        }
     }
 
     void FixedUpdate()
@@ -49,9 +29,52 @@ public class Upgradepoints : MonoBehaviour
             CelestialPointsText.text = ("CelestialPoints: " + CelestialPoints);
         }
     }
+
+    public void AddSolarPoints(int Amount)
+    {
+        SolarPoints += Amount;
+        Save();
+    }
+    public void AddCelestialPoints(int Amount)
+    {
+        CelestialPoints += Amount;
+        Save();
+    }
+    public void RemoveCelestialPoints(int Amount)
+    {
+        CelestialPoints -= Amount;
+        Save();
+    }
+    public void RemoveSolarPoints(int Amount)
+    {
+        SolarPoints -= Amount;
+        Save();
+    }
+
+    public void Load()
+    {
+        if (File.Exists(FilePath))
+        {
+            string Json = File.ReadAllText(FilePath);
+            UpgradePointWrapper Data = JsonUtility.FromJson<UpgradePointWrapper>(Json);
+            SolarPoints = Data.SolarPoints;
+            CelestialPoints = Data.CelestialPoints;
+        }
+    }
     public void Save()
     {
-        PlayerPrefs.SetFloat("SolarPoints", SolarPoints);
-        PlayerPrefs.SetFloat("CelestialPoints", CelestialPoints);
+        UpgradePointWrapper Data = new UpgradePointWrapper
+        {
+            SolarPoints = this.SolarPoints,
+            CelestialPoints = this.CelestialPoints
+        };
+
+        string Json = JsonUtility.ToJson(Data, true);
+        File.WriteAllText(FilePath, Json);
     }
+}
+public class UpgradePointWrapper
+{
+    public int SolarPoints;
+    public int CelestialPoints;
 }

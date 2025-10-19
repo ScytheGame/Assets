@@ -5,21 +5,18 @@ public class SkillTreeData
 {
     private static string FilePath = Path.Combine(Application.persistentDataPath, "SkillTreeData.json");
 
-
-
-    public bool DoubleShot, BackwardsFire, MultiShot;
+    public Dictionary<string, Weapon> WeaponList = new Dictionary<string, Weapon>();
+    public Dictionary<string, SkillClassData> ClassList = new Dictionary<string, SkillClassData>();
+    public Dictionary<string, SkillWeaponData> WeaponSkillList = new Dictionary<string, SkillWeaponData>();
 
     public float SpeedBoost = 1, HealthBoost, AmmoBoost, ExperienceBoost, SkillValueBoost = 0.2f, SkillChanceBias = 0.55f;
-    public float DamageBoost = 1;
-    public float AttackSpeed = 1;
-    public float ProjectileSpeed = 1;
 
     public SkillTreeData()
     {
 
     }
 
-    public void Apply(BaseSkillType SkillType, float Value)
+    public void Apply(BaseSkillType SkillType, float Value, Weapon Weapon)
     {
 
         switch (SkillType)
@@ -27,8 +24,12 @@ public class SkillTreeData
             case BaseSkillType.None:
                 break;
 
+            case BaseSkillType.Weapon:
+                WeaponList.Add(Weapon.WeaponName, Weapon);
+                break;
+
             case BaseSkillType.Damage:
-                DamageBoost += Value; break;
+                WeaponSkillList[Weapon.WeaponName].DamageBoost += Value; break;
             
             case BaseSkillType.Speed:
                 SpeedBoost += Value; break;
@@ -40,22 +41,22 @@ public class SkillTreeData
                 HealthBoost += Value; break;
             
             case BaseSkillType.AttackSpeed:
-                AttackSpeed += Value; break;
+                WeaponSkillList[Weapon.WeaponName].AttackSpeed += Value; break;
             
             case BaseSkillType.Experience:
                 ExperienceBoost += Value; break;
             
             case BaseSkillType.ProjectileSpeed:
-                ProjectileSpeed += Value; break;
+                WeaponSkillList[Weapon.WeaponName].ProjectileSpeed += Value; break;
             
             case BaseSkillType.DoubleShot:
-                DoubleShot = true; break;
+                WeaponSkillList[Weapon.WeaponName].DoubleShot = true; break;
             
             case BaseSkillType.BackwardsFire:
-                BackwardsFire = true; break;
+                WeaponSkillList[Weapon.WeaponName].BackwardsFire = true; break;
             
             case BaseSkillType.MultiShot:
-                MultiShot = true; break;
+                WeaponSkillList[Weapon.WeaponName].MultiShot = true; break;
 
             case BaseSkillType.SkillValueBoost:
                 SkillValueBoost += Value; break;
@@ -71,7 +72,9 @@ public class SkillTreeData
 
     public static void Save(SkillTreeData Data)
     {
-        string Json = JsonUtility.ToJson(Data, true);
+        SerializableDictionary<string, SkillWeaponData> SerializableWeaponSkillList = new SerializableDictionary<string, SkillWeaponData>(Data.WeaponSkillList);
+
+        string Json = JsonUtility.ToJson(new SkillTreeDataWrapper(Data, SerializableWeaponSkillList), true);
         File.WriteAllText(FilePath, Json);
     }
 
@@ -80,9 +83,52 @@ public class SkillTreeData
         if (File.Exists(FilePath))
         {
             string json = File.ReadAllText(FilePath);
-            return JsonUtility.FromJson<SkillTreeData>(json);
+            SkillTreeDataWrapper wrapper = JsonUtility.FromJson<SkillTreeDataWrapper>(json);
+
+            SkillTreeData data = wrapper.ToSkillTreeData();
+            return data;
         }
         return new SkillTreeData();
+    }
+}
+[System.Serializable]
+public class SkillTreeDataWrapper
+{
+    public Dictionary<string, Weapon> WeaponList;
+    public Dictionary<string, SkillClassData> ClassList;
+    public SerializableDictionary<string, SkillWeaponData> WeaponSkillList;
+
+    public float SpeedBoost, HealthBoost, AmmoBoost, ExperienceBoost, SkillValueBoost, SkillChanceBias;
+
+    public SkillTreeDataWrapper(SkillTreeData data, SerializableDictionary<string, SkillWeaponData> serializableWeaponSkillList)
+    {
+        WeaponList = data.WeaponList;
+        ClassList = data.ClassList;
+        WeaponSkillList = serializableWeaponSkillList;
+
+        SpeedBoost = data.SpeedBoost;
+        HealthBoost = data.HealthBoost;
+        AmmoBoost = data.AmmoBoost;
+        ExperienceBoost = data.ExperienceBoost;
+        SkillValueBoost = data.SkillValueBoost;
+        SkillChanceBias = data.SkillChanceBias;
+    }
+
+    public SkillTreeData ToSkillTreeData()
+    {
+        SkillTreeData data = new SkillTreeData
+        {
+            WeaponList = WeaponList,
+            ClassList = ClassList,
+            WeaponSkillList = WeaponSkillList.ToDictionary(),
+            SpeedBoost = SpeedBoost,
+            HealthBoost = HealthBoost,
+            AmmoBoost = AmmoBoost,
+            ExperienceBoost = ExperienceBoost,
+            SkillValueBoost = SkillValueBoost,
+            SkillChanceBias = SkillChanceBias
+        };
+        return data;
     }
 }
 

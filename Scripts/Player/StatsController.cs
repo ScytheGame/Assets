@@ -57,6 +57,7 @@ public class StatsController : MonoBehaviour
 
     [DictionaryDrawerSettings(KeyLabel = ("Weapon Name"), ValueLabel = ("Weapon")), ShowInInspector, BoxGroup("Weapons")]
     Dictionary<string, Weapon> WeaponList = new Dictionary<string, Weapon>();
+    Dictionary<string, Weapon> UnlockedWeaponList = new Dictionary<string, Weapon>();
     [SerializeField, BoxGroup("Weapons")] public Weapon ActiveWeapon;
 
 
@@ -98,9 +99,9 @@ public class StatsController : MonoBehaviour
 
         foreach(Weapon weaponType in TempWeaponList)
         {
-            weaponType.DamageRange.y *= skillData.DamageBoost;
-            weaponType.AttackSpeed /= skillData.AttackSpeed;
-            weaponType.ProjectileSpeed *= skillData.ProjectileSpeed;
+            weaponType.DamageRange.y *= skillData.WeaponSkillList[weaponType.WeaponName].DamageBoost;
+            weaponType.AttackSpeed /= skillData.WeaponSkillList[weaponType.WeaponName].AttackSpeed;
+            weaponType.ProjectileSpeed *= skillData.WeaponSkillList[weaponType.WeaponName].ProjectileSpeed;
         }
 
 
@@ -152,11 +153,14 @@ public class StatsController : MonoBehaviour
         Weapon.AttackSpeed = Weapon.AttackSpeed * Value;
         Weapon.ProjectileSpeed = Weapon.ProjectileSpeed / Value;
     }
-    public void SkillController(BaseSkillType SkillType, Weapon Weapon, float Value = 0, bool Bool = false)
+    public void SkillController(BaseSkillType SkillType, Weapon Weapon, string WeaponName = "", float Value = 0, bool Bool = false)
     {
         switch (SkillType)
         {
             case BaseSkillType.None:
+                break;
+            case BaseSkillType.Weapon:
+                UnlockWeapon(WeaponName);
                 break;
 
             case BaseSkillType.Damage: 
@@ -199,7 +203,13 @@ public class StatsController : MonoBehaviour
     }
 
     // Upgradeable Skills
-
+    void UnlockWeapon(string Name)
+    {
+        if (WeaponList.ContainsKey(Name))
+        {
+            UnlockedWeaponList.Add(Name, WeaponList[Name]);
+        }
+    }
     void DamageBoost(float Value, Weapon Weapon)
     {
         Weapon.DamageRange.y *= Value;

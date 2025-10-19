@@ -8,7 +8,8 @@ public class EnemyStats : MonoBehaviour
     float Damage;
     float AttackRate;
     int Level;
-
+    bool isBoss = false;
+    Upgradepoints Upgradepoints;
     private void Start()
     {
         Health =  EnemyData.Health;
@@ -16,7 +17,7 @@ public class EnemyStats : MonoBehaviour
         AttackRate =  EnemyData.AttackRate;
         Level =  GameObject.FindWithTag("Player").GetComponent<StatsController>().CurrentLevel;
         Level += Mathf.RoundToInt(Random.Range(EnemyData.LevelRange.x, EnemyData.LevelRange.y));
-
+        Upgradepoints = GameObject.FindWithTag("Player").GetComponent<Upgradepoints>();
         for (int i = 0; i < Level; i++)
         {
 
@@ -32,7 +33,15 @@ public class EnemyStats : MonoBehaviour
     {
         if (Health <= 0)
         {
-
+            if (isBoss)
+            {
+                Upgradepoints.AddCelestialPoints(1);
+                Upgradepoints.AddSolarPoints(10);
+            }
+            else
+            {
+                Upgradepoints.AddSolarPoints(1);
+            }
         }
     }
 

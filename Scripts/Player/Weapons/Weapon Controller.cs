@@ -138,6 +138,7 @@ public class WeaponController : MonoBehaviour
                 Bullet.GetComponent<Rigidbody2D>().linearVelocity = Bullet.transform.up * ActiveWeapon.ProjectileSpeed;
                 Bullet.GetComponent<PlayerWeaponStats>().Damage = Random.Range(ActiveWeapon.DamageRange.x + ActiveWeapon.DamageRange.y, ActiveWeapon.DamageRange.z + ActiveWeapon.DamageRange.y);
                 Bullet.GetComponent<PlayerWeaponStats>().Lifetime = ActiveWeapon.BulletLifetime;
+                Bullet.GetComponent<PlayerWeaponStats>().BulletHealth = ActiveWeapon.BulletHealth;
                 
                 Anim.SetTrigger("LeftWeaponShot");
             }

@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class SkillInterface : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -12,6 +13,7 @@ public class SkillInterface : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     [SerializeField] string SkillNameText;
     [SerializeField] string skillDescriptionText;
+    [SerializeField] Image SkillIcon;
     [SerializeField] string CelestialCostText;
     [SerializeField] string SolarCostText;
     [SerializeField] string UpgradeLevelText;
@@ -26,6 +28,7 @@ public class SkillInterface : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
         SkillNameText = SkillPrefabController.SkillTree.SkillNameText;
         skillDescriptionText = SkillPrefabController.SkillTree.skillDescriptionText;
+        SkillIcon.sprite = SkillPrefabController.SkillTree.SkillIcon;
         CelestialCostText = SkillPrefabController.SkillTree.CelestialCostText;
         SolarCostText = SkillPrefabController.SkillTree.SolarCostText;
         UpgradeLevelText = SkillPrefabController.SkillTree.UpgradeLevelText;

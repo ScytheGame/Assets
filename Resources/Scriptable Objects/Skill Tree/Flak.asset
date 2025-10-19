@@ -10,17 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc042278d9370634f9839d17d804baca, type: 3}
-  m_Name: Start
+  m_Name: Flak
   m_EditorClassIdentifier: 
-  SkillNameText: Early Beginnings
-  skillDescriptionText: 'This is the start of it all '
-  SkillIcon: {fileID: 21300000, guid: 6f8ec99ab20af434f9a044998a906465, type: 3}
+  SkillNameText: Flak
+  skillDescriptionText: Unlocks Flak from the heavy class
+  SkillIcon: {fileID: 21300000, guid: 5063fa96945a0b54f889f32a296d25c2, type: 3}
   CelestialCostText: 
   SolarCostText: 
   UpgradeLevelText: 
-  BaseSkillType: 0
-  CelestialCost: 0
-  SolarCost: 0
+  BaseSkillType: 1
+  Weapon: {fileID: 11400000, guid: ef543dd367591924288c9642cd6d2295, type: 2}
+  CelestialCost: 5
+  SolarCost: 1
   CelestialCostIncreasePerLevel: 0
   SolarCostIncreasePerLevel: 0
   UpgradeLevel: 0

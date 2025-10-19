@@ -156,12 +156,13 @@ public class SkillsController : MonoBehaviour
 
             if (!SelectedSkill.IsOneTime)
             {
-                StatsController.SkillController(SelectedSkill.SkillType, SelectedSkill.Weapon, SelectedSkill.SkillValue + 1);
+                StatsController.SkillController(SelectedSkill.SkillType, SelectedSkill.Weapon, null, SelectedSkill.SkillValue + 1);
             }
 
             if (SelectedSkill.IsOneTime)
             {
-                StatsController.SkillController(SelectedSkill.SkillType, SelectedSkill.Weapon, Bool: true);
+                string WeaponName = SelectedSkill.Weapon != null ? SelectedSkill.Weapon.WeaponName : string.Empty;
+                StatsController.SkillController(SelectedSkill.SkillType, SelectedSkill.Weapon, WeaponName, Bool: true);
 
                 if (SelectedSkill.IncrementalValue)
                     SelectedSkill.SkillValueUpdate();
