@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: Heavy Class
   m_EditorClassIdentifier: 
   SkillNameText: Heavy Class
-  skillDescriptionText: the this the start of the heavy class
+  SkillDescriptionText: 
   SkillIcon: {fileID: 21300000, guid: dc1aa5d31ff548e44b9eda3effab0e4a, type: 3}
   CelestialCostText: 
   SolarCostText: 
   UpgradeLevelText: 
   BaseSkillType: 0
+  Weapon: {fileID: 0}
   CelestialCost: 0
   SolarCost: 0
   CelestialCostIncreasePerLevel: 0

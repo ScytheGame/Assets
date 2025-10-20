@@ -13,6 +13,7 @@ public class SkillPrefabController : MonoBehaviour
     [SerializeField] UILineRenderer UILine;
     [SerializeField] Button UnlockButton;
     [SerializeField] public SkillTree SkillTree;
+    SkillTree SkillTreeObject;
 
 
     [SerializeField] GameObject[] UnlockButtonSprite;
@@ -35,7 +36,10 @@ public class SkillPrefabController : MonoBehaviour
 
     private void Start()
     {
-
+        SkillTreeObject = SkillTree;
+        SkillTree = ScriptableObject.Instantiate(SkillTree);
+        SkillTreeObject.SkillTreeInstance = SkillTree;
+        
         for (float i = 1; i <= SkillTree.UpgradeLevel; i++)
         {
             SkillTree.CelestialCost += SkillTree.CelestialCostIncreasePerLevel;
@@ -173,8 +177,10 @@ public class SkillPrefabController : MonoBehaviour
                     SkillTree.SolarCost += SkillTree.SolarCostIncreasePerLevel;
                     
                     SkillTreeData skillData = SkillTreeData.Load();
-                    skillData.Apply(SkillTree.BaseSkillType, SkillTree.SkillValue, SkillTree.Weapon);
-
+                    if (SkillTree.Weapon  != null)
+                        skillData.Apply(SkillTree.BaseSkillType, SkillTree.SkillValue, SkillTree.Weapon.WeaponName, SkillTree.Weapon);
+                    else 
+                        skillData.Apply(SkillTree.BaseSkillType, SkillTree.SkillValue, "N/A", null);
                     //Skill.Upgrade(SkillID, SkillWeaponFloat, SkillValue); // SkillId, Float Weapon, Float Value
                     Save();
                     Stats.Save();

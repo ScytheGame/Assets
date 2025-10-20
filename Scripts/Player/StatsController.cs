@@ -1,7 +1,9 @@
 using Sirenix.OdinInspector;
-using System.Linq;
-using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.Collections.LowLevel.Unsafe;
+using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class StatsController : MonoBehaviour
 {
@@ -56,7 +58,8 @@ public class StatsController : MonoBehaviour
     public float CurrentXP = 0;
 
     [DictionaryDrawerSettings(KeyLabel = ("Weapon Name"), ValueLabel = ("Weapon")), ShowInInspector, BoxGroup("Weapons")]
-    Dictionary<string, Weapon> WeaponList = new Dictionary<string, Weapon>();
+    Dictionary<string, Weapon> InstanceWeaponList = new Dictionary<string, Weapon>();
+    Dictionary<string, Weapon> StaticWeaponList = new Dictionary<string, Weapon>();
     Dictionary<string, Weapon> UnlockedWeaponList = new Dictionary<string, Weapon>();
     [SerializeField, BoxGroup("Weapons")] public Weapon ActiveWeapon;
 
@@ -74,17 +77,19 @@ public class StatsController : MonoBehaviour
 
     public void Start()
     {
-        Weapon[] TempWeaponList = Resources.LoadAll<Weapon>("Scriptable Objects/Weapons");
-
-        foreach (Weapon Weapon in TempWeaponList)
-        {
-            WeaponList.Add(Weapon.WeaponName, Weapon);
-        }
-
         SkillTreeData skillData = SkillTreeData.Load();
 
         MaxHealth = PlayerPrefs.GetFloat("PlayerHealth", 2500);
         MaxAmmo = PlayerPrefs.GetFloat("PlayerAmmo", 100);
+
+        StaticWeaponList = skillData.WeaponList;
+
+        foreach (var Weapon  in StaticWeaponList)
+        {
+            var WeaponInstance = ScriptableObject.Instantiate(Weapon.Value);
+            InstanceWeaponList.Add(Weapon.Key, WeaponInstance);
+            Weapon.Value.WeaponInstance = WeaponInstance;
+        }
 
         // Skill tree upgrades
 
@@ -97,11 +102,14 @@ public class StatsController : MonoBehaviour
         ExperienceGain = skillData.ExperienceBoost;
 
 
-        foreach(Weapon weaponType in TempWeaponList)
+        foreach(Weapon WeaponType in InstanceWeaponList.Values)
         {
-            weaponType.DamageRange.y *= skillData.WeaponSkillList[weaponType.WeaponName].DamageBoost;
-            weaponType.AttackSpeed /= skillData.WeaponSkillList[weaponType.WeaponName].AttackSpeed;
-            weaponType.ProjectileSpeed *= skillData.WeaponSkillList[weaponType.WeaponName].ProjectileSpeed;
+            if (skillData.SkillWeaponDataList != null)
+            {
+                WeaponType.DamageRange.y *= skillData.SkillWeaponDataList[WeaponType.WeaponName].DamageBoost;
+                WeaponType.AttackSpeed /= skillData.SkillWeaponDataList[WeaponType.WeaponName].AttackSpeed;
+                WeaponType.ProjectileSpeed *= skillData.SkillWeaponDataList[WeaponType.WeaponName].ProjectileSpeed;
+            }
         }
 
 
@@ -112,6 +120,9 @@ public class StatsController : MonoBehaviour
         ExpGain += ExperienceGain;
         CurrentHealth = MaxHealth;
         CurrentAmmo = MaxAmmo;
+
+        if (InstanceWeaponList.Count > 0)
+            ActiveWeapon = InstanceWeaponList.Values.First();
     }
     float LevelIncreaseCost = 10;
     public void Update()
@@ -205,9 +216,9 @@ public class StatsController : MonoBehaviour
     // Upgradeable Skills
     void UnlockWeapon(string Name)
     {
-        if (WeaponList.ContainsKey(Name))
+        if (InstanceWeaponList.ContainsKey(Name))
         {
-            UnlockedWeaponList.Add(Name, WeaponList[Name]);
+            UnlockedWeaponList.Add(Name, InstanceWeaponList[Name]);
         }
     }
     void DamageBoost(float Value, Weapon Weapon)

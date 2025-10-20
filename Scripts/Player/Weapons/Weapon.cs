@@ -15,7 +15,7 @@ public class Weapon : ScriptableObject
     [SerializeField, BoxGroup("Weapon Stats")] public float MaxAttackSpeed;
     [SerializeField, BoxGroup("Weapon Stats")] public float ProjectileSpeed;
     [SerializeField, BoxGroup("Weapon Stats")] public float BulletLifetime;
-    [SerializeField, BoxGroup("weapon Stats")] public float BulletHealth;
+    [SerializeField, BoxGroup("Weapon Stats")] public float BulletHealth;
 
     [SerializeField, BoxGroup("Weapon Skills")] public bool DoubleShot;
     [SerializeField, BoxGroup("Weapon Skills")] public bool BackwardsFire;
@@ -28,4 +28,5 @@ public class Weapon : ScriptableObject
     [SerializeField, BoxGroup("Extras")] public Vector2 Spread;
     [SerializeField, BoxGroup("Extras")] public bool RandomSpread;
 
+    public Weapon WeaponInstance;
 }

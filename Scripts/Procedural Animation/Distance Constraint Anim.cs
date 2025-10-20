@@ -3,16 +3,16 @@ using UnityEngine;
 
 public class DistanceConstraintAnim : MonoBehaviour
 {
-    [SerializeField] GameObject AnchorObject;
-    [SerializeField] GameObject Anchor;
+    public Transform SpawnHeadTransform;
+    public Transform SpawnBodyTransform;
+    public GameObject AnchorObject;
+    public GameObject Anchor;
 
-    [SerializeField] float ConstrainedDistance = 15;
-    [SerializeField] int Length = 15;
-    [SerializeField] GameObject TargetObject;
-    [SerializeField] public List<GameObject> Targets = new List<GameObject>();
-    [SerializeField] bool GeneratedEnemy = false;
-    [SerializeField] bool UseLineRenderer = false;
-    LineRenderer LineRenderer;
+    public float ConstrainedDistance = 15;
+    public int Length = 15;
+    public GameObject TargetObject;
+    public List<GameObject> Targets = new List<GameObject>();
+    public bool GeneratedEnemy = false;
 
     Vector3 NormalizedDirection = new Vector3();
     Vector3 ScaledConstraint = new Vector3();
@@ -20,18 +20,9 @@ public class DistanceConstraintAnim : MonoBehaviour
     float Angle = 0;
 
     bool FirstLoop = true;
-    private void Start()
-    {
-        if (UseLineRenderer)
-        {
-            LineRenderer = GetComponent<LineRenderer>();
-            SegmentPositions = new Vector3[Length + 1];
-            LineRenderer.positionCount = Length + 1;
-        }
-    }
     void Update()
     {
-
+        SpawnBodyTransform.gameObject.SetActive(SpawnHeadTransform.gameObject.activeSelf);
 
         if (FirstLoop && GeneratedEnemy)
         {
@@ -45,11 +36,6 @@ public class DistanceConstraintAnim : MonoBehaviour
         Angle = Mathf.Atan2(NormalizedDirection.y, NormalizedDirection.x) * Mathf.Rad2Deg;
         Targets[0].transform.rotation = Quaternion.Euler(0, 0, Angle);
 
-        if (UseLineRenderer)
-        {
-            SegmentPositions[0] = Anchor.transform.position;
-            SegmentPositions[1] = Targets[0].transform.position;
-        }
 
         for (int i = 1; i < Length; i++)
         {
@@ -68,28 +54,19 @@ public class DistanceConstraintAnim : MonoBehaviour
                 Targets[i].transform.rotation = Quaternion.Euler(0, 0, Angle);
             }
 
-            if (UseLineRenderer)
-            {
-                SegmentPositions[i + 1] = Targets[i].transform.position;
-            }
-        }
-        if (UseLineRenderer)
-        {
-
-            LineRenderer.SetPositions(SegmentPositions);
         }
         FirstLoop = false;
     }
     void GenerateHead()
     {
-        Anchor = Instantiate(AnchorObject, transform.position, Quaternion.identity, transform);
+        Anchor = Instantiate(AnchorObject, transform.position, Quaternion.identity, SpawnHeadTransform);
 
-        var FirstTarget = Instantiate(TargetObject, Vector3.zero, Quaternion.identity, transform);
+        var FirstTarget = Instantiate(TargetObject, Vector3.zero, Quaternion.identity, SpawnBodyTransform);
         Targets.Add(FirstTarget);
     }
     void GenerateBody(int i)
     {
-        var Target = Instantiate(TargetObject, Vector3.zero, Quaternion.identity, transform);
+        var Target = Instantiate(TargetObject, Vector3.zero, Quaternion.identity, SpawnBodyTransform);
         Targets.Add(Target);
 
         NormalizedDirection = (Targets[i].transform.position - Targets[i - 1].transform.position).normalized;

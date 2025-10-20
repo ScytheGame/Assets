@@ -545,4 +545,5 @@ MonoBehaviour:
   ExplosionObject: {fileID: 1812247047799753373, guid: 6a03f973fbdbdfd44987f34ff6981407, type: 3}
   Lifetime: 0
   Damage: 0
+  BulletHealth: 0
   ID: Missile

@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa180ffc01c8c904f9b2c6854d18ddbe, type: 3}
+  m_Name: Nuke
+  m_EditorClassIdentifier: 
+  WeaponName: Nuke
+  WeaponDescription: An advanced heavy weapon the nuke
+  Class: {fileID: 11400000, guid: b84e452d3ec22444f82c0553017d11ea, type: 2}
+  BulletPrefab: {fileID: 8754750093954670881, guid: a7fbd8b68e55f2d439598de132146e19, type: 3}
+  DamageRange: {x: -140, y: 1050, z: 180}
+  AmmoCost: 45
+  AttackSpeed: 1.8
+  MaxAttackSpeed: 0
+  ProjectileSpeed: 15
+  BulletLifetime: 5
+  BulletHealth: 20
+  DoubleShot: 0
+  BackwardsFire: 0
+  MultiShot: 0
+  BulletCount: 1
+  IntermitentFireDelay: 0
+  Burst: 0
+  Spread: {x: -3, y: 3}
+  RandomSpread: 1

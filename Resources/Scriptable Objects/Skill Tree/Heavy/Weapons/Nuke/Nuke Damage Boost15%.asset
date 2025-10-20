@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc042278d9370634f9839d17d804baca, type: 3}
+  m_Name: Nuke Damage Boost15%
+  m_EditorClassIdentifier: 
+  SkillNameText: Nuke Damage Boost
+  SkillDescriptionText: Increases the Damage Boost for Nuke By 15%
+  SkillIcon: {fileID: 21300000, guid: 2b4047cfdc4c6be4b834894e531ddd73, type: 3}
+  CelestialCostText: Celestial Cost:0 / 10
+  SolarCostText: 
+  UpgradeLevelText: 0 / 5
+  BaseSkillType: 2
+  Weapon: {fileID: 11400000, guid: ada9707de82c33f48b3404cbd9c71a85, type: 2}
+  CelestialCost: 0
+  SolarCost: 20
+  CelestialCostIncreasePerLevel: 0
+  SolarCostIncreasePerLevel: 5
+  UpgradeLevel: 0
+  MaxUpgradeLevel: 4
+  SkillValue: 0.15

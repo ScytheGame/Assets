@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc042278d9370634f9839d17d804baca, type: 3}
+  m_Name: Flak
+  m_EditorClassIdentifier: 
+  SkillNameText: Flak
+  SkillDescriptionText: Unlocks the Flak
+  SkillIcon: {fileID: 21300000, guid: 5063fa96945a0b54f889f32a296d25c2, type: 3}
+  CelestialCostText: Celestial Cost:0 / 1
+  SolarCostText: Solar Cost:4 / 25
+  UpgradeLevelText: 0 / 1
+  BaseSkillType: 1
+  Weapon: {fileID: 11400000, guid: ef543dd367591924288c9642cd6d2295, type: 2}
+  CelestialCost: 1
+  SolarCost: 25
+  CelestialCostIncreasePerLevel: 0
+  SolarCostIncreasePerLevel: 0
+  UpgradeLevel: 0
+  MaxUpgradeLevel: 1
+  SkillValue: 1

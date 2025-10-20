@@ -27,7 +27,7 @@ public class SkillInterface : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         SkillPopup = SkillPopupObject.GetComponent<SkillPopup>();
 
         SkillNameText = SkillPrefabController.SkillTree.SkillNameText;
-        skillDescriptionText = SkillPrefabController.SkillTree.skillDescriptionText;
+        skillDescriptionText = SkillPrefabController.SkillTree.SkillDescriptionText;
         SkillIcon.sprite = SkillPrefabController.SkillTree.SkillIcon;
         CelestialCostText = SkillPrefabController.SkillTree.CelestialCostText;
         SolarCostText = SkillPrefabController.SkillTree.SolarCostText;

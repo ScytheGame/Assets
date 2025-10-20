@@ -5,8 +5,9 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName = "SkillTree", menuName = "Scriptable Objects/SkillTree")]
 public class SkillTree : ScriptableObject
 {
+    
     [SerializeField, BoxGroup("Base")] public string SkillNameText;
-    [SerializeField, BoxGroup("Base")] public string skillDescriptionText;
+    [SerializeField, BoxGroup("Base")] public string SkillDescriptionText;
     [SerializeField, BoxGroup("base")] public Sprite SkillIcon;
     [SerializeField, BoxGroup("Base")] public string CelestialCostText;
     [SerializeField, BoxGroup("Base")] public string SolarCostText;
@@ -24,6 +25,8 @@ public class SkillTree : ScriptableObject
     [SerializeField, BoxGroup("Skill Value")] public float UpgradeLevel;
     [SerializeField, BoxGroup("Skill Value")] public float MaxUpgradeLevel;
     [SerializeField, BoxGroup("Skill Value")] public float SkillValue;
+
+    public SkillTree SkillTreeInstance;
 
     public bool BaseSkillTypeIsWeapon()
     {

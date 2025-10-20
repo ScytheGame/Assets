@@ -1,5 +1,5 @@
 using UnityEngine;
-
+[System.Serializable]
 public class SkillWeaponData
 {
     public bool DoubleShot, BackwardsFire, MultiShot;

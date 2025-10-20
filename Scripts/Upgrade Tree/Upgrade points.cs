@@ -11,10 +11,11 @@ public class Upgradepoints : MonoBehaviour
     [SerializeField] TextMeshProUGUI SolarPointsText;
     [SerializeField] TextMeshProUGUI CelestialPointsText;
 
-    string FilePath = Path.Combine(Application.dataPath, "UpgradePoints.json");
+    string FilePath;
 
     void OnEnable()
     {
+        FilePath = Path.Combine(Application.persistentDataPath, "UpgradePoints.json");
         Load();
 
         if (!InMenu)

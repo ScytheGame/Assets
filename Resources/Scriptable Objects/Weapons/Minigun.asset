@@ -22,6 +22,7 @@ MonoBehaviour:
   MaxAttackSpeed: 0
   ProjectileSpeed: 50
   BulletLifetime: 3
+  BulletHealth: 1
   DoubleShot: 0
   BackwardsFire: 0
   MultiShot: 0

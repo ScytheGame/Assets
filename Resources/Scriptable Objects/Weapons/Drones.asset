@@ -13,20 +13,21 @@ MonoBehaviour:
   m_Name: Drones
   m_EditorClassIdentifier: 
   WeaponName: Drones
-  WeaponDescription: The Basic Missile Weapon
+  WeaponDescription: A basic homing weapon
   Class: {fileID: 11400000, guid: 3acb1cfada4829e4ab1408deea259874, type: 2}
   BulletPrefab: {fileID: 8754750093954670881, guid: a7fbd8b68e55f2d439598de132146e19, type: 3}
-  DamageRange: {x: -35, y: 350, z: 45}
+  DamageRange: {x: -35, y: 175, z: 90}
   AmmoCost: 10
-  AttackSpeed: 1.2
+  AttackSpeed: 1
   MaxAttackSpeed: 0
-  ProjectileSpeed: 50
+  ProjectileSpeed: 20
   BulletLifetime: 3
+  BulletHealth: 1
   DoubleShot: 0
   BackwardsFire: 0
   MultiShot: 0
-  BulletCount: 1
+  BulletCount: 2
   IntermitentFireDelay: 0
   Burst: 0
-  Spread: {x: -3, y: 3}
+  Spread: {x: -4, y: 4}
   RandomSpread: 1

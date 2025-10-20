@@ -13,20 +13,21 @@ MonoBehaviour:
   m_Name: Flak
   m_EditorClassIdentifier: 
   WeaponName: Flak
-  WeaponDescription: The Basic Missile Weapon
+  WeaponDescription: An advanced heavy weapon
   Class: {fileID: 11400000, guid: b84e452d3ec22444f82c0553017d11ea, type: 2}
   BulletPrefab: {fileID: 8754750093954670881, guid: a7fbd8b68e55f2d439598de132146e19, type: 3}
-  DamageRange: {x: -35, y: 350, z: 45}
+  DamageRange: {x: -52.5, y: 525, z: 67.5}
   AmmoCost: 10
   AttackSpeed: 1.2
   MaxAttackSpeed: 0
-  ProjectileSpeed: 50
-  BulletLifetime: 3
+  ProjectileSpeed: 80
+  BulletLifetime: 1.5
+  BulletHealth: 2
   DoubleShot: 0
   BackwardsFire: 0
   MultiShot: 0
-  BulletCount: 1
+  BulletCount: 4
   IntermitentFireDelay: 0
   Burst: 0
-  Spread: {x: -3, y: 3}
+  Spread: {x: -5, y: 5}
   RandomSpread: 1

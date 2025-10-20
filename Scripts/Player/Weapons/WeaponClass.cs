@@ -8,4 +8,9 @@ public class WeaponClass : ScriptableObject
     [SerializeField, BoxGroup("Base")] public string ClassName;
     [SerializeField, BoxGroup("Base")] public string ClassDescription;
     [SerializeField, BoxGroup("Weapons")] public List<Weapon> Weapons;
+
+    public string ToString()
+    {
+        return ClassName;
+    }
 }

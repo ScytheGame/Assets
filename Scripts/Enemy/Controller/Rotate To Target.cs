@@ -6,7 +6,7 @@ public class RotateToTarget : MonoBehaviour
     [SerializeField] public float RotationOffset;
     private Vector2 Direction;
     Transform Target;
-    private void Awake()
+    private void Start()
     {
         Target = GameObject.FindWithTag("Player").transform;
     }
@@ -15,6 +15,6 @@ public class RotateToTarget : MonoBehaviour
         Direction = Target.position - transform.position;
         float Angle = Mathf.Atan2(Direction.y, Direction.x) * Mathf.Rad2Deg;
         Quaternion Rotation = Quaternion.AngleAxis(Angle + RotationOffset, Vector3.forward);
-        transform.rotation = Quaternion.Slerp(transform.rotation, Rotation, RotationSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Rotation, RotationSpeed * Time.deltaTime);
     }
 }

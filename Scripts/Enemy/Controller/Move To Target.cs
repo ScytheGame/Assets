@@ -18,19 +18,21 @@ public class MoveToTarget : MonoBehaviour
     private void Awake()
     {
         Target = GameObject.FindWithTag("Player").transform;
+        Scale = UnityEngine.Random.Range(MinScale, MaxScale);
+        transform.localScale = new Vector3(Scale, Scale, Scale);
     }
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        Scale = UnityEngine.Random.Range(MinScale, MaxScale);
-        transform.localScale = new Vector3(Scale, Scale, Scale);
     }
 
     void Update()
     {
-        rb.AddForce(transform.up * MoveSpeed);
-        AvoidOtherEnemies();
-        
+        if (Time.timeScale == 1)
+        {
+            rb.AddForce(transform.up * MoveSpeed);
+            AvoidOtherEnemies();
+        }
     }
 
     async void AvoidOtherEnemies()

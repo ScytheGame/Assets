@@ -21,3 +21,10 @@ public enum BaseSkillType
     SkillValueBoost,
     SkillChanceBias,
 }
+
+public enum EnemyType
+{
+    Specter,
+    Jellyfish,
+    Worm,
+}
